@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useSearch, useNavigate } from '@tanstack/react-router';
+import { useDebounce } from 'use-debounce';
 
 import useTransactionStore from '@/features/transactions/useTransactionStore';
 
@@ -42,6 +43,8 @@ function TransactionsPage() {
     const search = useSearch({ from: '/transactions' });
     const navigate = useNavigate({ from: '/transactions' });
 
+    const [debouncedQuery] = useDebounce(search.query, 300);
+
     const { transactions } = useTransactionStore();
 
     const updateSearchParams = (updates: Partial<typeof search>) => {
@@ -51,14 +54,14 @@ function TransactionsPage() {
     // Filter transactions based on "search query" and "category"
     const filteredTransactions = useMemo(() => {
         return transactions.filter(({ name: txName, category: txCategory }) => {
-            const matchesQuery = stringMatches(txName, search.query);
+            const matchesQuery = stringMatches(txName, debouncedQuery);
             const matchesCategory =
                 search.category === 'All' ||
                 stringMatches(txCategory, search.category);
 
             return matchesQuery && matchesCategory;
         });
-    }, [transactions, search.query, search.category]);
+    }, [transactions, debouncedQuery, search.category]);
 
     // Sort transactions based on "sort" criteria
     const sortedTransactions = useMemo(() => {
