@@ -1,6 +1,16 @@
 import type { Transaction } from '@/types/finance';
 
+export enum ControlType {
+    SORT = 'sort',
+    CATEGORY = 'category',
+}
+
 export type SortOption = 'Latest' | 'Oldest' | 'A to Z' | 'Z to A' | 'Highest' | 'Lowest';
+
+export type SelectControls = {
+    [ControlType.SORT]: SortOption;
+    [ControlType.CATEGORY]: string;
+};
 
 export const sortComparators: Record<SortOption, (a: Transaction, b: Transaction) => number> =
     {

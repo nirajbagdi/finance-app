@@ -9,12 +9,14 @@ import usePagination from '@/hooks/usePagination';
 import TransactionList from '@/features/transactions/components/TransactionList';
 import TransactionTable from '@/features/transactions/components/TransactionTable';
 import TransactionSearch from '@/features/transactions/components/TransactionSearch';
+import TransactionControls from '@/features/transactions/components/TransactionControls';
 
 import PageLayout from '@/components/layout/PageLayout';
 import PaginationControls from '@/components/common/PaginationControls';
 
 import { stringMatches } from '@/utils/string';
 import { sortComparators, type SortOption } from '@/features/transactions/constants';
+import type { SelectControls } from '@/features/transactions/constants';
 
 type SearchParams = {
     query: string;
@@ -84,11 +86,20 @@ function TransactionsPage() {
         updateSearchParams({ query, page: 1 });
     };
 
+    const handleItemSelect = (values: SelectControls) => {
+        updateSearchParams({ ...values, page: 1 });
+    };
+
     return (
         <PageLayout title="Transactions">
             <div className="bg-card p-8 rounded-xl shadow-2xs">
                 <div className="mb-10 flex items-center justify-between gap-6">
                     <TransactionSearch onSearch={handleTransactionSearch} />
+
+                    <TransactionControls
+                        transactions={transactions}
+                        onValueChange={handleItemSelect}
+                    />
                 </div>
 
                 {isMobile ? (
