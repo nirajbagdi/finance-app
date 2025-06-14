@@ -1,3 +1,3 @@
 export const Route = createFileRoute({
-    component: () => <div>Component Route</div>,
+    component: () => <div>Overview Route</div>,
 });
