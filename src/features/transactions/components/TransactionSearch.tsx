@@ -1,18 +1,12 @@
-import { useState, useEffect } from 'react';
-
 import { Input } from '@/components/ui/input';
+import { useSearch } from '@tanstack/react-router';
 
 type TransactionSearchProps = {
     onSearch: (query: string) => void;
 };
 
 const TransactionSearch = ({ onSearch }: TransactionSearchProps) => {
-    const [searchQuery, setSearchQuery] = useState('');
-
-    useEffect(() => {
-        const timeout = setTimeout(() => onSearch(searchQuery), 500);
-        return () => clearTimeout(timeout);
-    }, [searchQuery]);
+    const search = useSearch({ from: '/transactions' });
 
     return (
         <div className="w-full md:w-80">
@@ -20,8 +14,8 @@ const TransactionSearch = ({ onSearch }: TransactionSearchProps) => {
                 type="text"
                 placeholder="Search transactions"
                 variant="search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={search.query}
+                onChange={(event) => onSearch(event.target.value)}
             />
         </div>
     );

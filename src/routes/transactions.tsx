@@ -44,7 +44,7 @@ function TransactionsPage() {
 
     const { transactions } = useTransactionStore();
 
-    const { query, sort, category } = search;
+    const { query, sort, category, page } = search;
 
     const updateSearchParams = (updates: Partial<typeof search>) => {
         navigate({ search: (prev) => ({ ...prev, ...updates }) });
@@ -75,7 +75,7 @@ function TransactionsPage() {
         paginatedItems,
         totalPages,
         handlePageChange: onPageChange,
-    } = usePagination(sortedTransactions);
+    } = usePagination(sortedTransactions, undefined, page);
 
     const handlePageChange = (newPage: number) => {
         updateSearchParams({ page: newPage });

@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useSearch } from '@tanstack/react-router';
 
 import {
     Select,
@@ -23,10 +24,7 @@ type TransactionControlsProps = {
 };
 
 const TransactionControls = ({ transactions, onValueChange }: TransactionControlsProps) => {
-    const [selectControls, setSelectControls] = useState<SelectControls>({
-        [ControlType.SORT]: 'Latest',
-        [ControlType.CATEGORY]: 'All',
-    });
+    const search = useSearch({ from: '/transactions' });
 
     const [dropdownOpen, setDropdownOpen] = useState<Record<ControlType, boolean>>({
         [ControlType.SORT]: false,
@@ -51,12 +49,8 @@ const TransactionControls = ({ transactions, onValueChange }: TransactionControl
         },
     ];
 
-    useEffect(() => {
-        onValueChange(selectControls);
-    }, [selectControls]);
-
     const handleControlChange = (key: keyof SelectControls, value: string) => {
-        setSelectControls((prev) => ({ ...prev, [key]: value }));
+        onValueChange({ [key]: value } as SelectControls);
     };
 
     const renderSelectContent = (items: string[]) => (
@@ -80,7 +74,7 @@ const TransactionControls = ({ transactions, onValueChange }: TransactionControl
 
                         <Select
                             name={item.key}
-                            value={selectControls[item.key]}
+                            value={search[item.key]}
                             onValueChange={handleControlChange.bind(null, item.key)}
                         >
                             <SelectTrigger id={item.key} className="w-25 lg:w-38">
@@ -101,7 +95,7 @@ const TransactionControls = ({ transactions, onValueChange }: TransactionControl
                         <div key={item.key} className="items-center gap-1.5">
                             <Select
                                 name={item.key}
-                                value={selectControls[item.key]}
+                                value={search[item.key]}
                                 open={dropdownOpen[item.key]}
                                 onOpenChange={() => {
                                     setDropdownOpen((prev) => ({
@@ -124,7 +118,7 @@ const TransactionControls = ({ transactions, onValueChange }: TransactionControl
                                         className="fill-inherit cursor-pointer"
                                     />
 
-                                    {selectControls[item.key] !== item.items[0] && (
+                                    {search[item.key] !== item.items[0] && (
                                         <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-[#9F8170] ring-2 ring-white" />
                                     )}
                                 </SelectTrigger>
