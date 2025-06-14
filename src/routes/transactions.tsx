@@ -44,29 +44,27 @@ function TransactionsPage() {
 
     const { transactions } = useTransactionStore();
 
-    const { query, sort, category, page } = search;
-
     const updateSearchParams = (updates: Partial<typeof search>) => {
         navigate({ search: (prev) => ({ ...prev, ...updates }) });
     };
 
     // Filter transactions based on "search query" and "category"
     const filteredTransactions = useMemo(() => {
-        const isAllCategories = category === 'All';
-
         return transactions.filter(({ name: txName, category: txCategory }) => {
-            const matchesQuery = stringMatches(txName, query);
-            const matchesCategory = isAllCategories || stringMatches(txCategory, category);
+            const matchesQuery = stringMatches(txName, search.query);
+            const matchesCategory =
+                search.category === 'All' ||
+                stringMatches(txCategory, search.category);
 
             return matchesQuery && matchesCategory;
         });
-    }, [transactions, query, category]);
+    }, [transactions, search.query, search.category]);
 
     // Sort transactions based on "sort" criteria
     const sortedTransactions = useMemo(() => {
-        const comparator = sortComparators[sort];
+        const comparator = sortComparators[search.sort];
         return [...filteredTransactions].sort(comparator);
-    }, [filteredTransactions, sort]);
+    }, [filteredTransactions, search.sort]);
 
     const isMobile = useMediaQuery('(max-width: 768px)');
 
@@ -75,7 +73,7 @@ function TransactionsPage() {
         paginatedItems,
         totalPages,
         handlePageChange: onPageChange,
-    } = usePagination(sortedTransactions, undefined, page);
+    } = usePagination(sortedTransactions, undefined, search.page);
 
     const handlePageChange = (newPage: number) => {
         updateSearchParams({ page: newPage });
