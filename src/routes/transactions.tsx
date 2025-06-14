@@ -4,12 +4,14 @@ import { useSearch, useNavigate } from '@tanstack/react-router';
 import useTransactionStore from '@/features/transactions/useTransactionStore';
 
 import useMediaQuery from '@/hooks/useMediaQuery';
+import usePagination from '@/hooks/usePagination';
 
 import TransactionList from '@/features/transactions/components/TransactionList';
 import TransactionTable from '@/features/transactions/components/TransactionTable';
 import TransactionSearch from '@/features/transactions/components/TransactionSearch';
 
 import PageLayout from '@/components/layout/PageLayout';
+import PaginationControls from '@/components/common/PaginationControls';
 
 import { stringMatches } from '@/utils/string';
 import { sortComparators, type SortOption } from '@/features/transactions/constants';
@@ -39,7 +41,6 @@ function TransactionsPage() {
     const navigate = useNavigate({ from: '/transactions' });
 
     const { transactions } = useTransactionStore();
-    const isMobile = useMediaQuery('(max-width: 768px)');
 
     const { query, sort, category } = search;
 
@@ -65,6 +66,20 @@ function TransactionsPage() {
         return [...filteredTransactions].sort(comparator);
     }, [filteredTransactions, sort]);
 
+    const isMobile = useMediaQuery('(max-width: 768px)');
+
+    const {
+        currentPage,
+        paginatedItems,
+        totalPages,
+        handlePageChange: onPageChange,
+    } = usePagination(sortedTransactions);
+
+    const handlePageChange = (newPage: number) => {
+        updateSearchParams({ page: newPage });
+        onPageChange(newPage);
+    };
+
     const handleTransactionSearch = (query: string) => {
         updateSearchParams({ query, page: 1 });
     };
@@ -77,9 +92,19 @@ function TransactionsPage() {
                 </div>
 
                 {isMobile ? (
-                    <TransactionList transactions={sortedTransactions} />
+                    <TransactionList transactions={paginatedItems} />
                 ) : (
-                    <TransactionTable transactions={sortedTransactions} />
+                    <TransactionTable transactions={paginatedItems} />
+                )}
+
+                {totalPages > 1 && (
+                    <div className="mt-10">
+                        <PaginationControls
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={handlePageChange}
+                        />
+                    </div>
                 )}
             </div>
         </PageLayout>
