@@ -23,7 +23,7 @@ const SpendingSummary = ({ budgets, transactions }: SpendingSummaryProps) => {
 
             <div className="flex flex-col gap-4 mt-6">
                 {budgets.map((budget) => (
-                    <SpendingSummaryRow
+                    <SpendingSummaryItem
                         key={budget.category}
                         {...budget}
                         spent={categorySpending[budget.category]}
@@ -34,14 +34,14 @@ const SpendingSummary = ({ budgets, transactions }: SpendingSummaryProps) => {
     );
 };
 
-type SpendingSummaryRowProps = Budget & { spent: number };
+type SpendingSummaryItemProps = Budget & { spent: number };
 
-const SpendingSummaryRow = ({
+const SpendingSummaryItem = ({
     category,
     theme,
     value: budgeted,
     spent,
-}: SpendingSummaryRowProps) => {
+}: SpendingSummaryItemProps) => {
     return (
         <div className="border-b-2 last:border-b-0 border-background pb-4">
             <div
