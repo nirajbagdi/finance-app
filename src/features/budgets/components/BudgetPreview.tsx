@@ -1,4 +1,5 @@
 import { sortBy } from '@/utils/array';
+import { formatAmount } from '@/utils/formatting';
 
 import BudgetChart from './BudgetChart';
 import ColoredLegend from '@/components/common/ColoredLegend';
@@ -19,7 +20,7 @@ const BudgetPreview = ({ budgets, transactions }: BudgetPreviewProps) => (
                 <ColoredLegend
                     key={idx}
                     label={budget.category}
-                    value={budget.value}
+                    value={formatAmount(budget.value)}
                     theme={budget.theme || '#000'}
                 />
             ))}

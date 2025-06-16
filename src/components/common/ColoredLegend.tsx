@@ -1,6 +1,6 @@
 type ColoredLegendProps = {
     label: string;
-    value: number;
+    value: number | string;
     theme: string;
 };
 
@@ -11,7 +11,10 @@ const ColoredLegend = ({ label, value, theme }: ColoredLegendProps) => (
     >
         <div className="absolute top-1 sm:top-0 left-0 w-1 h-full rounded-full bg-[var(--legend-theme)]" />
         <p className="text-secondary-foreground text-xs mb-1">{label}</p>
-        <p className="font-bold text-sm">${value}</p>
+        <p className="font-bold text-sm">
+            {typeof value === 'number' ? '$' : ''}
+            {value}
+        </p>
     </div>
 );
 
