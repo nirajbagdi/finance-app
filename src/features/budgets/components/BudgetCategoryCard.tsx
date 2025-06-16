@@ -1,6 +1,14 @@
 import { Link } from '@tanstack/react-router';
 
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import ColoredLegend from '@/components/common/ColoredLegend';
+
+import { Ellipsis } from 'lucide-react';
 import RightArrowIcon from '@/icons/common/right-arrow.svg?react';
 
 import TransactionList from '@/features/transactions/components/TransactionList';
@@ -34,7 +42,22 @@ const BudgetCategoryCard = ({
                             } as React.CSSProperties
                         }
                     />
-                    <h2 className="font-bold text-xl">{budget.category}</h2>
+                    <h2 className="font-bold text-xl flex-1">{budget.category}</h2>
+
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
+                            <Ellipsis className="text-grey-300 cursor-pointer" />
+                        </DropdownMenuTrigger>
+
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem className="text-foreground">
+                                Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="text-red">
+                                Delete
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
 
                 <p className="text-secondary-foreground text-sm">
