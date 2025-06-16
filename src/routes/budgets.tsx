@@ -4,6 +4,9 @@ import useTransactionStore from '@/features/transactions/store/useTransactionSto
 import PageLayout from '@/components/layout/PageLayout';
 
 import SpendingSummary from '@/features/budgets/components/SpendingSummary';
+import BudgetCategoryCard from '@/features/budgets/components/BudgetCategoryCard';
+
+import { getSpendingByCategory } from '@/features/budgets/utils';
 
 export const Route = createFileRoute({
     component: BudgetsPage,
@@ -13,11 +16,26 @@ function BudgetsPage() {
     const { budgets } = useBudgetStore();
     const { transactions } = useTransactionStore();
 
+    const categorySpending = getSpendingByCategory(transactions);
+
     return (
         <PageLayout title="Budgets">
             <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_2fr] gap-4 lg:gap-6">
-                <SpendingSummary budgets={budgets} transactions={transactions} />
-                <div className="bg-card p-8 rounded-xl shadow-2xs">HELLO WORLD</div>
+                <SpendingSummary
+                    budgets={budgets}
+                    transactions={transactions}
+                    categorySpending={categorySpending}
+                />
+
+                <div>
+                    {budgets.map((budget) => (
+                        <BudgetCategoryCard
+                            key={budget.category}
+                            budget={budget}
+                            spent={categorySpending[budget.category]}
+                        />
+                    ))}
+                </div>
             </div>
         </PageLayout>
     );
