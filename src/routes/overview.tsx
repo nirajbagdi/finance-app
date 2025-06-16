@@ -1,6 +1,6 @@
-import useTransactionStore from '@/features/transactions/useTransactionStore';
-import useBudgetStore from '@/features/budgets/useBudgetStore';
-import usePotStore from '@/features/pots/usePotStore';
+import useTransactionStore from '@/features/transactions/store/useTransactionStore';
+import useBudgetStore from '@/features/budgets/store/useBudgetStore';
+import usePotStore from '@/features/pots/store/usePotStore';
 
 import TransactionPreview from '@/features/transactions/components/TransactionPreview';
 import BalancePreview from '@/features/overview/components/BalancePreview';

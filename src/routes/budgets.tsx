@@ -1,5 +1,5 @@
-import useBudgetStore from '@/features/budgets/useBudgetStore';
-import useTransactionStore from '@/features/transactions/useTransactionStore';
+import useBudgetStore from '@/features/budgets/store/useBudgetStore';
+import useTransactionStore from '@/features/transactions/store/useTransactionStore';
 
 import PageLayout from '@/components/layout/PageLayout';
 

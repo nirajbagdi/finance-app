@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 import type { Budget } from '@/types/finance';
 
-import { budgets } from './mockData';
+import { budgets } from '../mockData';
 
 type BudgetState = {
     budgets: Budget[];

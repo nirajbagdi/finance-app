@@ -42,7 +42,10 @@ const renderSelectContent = (items: string[]) => (
     </SelectContent>
 );
 
-const TransactionControls = ({ transactions, onValueChange }: TransactionControlsProps) => {
+const TransactionControls = ({
+    transactions,
+    onValueChange,
+}: TransactionControlsProps) => {
     const search = useSearch({ from: '/transactions' });
 
     const [dropdownOpen, setDropdownOpen] = useState<Record<ControlType, boolean>>({
@@ -53,7 +56,10 @@ const TransactionControls = ({ transactions, onValueChange }: TransactionControl
     const isMobile = useMediaQuery('(max-width: 768px)');
 
     const sortOptions = Object.keys(sortComparators);
-    const categoryOptions = ['All', ...new Set(transactions.map((tx) => tx.category))];
+    const categoryOptions = [
+        'All',
+        ...new Set(transactions.map((tx) => tx.category)),
+    ];
 
     const controlItems = [
         {
@@ -113,7 +119,10 @@ const DesktopTransactionControls = ({
 }) => (
     <div className="hidden md:flex items-center gap-3 lg:gap-8">
         {controlItems.map((item) => (
-            <div key={item.key} className="flex text-sm items-center gap-1.5 lg:gap-2">
+            <div
+                key={item.key}
+                className="flex text-sm items-center gap-1.5 lg:gap-2"
+            >
                 <label htmlFor={item.key} className="text-grey-500">
                     {item.name}
                 </label>
@@ -164,11 +173,16 @@ const MobileTransactionControls = ({
                             id={item.key}
                             className={cn(
                                 'relative',
-                                dropdownOpen[item.key] ? 'fill-green' : 'fill-grey-900'
+                                dropdownOpen[item.key]
+                                    ? 'fill-green'
+                                    : 'fill-grey-900'
                             )}
                             asIcon
                         >
-                            <Icon fontSize={23} className="fill-inherit cursor-pointer" />
+                            <Icon
+                                fontSize={23}
+                                className="fill-inherit cursor-pointer"
+                            />
 
                             {search[item.key] !== item.items[0] && (
                                 <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-[#9F8170] ring-2 ring-white" />

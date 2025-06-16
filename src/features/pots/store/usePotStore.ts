@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 import type { Pot } from '@/types/finance';
 
-import { pots } from './mockData';
+import { pots } from '../mockData';
 
 type PotState = {
     pots: Pot[];

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useSearch, useNavigate } from '@tanstack/react-router';
 import { useDebounce } from 'use-debounce';
 
-import useTransactionStore from '@/features/transactions/useTransactionStore';
+import useTransactionStore from '@/features/transactions/store/useTransactionStore';
 
 import useMediaQuery from '@/hooks/useMediaQuery';
 import usePagination from '@/hooks/usePagination';
@@ -16,8 +16,12 @@ import PageLayout from '@/components/layout/PageLayout';
 import PaginationControls from '@/components/common/PaginationControls';
 
 import { stringMatches } from '@/utils/string';
-import { sortComparators, type SortOption } from '@/features/transactions/constants';
-import type { SelectControls } from '@/features/transactions/constants';
+
+import {
+    sortComparators,
+    type SortOption,
+    type SelectControls,
+} from '@/features/transactions/constants';
 
 type SearchParams = {
     query: string;
