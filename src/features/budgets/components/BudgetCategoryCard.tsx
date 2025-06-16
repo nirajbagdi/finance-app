@@ -1,15 +1,22 @@
 import ColoredLegend from '@/components/common/ColoredLegend';
 
+import TransactionList from '@/features/transactions/components/TransactionList';
+
 import { formatAmount } from '@/utils/formatting';
 
-import type { Budget } from '@/types/finance';
+import type { Budget, Transaction } from '@/types/finance';
 
 type BudgetCategoryCardProps = {
     budget: Budget;
     spent: number;
+    transactions: Transaction[];
 };
 
-const BudgetCategoryCard = ({ budget, spent }: BudgetCategoryCardProps) => {
+const BudgetCategoryCard = ({
+    budget,
+    spent,
+    transactions,
+}: BudgetCategoryCardProps) => {
     const maxBudgetAmount = formatAmount(budget.value);
 
     return (
@@ -50,6 +57,11 @@ const BudgetCategoryCard = ({ budget, spent }: BudgetCategoryCardProps) => {
                     theme="#f8f4f0"
                 />
             </div>
+
+            <div className="bg-background rounded-xl px-4 py-6 mt-6">
+                <h3 className="text-base font-bold mb-5">Latest Spending</h3>
+                <TransactionList transactions={transactions} />
+            </div>
         </div>
     );
 };
@@ -65,7 +77,7 @@ const BudgetProgress = ({ spent, limit, theme }: BudgetProgressProps) => {
 
     return (
         <div
-            className="w-full h-8 rounded-md bg-background overflow-hidden flex items-center px-1"
+            className="w-full h-8 rounded-sm bg-background overflow-hidden flex items-center px-1"
             style={
                 {
                     '--progress-theme': theme,
@@ -73,7 +85,7 @@ const BudgetProgress = ({ spent, limit, theme }: BudgetProgressProps) => {
             }
         >
             <div
-                className="h-6 rounded-md bg-[var(--progress-theme)]"
+                className="h-6 rounded-sm bg-[var(--progress-theme)]"
                 style={
                     {
                         width: `${percentage}%`,
