@@ -13,6 +13,7 @@ import type { CreateFileRoute, FileRoutesByPath } from '@tanstack/react-router'
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransactionsRouteImport } from './routes/transactions'
 import { Route as OverviewRouteImport } from './routes/overview'
+import { Route as BudgetsRouteImport } from './routes/budgets'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TransactionsRoute = TransactionsRouteImport.update({
@@ -25,6 +26,11 @@ const OverviewRoute = OverviewRouteImport.update({
   path: '/overview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BudgetsRoute = BudgetsRouteImport.update({
+  id: '/budgets',
+  path: '/budgets',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -33,30 +39,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/budgets': typeof BudgetsRoute
   '/overview': typeof OverviewRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/budgets': typeof BudgetsRoute
   '/overview': typeof OverviewRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/budgets': typeof BudgetsRoute
   '/overview': typeof OverviewRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/overview' | '/transactions'
+  fullPaths: '/' | '/budgets' | '/overview' | '/transactions'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/overview' | '/transactions'
-  id: '__root__' | '/' | '/overview' | '/transactions'
+  to: '/' | '/budgets' | '/overview' | '/transactions'
+  id: '__root__' | '/' | '/budgets' | '/overview' | '/transactions'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BudgetsRoute: typeof BudgetsRoute
   OverviewRoute: typeof OverviewRoute
   TransactionsRoute: typeof TransactionsRoute
 }
@@ -68,6 +78,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/budgets': {
+      id: '/budgets'
+      path: '/budgets'
+      fullPath: '/budgets'
+      preLoaderRoute: typeof BudgetsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/overview': {
@@ -96,6 +113,15 @@ declare module './routes/index' {
     FileRoutesByPath['/']['fullPath']
   >
 }
+declare module './routes/budgets' {
+  const createFileRoute: CreateFileRoute<
+    '/budgets',
+    FileRoutesByPath['/budgets']['parentRoute'],
+    FileRoutesByPath['/budgets']['id'],
+    FileRoutesByPath['/budgets']['path'],
+    FileRoutesByPath['/budgets']['fullPath']
+  >
+}
 declare module './routes/overview' {
   const createFileRoute: CreateFileRoute<
     '/overview',
@@ -117,6 +143,7 @@ declare module './routes/transactions' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BudgetsRoute: BudgetsRoute,
   OverviewRoute: OverviewRoute,
   TransactionsRoute: TransactionsRoute,
 }
