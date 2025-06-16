@@ -13,7 +13,9 @@ type BudgetPreviewProps = {
 
 const BudgetPreview = ({ budgets, transactions }: BudgetPreviewProps) => (
     <div className="grid md:grid-cols-2 gap-12 md:gap-3 items-center justify-items-center h-[80%]">
-        <BudgetChart budgets={budgets} transactions={transactions} />
+        <div className="lg:ml-15">
+            <BudgetChart budgets={budgets} transactions={transactions} />
+        </div>
 
         <div className="md:flex md:flex-col gap-x-20 gap-y-5 md:gap-6 grid grid-cols-2">
             {sortBy(budgets, 'value', 'desc').map((budget, idx) => (

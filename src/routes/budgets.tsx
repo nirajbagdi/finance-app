@@ -15,7 +15,10 @@ function BudgetsPage() {
 
     return (
         <PageLayout title="Budgets">
-            <SpendingSummary budgets={budgets} transactions={transactions} />
+            <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_2fr] gap-4 lg:gap-6">
+                <SpendingSummary budgets={budgets} transactions={transactions} />
+                <div className="bg-card p-8 rounded-xl shadow-2xs">HELLO WORLD</div>
+            </div>
         </PageLayout>
     );
 }

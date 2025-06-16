@@ -43,7 +43,7 @@ const BudgetChart = ({ budgets, transactions }: BudgetChartProps) => {
     );
 
     return (
-        <div className="relative w-60 h-60 lg:ml-15">
+        <div className="relative w-60 h-60 flex-1">
             <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                     <Tooltip content={<CustomTooltip />} />

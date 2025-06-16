@@ -14,14 +14,17 @@ const SpendingSummary = ({ budgets, transactions }: SpendingSummaryProps) => {
     const categorySpending = getSpendingByCategory(transactions);
 
     return (
-        <div className="bg-card p-8 rounded-xl shadow-2xs w-[450px]">
-            <BudgetChart budgets={budgets} transactions={transactions} />
+        <div className="bg-card p-8 rounded-xl shadow-2xs">
+            <div className="flex">
+                <BudgetChart budgets={budgets} transactions={transactions} />
+            </div>
 
             <h2 className="mt-6 font-bold text-xl">Spending Summary</h2>
 
             <div className="flex flex-col gap-4 mt-6">
                 {budgets.map((budget) => (
                     <SpendingSummaryRow
+                        key={budget.category}
                         {...budget}
                         spent={categorySpending[budget.category]}
                     />
