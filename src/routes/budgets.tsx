@@ -33,9 +33,9 @@ function BudgetsPage() {
                             key={budget.category}
                             budget={budget}
                             spent={categorySpending[budget.category]}
-                            transactions={transactions.filter(
-                                (tx) => tx.category === budget.category
-                            )}
+                            transactions={transactions
+                                .filter((tx) => tx.category === budget.category)
+                                .slice(0, 3)}
                         />
                     ))}
                 </div>

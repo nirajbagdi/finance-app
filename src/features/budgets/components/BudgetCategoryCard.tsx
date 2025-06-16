@@ -1,4 +1,7 @@
+import { Link } from '@tanstack/react-router';
+
 import ColoredLegend from '@/components/common/ColoredLegend';
+import RightArrowIcon from '@/icons/common/right-arrow.svg?react';
 
 import TransactionList from '@/features/transactions/components/TransactionList';
 
@@ -22,7 +25,7 @@ const BudgetCategoryCard = ({
     return (
         <div className="bg-card p-8 rounded-xl shadow-2xs mb-4 lg:mb-6 last:mb-0">
             <header className="mb-6">
-                <div className="flex items-center gap-2.5 mt-6 mb-2">
+                <div className="flex items-center gap-2.5 mb-2">
                     <span
                         className="inline-block w-4 h-4 rounded-full bg-[var(--budget-theme)]"
                         style={
@@ -59,8 +62,25 @@ const BudgetCategoryCard = ({
             </div>
 
             <div className="bg-background rounded-xl px-4 py-6 mt-6">
-                <h3 className="text-base font-bold mb-5">Latest Spending</h3>
-                <TransactionList transactions={transactions} />
+                <div className="mb-5 flex items-center justify-between">
+                    <h3 className="text-base font-bold">Latest Spending</h3>
+
+                    <Link
+                        to="/transactions"
+                        search={{
+                            query: '',
+                            page: 1,
+                            sort: 'Latest',
+                            category: budget.category,
+                        }}
+                        className="flex items-center gap-2 text-[13px] text-secondary-foreground fill-secondary-foreground hover:text-primary-foreground hover:fill-primary-foreground"
+                    >
+                        <span>See All</span>
+                        <RightArrowIcon className="fill-inherit" />
+                    </Link>
+                </div>
+
+                <TransactionList transactions={transactions} compact />
             </div>
         </div>
     );
