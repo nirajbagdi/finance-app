@@ -20,7 +20,7 @@ function BudgetsPage() {
 
     return (
         <PageLayout title="Budgets">
-            <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_2fr] gap-4 lg:gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_2fr] items-start gap-4 lg:gap-6">
                 <SpendingSummary
                     budgets={budgets}
                     transactions={transactions}
