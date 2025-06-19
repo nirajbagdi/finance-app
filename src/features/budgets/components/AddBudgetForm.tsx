@@ -53,7 +53,7 @@ const AddBudgetForm = ({
         resolver: zodResolver(formSchema),
     });
 
-    const { addBudget } = useBudgetStore();
+    const { addBudget, budgets } = useBudgetStore();
 
     function onSubmit(data: FormFields) {
         addBudget({
@@ -95,11 +95,24 @@ const AddBudgetForm = ({
                                 </FormControl>
 
                                 <SelectContent>
-                                    {categoryOptions.map((option) => (
-                                        <SelectItem key={option} value={option}>
-                                            {option}
-                                        </SelectItem>
-                                    ))}
+                                    {categoryOptions.map((option) => {
+                                        const isCategoryUsed = budgets.some((b) =>
+                                            option.includes(b.category)
+                                        );
+
+                                        return (
+                                            <SelectItem
+                                                disabled={isCategoryUsed}
+                                                key={option}
+                                                value={option}
+                                            >
+                                                {option}{' '}
+                                                {isCategoryUsed
+                                                    ? '(Already used)'
+                                                    : ''}
+                                            </SelectItem>
+                                        );
+                                    })}
                                 </SelectContent>
                             </Select>
 
