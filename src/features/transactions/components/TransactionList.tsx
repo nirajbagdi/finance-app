@@ -1,6 +1,7 @@
-import { cn } from '@/utils';
-import { formatAmount, formatDate } from '@/utils';
+// External imports
+import { cn, formatAmount, formatDate } from '@/utils';
 
+// Types
 import type { Transaction } from '@/types/finance';
 
 type TransactionListProps = {

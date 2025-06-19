@@ -1,14 +1,19 @@
+// External imports
 import { Plus } from 'lucide-react';
 
-import useBudgetStore from '@/features/budgets/store/useBudgetStore';
-import useTransactionStore from '@/features/transactions/store/useTransactionStore';
-
+// UI/Shared Components
 import { Button } from '@/components/ui/button';
 import PageLayout from '@/components/layout/PageLayout';
 
+// Store
+import useBudgetStore from '@/features/budgets/store/useBudgetStore';
+import useTransactionStore from '@/features/transactions/store/useTransactionStore';
+
+// Components
 import SpendingSummary from '@/features/budgets/components/SpendingSummary';
 import BudgetCategoryCard from '@/features/budgets/components/BudgetCategoryCard';
 
+// Utils
 import { getSpendingByCategory } from '@/features/budgets/utils';
 
 export const Route = createFileRoute({

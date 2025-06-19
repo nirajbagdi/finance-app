@@ -1,7 +1,10 @@
-import { formatAmount } from '@/utils';
-
+// UI/Shared components
 import BudgetChart from './BudgetChart';
 
+// Utils
+import { formatAmount } from '@/utils';
+
+// Types
 import type { Budget, Transaction } from '@/types/finance';
 
 type SpendingSummaryProps = {

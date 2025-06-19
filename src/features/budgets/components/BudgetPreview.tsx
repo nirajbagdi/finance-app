@@ -1,8 +1,11 @@
-import { formatAmount } from '@/utils';
-
+// UI/Shared components
 import BudgetChart from './BudgetChart';
 import ColoredLegend from '@/components/common/ColoredLegend';
 
+// Utils
+import { formatAmount } from '@/utils';
+
+// Types
 import type { Transaction, Budget } from '@/types/finance';
 
 type BudgetPreviewProps = {

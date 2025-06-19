@@ -1,4 +1,7 @@
+// External imports
 import { cn } from '@/utils';
+
+// Utils
 import { formatAmount } from '@/utils';
 
 type BalancePreviewProps = {

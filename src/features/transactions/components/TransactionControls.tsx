@@ -1,6 +1,8 @@
+// External imports
 import { useState } from 'react';
 import { useSearch } from '@tanstack/react-router';
 
+// UI Components
 import {
     Select,
     SelectContent,
@@ -9,15 +11,21 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 
+// Icons
 import CategoryIcon from '@/icons/feature/transactions/category.svg?react';
 import SortIcon from '@/icons/feature/transactions/sort-by.svg?react';
 
-import { cn } from '@/utils';
-
+// Hooks
 import useMediaQuery from '@/hooks/useMediaQuery';
 
-import { sortComparators, ControlType, type SelectControls } from '../constants';
+// Utils
+import { cn } from '@/utils';
 
+// Constants
+import { sortComparators, ControlType } from '../constants';
+
+// Types
+import type { SelectControls } from '../constants';
 import type { Transaction } from '@/types/finance';
 
 type ControlItem = {

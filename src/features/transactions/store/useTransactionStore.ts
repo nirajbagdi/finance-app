@@ -1,8 +1,11 @@
+// External imports
 import { create } from 'zustand';
 
-import type { Transaction } from '@/types/finance';
-
+// Constants
 import { transactions } from '../mockData';
+
+// Types
+import type { Transaction } from '@/types/finance';
 
 type TransactionState = {
     transactions: Transaction[];

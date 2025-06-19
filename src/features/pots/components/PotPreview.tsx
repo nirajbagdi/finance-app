@@ -1,9 +1,13 @@
-import { sumBy } from '@/utils';
-
+// UI/Shared components
 import ColoredLegend from '@/components/common/ColoredLegend';
 
+// Icons
 import MoneyBagIcon from '@/icons/feature/overview/money-bag.svg?react';
 
+// Utils
+import { sumBy } from '@/utils';
+
+// Types
 import type { Pot } from '@/types/finance';
 
 type PotPreviewProps = {

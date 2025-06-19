@@ -1,5 +1,8 @@
-import { Input } from '@/components/ui/input';
+// External imports
 import { useSearch } from '@tanstack/react-router';
+
+// UI/Shared components
+import { Input } from '@/components/ui/input';
 
 type TransactionSearchProps = {
     onSearch: (query: string) => void;

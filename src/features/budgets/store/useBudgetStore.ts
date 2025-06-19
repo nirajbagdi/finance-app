@@ -1,8 +1,11 @@
+// External imports
 import { create } from 'zustand';
 
-import type { Budget } from '@/types/finance';
-
+// Constants
 import { budgets } from '../mockData';
+
+// Types
+import type { Budget } from '@/types/finance';
 
 type BudgetState = {
     budgets: Budget[];

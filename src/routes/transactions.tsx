@@ -1,20 +1,26 @@
+// External imports
 import { useMemo } from 'react';
 import { useSearch, useNavigate } from '@tanstack/react-router';
 import { useDebounce } from 'use-debounce';
 
-import useTransactionStore from '@/features/transactions/store/useTransactionStore';
+// UI/Shared components
+import PageLayout from '@/components/layout/PageLayout';
+import PaginationControls from '@/components/common/PaginationControls';
 
+// Hooks
 import useMediaQuery from '@/hooks/useMediaQuery';
 import usePagination from '@/hooks/usePagination';
 
+// Store
+import useTransactionStore from '@/features/transactions/store/useTransactionStore';
+
+// Feature components
 import TransactionList from '@/features/transactions/components/TransactionList';
 import TransactionTable from '@/features/transactions/components/TransactionTable';
 import TransactionSearch from '@/features/transactions/components/TransactionSearch';
 import TransactionControls from '@/features/transactions/components/TransactionControls';
 
-import PageLayout from '@/components/layout/PageLayout';
-import PaginationControls from '@/components/common/PaginationControls';
-
+// Utils
 import { stringMatches } from '@/utils';
 
 import {

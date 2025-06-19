@@ -1,5 +1,7 @@
+// UI/Shared components
 import TransactionList from './TransactionList';
 
+// Types
 import type { Transaction } from '@/types/finance';
 
 type TransactionPreviewProps = {

@@ -1,7 +1,10 @@
+// External imports
 import { Link } from '@tanstack/react-router';
 
+// Icons
 import RightArrowIcon from '@/icons/common/right-arrow.svg?react';
 
+// Utils
 import { cn } from '@/utils';
 
 type FeatureCardProps = {

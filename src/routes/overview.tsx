@@ -1,15 +1,19 @@
-import useTransactionStore from '@/features/transactions/store/useTransactionStore';
+// Store
 import useBudgetStore from '@/features/budgets/store/useBudgetStore';
 import usePotStore from '@/features/pots/store/usePotStore';
+import useTransactionStore from '@/features/transactions/store/useTransactionStore';
 
-import TransactionPreview from '@/features/transactions/components/TransactionPreview';
-import BalancePreview from '@/features/overview/components/BalancePreview';
-import BudgetPreview from '@/features/budgets/components/BudgetPreview';
-import PotPreview from '@/features/pots/components/PotPreview';
-
-import FeatureCard from '@/features/overview/components/FeatureCard';
+// UI/Shared Components
 import PageLayout from '@/components/layout/PageLayout';
 
+// Feature Components
+import BalancePreview from '@/features/overview/components/BalancePreview';
+import BudgetPreview from '@/features/budgets/components/BudgetPreview';
+import FeatureCard from '@/features/overview/components/FeatureCard';
+import PotPreview from '@/features/pots/components/PotPreview';
+import TransactionPreview from '@/features/transactions/components/TransactionPreview';
+
+// Utils
 import { getBalanceSummary } from '@/features/overview/utils';
 
 export const Route = createFileRoute({

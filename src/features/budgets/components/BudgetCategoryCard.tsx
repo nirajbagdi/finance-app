@@ -1,5 +1,8 @@
+// External imports
 import { Link } from '@tanstack/react-router';
+import { Ellipsis } from 'lucide-react';
 
+// UI/Shared Components
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -8,13 +11,16 @@ import {
 } from '@/components/ui/dropdown-menu';
 import ColoredLegend from '@/components/common/ColoredLegend';
 
-import { Ellipsis } from 'lucide-react';
+// Icons
 import RightArrowIcon from '@/icons/common/right-arrow.svg?react';
 
+// Components
 import TransactionList from '@/features/transactions/components/TransactionList';
 
+// Utils
 import { formatAmount } from '@/utils';
 
+// Types
 import type { Budget, Transaction } from '@/types/finance';
 
 type BudgetCategoryCardProps = {

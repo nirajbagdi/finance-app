@@ -1,8 +1,11 @@
+// External imports
 import { create } from 'zustand';
 
-import type { Pot } from '@/types/finance';
-
+// Constants
 import { pots } from '../mockData';
+
+// Types
+import type { Pot } from '@/types/finance';
 
 type PotState = {
     pots: Pot[];

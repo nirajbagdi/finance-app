@@ -1,8 +1,11 @@
+// External imports
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
-import type { Budget, Transaction } from '@/types/finance';
-
+// Utils
 import { getBudgetUsage } from '@/features/budgets/utils';
+
+// Types
+import type { Budget, Transaction } from '@/types/finance';
 
 type BudgetChartProps = {
     budgets: Budget[];
