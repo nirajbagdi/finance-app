@@ -15,6 +15,7 @@ import BudgetCategoryCard from '@/features/budgets/components/BudgetCategoryCard
 
 // Utils
 import { getSpendingByCategory } from '@/features/budgets/utils';
+import DialogWrapper from '@/components/common/DialogWrapper';
 
 export const Route = createFileRoute({
     component: BudgetsPage,
@@ -47,10 +48,18 @@ function BudgetsPage() {
         });
 
     const renderHeaderAction = () => (
-        <Button size="lg">
-            <Plus className="-mr-0.5" />
-            Add New Budget
-        </Button>
+        <DialogWrapper
+            title="Add New Budget"
+            description="Choose a category to set a spending budget. These categories can help you monitor spending."
+            trigger={
+                <Button size="lg">
+                    <Plus className="-mr-0.5" />
+                    Add New Budget
+                </Button>
+            }
+        >
+            <form></form>
+        </DialogWrapper>
     );
 
     return (
