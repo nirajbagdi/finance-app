@@ -2,7 +2,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 import type { Budget, Transaction } from '@/types/finance';
 
-import { calculateBudgetUsage } from '@/utils/math';
+import { getBudgetUsage } from '@/features/budgets/utils';
 
 type BudgetChartProps = {
     budgets: Budget[];
@@ -18,7 +18,7 @@ type CustomTooltipProps = {
 };
 
 const BudgetChart = ({ budgets, transactions }: BudgetChartProps) => {
-    const { budgetLimit, totalSpent } = calculateBudgetUsage(budgets, transactions);
+    const { budgetLimit, totalSpent } = getBudgetUsage(budgets, transactions);
 
     const renderPieLayer = (
         innerRadius: string,

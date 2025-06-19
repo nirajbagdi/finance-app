@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 
-import { cn } from '@/utils/ui';
+import { cn } from '@/utils';
 
 import SearchIcon from '@/icons/common/search.svg?react';
 

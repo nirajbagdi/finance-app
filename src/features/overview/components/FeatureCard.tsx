@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router';
 
 import RightArrowIcon from '@/icons/common/right-arrow.svg?react';
 
-import { cn } from '@/utils/ui';
+import { cn } from '@/utils';
 
 type FeatureCardProps = {
     title: string;

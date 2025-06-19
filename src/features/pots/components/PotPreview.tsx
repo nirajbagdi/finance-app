@@ -1,4 +1,4 @@
-import { calculateTotal } from '@/utils/math';
+import { sumBy } from '@/utils';
 
 import ColoredLegend from '@/components/common/ColoredLegend';
 
@@ -17,9 +17,7 @@ const PotPreview = ({ pots }: PotPreviewProps) => (
 
             <div>
                 <p className="text-secondary-foreground text-sm mb-2">Total Saved</p>
-                <p className="text-3xl font-bold">
-                    ${calculateTotal(pots.map((pot) => pot.total))}
-                </p>
+                <p className="text-3xl font-bold">{sumBy(pots, (p) => p.total)}</p>
             </div>
         </div>
 

@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
 
-import { cn } from '@/utils/ui';
+import { cn } from '@/utils';
 
 import NavItem from './NavItem';
 

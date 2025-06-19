@@ -10,7 +10,7 @@ import PotPreview from '@/features/pots/components/PotPreview';
 import FeatureCard from '@/features/overview/components/FeatureCard';
 import PageLayout from '@/components/layout/PageLayout';
 
-import { calculateBalance } from '@/utils/math';
+import { getBalanceSummary } from '@/features/overview/utils';
 
 export const Route = createFileRoute({
     component: OverviewPage,
@@ -21,7 +21,7 @@ function OverviewPage() {
     const { budgets } = useBudgetStore();
     const { pots } = usePotStore();
 
-    const balance = calculateBalance(transactions);
+    const balance = getBalanceSummary(transactions);
 
     return (
         <PageLayout title="Overview">

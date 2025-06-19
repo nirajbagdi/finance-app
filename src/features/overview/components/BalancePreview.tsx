@@ -1,5 +1,5 @@
-import { cn } from '@/utils/ui';
-import { formatAmount } from '@/utils/formatting';
+import { cn } from '@/utils';
+import { formatAmount } from '@/utils';
 
 type BalancePreviewProps = {
     balance: {

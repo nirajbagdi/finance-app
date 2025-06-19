@@ -1,4 +1,4 @@
-import { formatAmount } from '@/utils/formatting';
+import { formatAmount } from '@/utils';
 
 import BudgetChart from './BudgetChart';
 

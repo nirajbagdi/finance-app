@@ -1,5 +1,4 @@
-import { sortBy } from '@/utils/array';
-import { formatAmount } from '@/utils/formatting';
+import { formatAmount } from '@/utils';
 
 import BudgetChart from './BudgetChart';
 import ColoredLegend from '@/components/common/ColoredLegend';
@@ -18,7 +17,7 @@ const BudgetPreview = ({ budgets, transactions }: BudgetPreviewProps) => (
         </div>
 
         <div className="md:flex md:flex-col gap-x-20 gap-y-5 md:gap-6 grid grid-cols-2">
-            {sortBy(budgets, 'value', 'desc').map((budget, idx) => (
+            {budgets.map((budget, idx) => (
                 <ColoredLegend
                     key={idx}
                     label={budget.category}

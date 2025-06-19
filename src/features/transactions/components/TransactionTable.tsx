@@ -1,5 +1,5 @@
-import { cn } from '@/utils/ui';
-import { formatDate } from '@/utils/formatting';
+import { cn } from '@/utils';
+import { formatDate } from '@/utils';
 
 import type { Transaction } from '@/types/finance';
 

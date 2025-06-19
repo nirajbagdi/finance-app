@@ -13,7 +13,7 @@ import RightArrowIcon from '@/icons/common/right-arrow.svg?react';
 
 import TransactionList from '@/features/transactions/components/TransactionList';
 
-import { formatAmount } from '@/utils/formatting';
+import { formatAmount } from '@/utils';
 
 import type { Budget, Transaction } from '@/types/finance';
 

@@ -1,6 +1,6 @@
-import { stringMatches } from '@/utils/string';
+import { stringMatches } from '@/utils';
 
-import type { Transaction } from '@/types/finance';
+import type { Budget, Transaction } from '@/types/finance';
 
 export function getSpendingByCategory(transactions: Transaction[]) {
     return transactions.reduce<Record<string, number>>(
@@ -17,4 +17,16 @@ export function getSpendingByCategory(transactions: Transaction[]) {
         },
         {}
     );
+}
+
+export function getBudgetUsage(budgets: Budget[], transactions: Transaction[]) {
+    const budgetedCategories = budgets.map((b) => b.category);
+
+    const totalSpent = transactions
+        .filter((tx) => tx.amount < 0 && budgetedCategories.includes(tx.category))
+        .reduce((sum, tx) => sum + Math.abs(tx.amount), 0);
+
+    const budgetLimit = budgets.reduce((sum, b) => sum + b.value, 0);
+
+    return { totalSpent, budgetLimit };
 }

@@ -12,7 +12,7 @@ import {
 import CategoryIcon from '@/icons/feature/transactions/category.svg?react';
 import SortIcon from '@/icons/feature/transactions/sort-by.svg?react';
 
-import { cn } from '@/utils/ui';
+import { cn } from '@/utils';
 
 import useMediaQuery from '@/hooks/useMediaQuery';
 

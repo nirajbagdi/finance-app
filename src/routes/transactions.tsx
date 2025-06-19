@@ -15,7 +15,7 @@ import TransactionControls from '@/features/transactions/components/TransactionC
 import PageLayout from '@/components/layout/PageLayout';
 import PaginationControls from '@/components/common/PaginationControls';
 
-import { stringMatches } from '@/utils/string';
+import { stringMatches } from '@/utils';
 
 import {
     sortComparators,
