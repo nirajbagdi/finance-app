@@ -63,6 +63,12 @@ const AddBudgetForm = ({
         });
 
         form.reset();
+
+        // Find and click the close button to close the dialog
+        const closeButton = document.querySelector(
+            '[data-slot="dialog-close"]'
+        ) as HTMLButtonElement;
+        if (closeButton) closeButton.click();
     }
 
     return (
