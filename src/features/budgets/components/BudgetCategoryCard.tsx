@@ -18,7 +18,7 @@ import RightArrowIcon from '@/icons/common/right-arrow.svg?react';
 import TransactionList from '@/features/transactions/components/TransactionList';
 
 // Utils
-import { formatAmount } from '@/utils';
+import { cn, formatAmount } from '@/utils';
 
 // Types
 import type { Budget, Transaction } from '@/types/finance';
@@ -34,7 +34,7 @@ const BudgetCategoryCard = ({
     spent,
     transactions,
 }: BudgetCategoryCardProps) => {
-    const maxBudgetAmount = formatAmount(budget.value);
+    const isOverBudget = Math.abs(spent) > budget.value;
 
     return (
         <div className="bg-card p-8 rounded-xl shadow-2xs mb-4 lg:mb-6 last:mb-0">
@@ -67,7 +67,7 @@ const BudgetCategoryCard = ({
                 </div>
 
                 <p className="text-secondary-foreground text-sm">
-                    Maximum of {maxBudgetAmount}
+                    Maximum of {formatAmount(budget.value)}
                 </p>
             </header>
 
@@ -83,11 +83,13 @@ const BudgetCategoryCard = ({
                     label="Spent"
                     theme={budget.theme || '#000'}
                 />
-                <ColoredLegend
-                    value={formatAmount(spent + budget.value)}
-                    label="Remaining"
-                    theme="#f8f4f0"
-                />
+                <div className={cn(isOverBudget ? 'text-red' : 'text-foreground')}>
+                    <ColoredLegend
+                        value={formatAmount(spent + budget.value)}
+                        label="Remaining"
+                        theme="#f8f4f0"
+                    />
+                </div>
             </div>
 
             <div className="bg-background rounded-xl px-4 py-6 mt-6">
