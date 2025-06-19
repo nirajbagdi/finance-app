@@ -1,6 +1,9 @@
+import { Plus } from 'lucide-react';
+
 import useBudgetStore from '@/features/budgets/store/useBudgetStore';
 import useTransactionStore from '@/features/transactions/store/useTransactionStore';
 
+import { Button } from '@/components/ui/button';
 import PageLayout from '@/components/layout/PageLayout';
 
 import SpendingSummary from '@/features/budgets/components/SpendingSummary';
@@ -19,7 +22,15 @@ function BudgetsPage() {
     const categorySpending = getSpendingByCategory(transactions);
 
     return (
-        <PageLayout title="Budgets">
+        <PageLayout
+            title="Budgets"
+            headerAction={
+                <Button size="lg">
+                    <Plus className="-mr-0.5" />
+                    Add New Budget
+                </Button>
+            }
+        >
             <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_2fr] items-start gap-4 lg:gap-6">
                 <SpendingSummary
                     budgets={budgets}
