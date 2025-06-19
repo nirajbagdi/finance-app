@@ -21,16 +21,35 @@ function BudgetsPage() {
 
     const categorySpending = getSpendingByCategory(transactions);
 
+    const renderBudgetCards = () =>
+        budgets.map((budget) => {
+            const { category } = budget;
+
+            const spent = categorySpending[category] || 0;
+            const recentTransactions = transactions
+                .filter((tx) => tx.category === category)
+                .sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
+                .slice(0, 3);
+
+            return (
+                <BudgetCategoryCard
+                    key={budget.category}
+                    budget={budget}
+                    spent={spent}
+                    transactions={recentTransactions}
+                />
+            );
+        });
+
+    const renderHeaderAction = () => (
+        <Button size="lg">
+            <Plus className="-mr-0.5" />
+            Add New Budget
+        </Button>
+    );
+
     return (
-        <PageLayout
-            title="Budgets"
-            headerAction={
-                <Button size="lg">
-                    <Plus className="-mr-0.5" />
-                    Add New Budget
-                </Button>
-            }
-        >
+        <PageLayout title="Budgets" headerAction={renderHeaderAction()}>
             <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_2fr] items-start gap-4 lg:gap-6">
                 <SpendingSummary
                     budgets={budgets}
@@ -38,18 +57,7 @@ function BudgetsPage() {
                     categorySpending={categorySpending}
                 />
 
-                <div>
-                    {budgets.map((budget) => (
-                        <BudgetCategoryCard
-                            key={budget.category}
-                            budget={budget}
-                            spent={categorySpending[budget.category]}
-                            transactions={transactions
-                                .filter((tx) => tx.category === budget.category)
-                                .slice(0, 3)}
-                        />
-                    ))}
-                </div>
+                <div>{renderBudgetCards()}</div>
             </div>
         </PageLayout>
     );

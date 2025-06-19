@@ -22,10 +22,12 @@ export const sortComparators: Record<
     SortOption,
     (a: Transaction, b: Transaction) => number
 > = {
-    Latest: (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-    Oldest: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    Latest: (a, b) => Date.parse(b.date) - Date.parse(a.date),
+    Oldest: (a, b) => Date.parse(a.date) - Date.parse(b.date),
+
     'A to Z': (a, b) => a.name.localeCompare(b.name),
     'Z to A': (a, b) => b.name.localeCompare(a.name),
+
     Highest: (a, b) => b.amount - a.amount,
     Lowest: (a, b) => a.amount - b.amount,
 };
