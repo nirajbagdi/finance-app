@@ -10,6 +10,7 @@ import useBudgetStore from '@/features/budgets/store/useBudgetStore';
 import useTransactionStore from '@/features/transactions/store/useTransactionStore';
 
 // Components
+import AddBudgetForm from '@/features/budgets/components/AddBudgetForm';
 import SpendingSummary from '@/features/budgets/components/SpendingSummary';
 import BudgetCategoryCard from '@/features/budgets/components/BudgetCategoryCard';
 
@@ -26,6 +27,9 @@ function BudgetsPage() {
     const { transactions } = useTransactionStore();
 
     const categorySpending = getSpendingByCategory(transactions);
+
+    const uniqueCategories = [...new Set(transactions.map((tx) => tx.category))];
+    const uniqueColors = [...new Set(budgets.map((b) => b.theme || '#000'))];
 
     const renderBudgetCards = () =>
         budgets.map((budget) => {
@@ -58,7 +62,15 @@ function BudgetsPage() {
                 </Button>
             }
         >
-            <form></form>
+            <AddBudgetForm
+                defaultValues={{
+                    category: '',
+                    theme: '',
+                    maxSpend: '',
+                }}
+                categoryOptions={uniqueCategories}
+                themeOptions={uniqueColors}
+            />
         </DialogWrapper>
     );
 
