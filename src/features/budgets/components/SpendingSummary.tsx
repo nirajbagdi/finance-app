@@ -2,7 +2,7 @@
 import BudgetChart from './BudgetChart';
 
 // Utils
-import { formatAmount } from '@/utils';
+import { cn, formatAmount } from '@/utils';
 
 // Types
 import type { Budget, Transaction } from '@/types/finance';
@@ -26,24 +26,31 @@ const SpendingSummary = ({
         <h2 className="mt-6 font-bold text-xl">Spending Summary</h2>
 
         <div className="flex flex-col gap-4 mt-6">
-            {budgets.map((budget) => (
-                <SpendingSummaryItem
-                    key={budget.category}
-                    {...budget}
-                    spent={categorySpending[budget.category]}
-                />
-            ))}
+            {budgets.map((budget) => {
+                const spent = categorySpending[budget.category];
+                const isOverBudget = Math.abs(spent) > budget.value;
+
+                return (
+                    <SpendingSummaryItem
+                        key={budget.category}
+                        spent={spent}
+                        isOverBudget={isOverBudget}
+                        {...budget}
+                    />
+                );
+            })}
         </div>
     </div>
 );
 
-type SpendingSummaryItemProps = Budget & { spent: number };
+type SpendingSummaryItemProps = Budget & { spent: number; isOverBudget: boolean };
 
 const SpendingSummaryItem = ({
     category,
     theme,
     value: budgeted,
     spent,
+    isOverBudget,
 }: SpendingSummaryItemProps) => (
     <div className="border-b-2 last:border-b-0 border-background pb-4">
         <div
@@ -57,7 +64,14 @@ const SpendingSummaryItem = ({
             <div className="absolute top-1 sm:top-0 left-0 w-1 h-full rounded-full bg-[var(--legend-theme)]" />
 
             <div className="flex items-center justify-between">
-                <p className="text-secondary-foreground text-sm">{category}</p>
+                <p
+                    className={cn(
+                        'text-sm',
+                        isOverBudget ? 'text-red' : 'text-secondary-foreground '
+                    )}
+                >
+                    {category}
+                </p>
 
                 <p className="text-xs text-secondary-foreground">
                     <span className="text-sm font-bold text-grey-900 mr-1.5">
