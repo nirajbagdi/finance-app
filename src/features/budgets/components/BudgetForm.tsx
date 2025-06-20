@@ -25,6 +25,9 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
+// Constants
+import { budgetColors } from '../constants';
+
 const formSchema = z.object({
     category: z.string(),
     maxSpend: z
@@ -41,7 +44,6 @@ type BudgetFormProps = {
     defaultValues: FormFields;
 
     categoryOptions: string[];
-    themeOptions: string[];
 
     actionLabel: string;
 
@@ -51,7 +53,6 @@ type BudgetFormProps = {
 const BudgetForm = ({
     defaultValues,
     categoryOptions,
-    themeOptions,
     actionLabel,
     onSubmit,
 }: BudgetFormProps) => {
@@ -160,14 +161,37 @@ const BudgetForm = ({
                             >
                                 <FormControl>
                                     <SelectTrigger className="w-full">
-                                        <SelectValue placeholder="Select a theme" />
+                                        {field.value ? (
+                                            <div className="flex items-center gap-2">
+                                                <span
+                                                    className="w-4 h-4 rounded-sm"
+                                                    style={{
+                                                        backgroundColor: field.value,
+                                                    }}
+                                                />
+                                                {budgetColors.find(
+                                                    (c) => c.hex === field.value
+                                                )?.name ?? 'Unknown Theme'}
+                                            </div>
+                                        ) : (
+                                            <SelectValue placeholder="Select a theme" />
+                                        )}
                                     </SelectTrigger>
                                 </FormControl>
 
                                 <SelectContent>
-                                    {themeOptions.map((option) => (
-                                        <SelectItem key={option} value={option}>
-                                            {option}
+                                    {budgetColors.map((color) => (
+                                        <SelectItem
+                                            key={color.name}
+                                            value={color.hex}
+                                            style={
+                                                {
+                                                    '--budget-theme': color.hex,
+                                                } as React.CSSProperties
+                                            }
+                                        >
+                                            <span className="w-4 h-4 rounded-sm bg-[var(--budget-theme)] mt-0.5" />
+                                            {color.name}
                                         </SelectItem>
                                     ))}
                                 </SelectContent>

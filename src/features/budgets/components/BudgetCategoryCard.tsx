@@ -32,7 +32,6 @@ type BudgetCategoryCardProps = {
     transactions: Transaction[];
 
     categoryOptions: string[];
-    themeOptions: string[];
 
     onEditBudget: (data: BudgetFormFields) => void;
 };
@@ -42,7 +41,6 @@ const BudgetCategoryCard = ({
     spent,
     transactions,
     categoryOptions,
-    themeOptions,
     onEditBudget,
 }: BudgetCategoryCardProps) => {
     const isOverBudget = Math.abs(spent) > budget.value;
@@ -67,7 +65,6 @@ const BudgetCategoryCard = ({
                     maxSpend: budget.value + '',
                 }}
                 categoryOptions={categoryOptions}
-                themeOptions={themeOptions}
                 actionLabel="Edit Budget"
                 onSubmit={onEditBudget}
             />

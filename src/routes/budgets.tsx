@@ -31,8 +31,7 @@ function BudgetsPage() {
 
     const categorySpending = getSpendingByCategory(transactions);
 
-    const uniqueCategories = [...new Set(transactions.map((tx) => tx.category))];
-    const uniqueColors = [...new Set(budgets.map((b) => b.theme || '#000'))];
+    const budgetCategories = [...new Set(transactions.map((tx) => tx.category))];
 
     const handleAddBudget = (data: BudgetFormFields) => {
         addBudget({
@@ -65,8 +64,7 @@ function BudgetsPage() {
                     budget={budget}
                     spent={spent}
                     transactions={recentTransactions}
-                    categoryOptions={uniqueCategories}
-                    themeOptions={uniqueColors}
+                    categoryOptions={budgetCategories}
                     onEditBudget={handleEditBudget}
                 />
             );
@@ -89,8 +87,7 @@ function BudgetsPage() {
                     theme: '',
                     maxSpend: '',
                 }}
-                categoryOptions={uniqueCategories}
-                themeOptions={uniqueColors}
+                categoryOptions={budgetCategories}
                 actionLabel="Add Budget"
                 onSubmit={handleAddBudget}
             />

@@ -67,7 +67,9 @@ const SpendingSummaryItem = ({
                 <p
                     className={cn(
                         'text-sm',
-                        isOverBudget ? 'text-red' : 'text-secondary-foreground '
+                        isOverBudget
+                            ? 'text-red font-semibold'
+                            : 'text-secondary-foreground '
                     )}
                 >
                     {category}
