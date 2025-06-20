@@ -6,18 +6,49 @@ import { Button } from '@/components/ui/button';
 import PageLayout from '@/components/layout/PageLayout';
 import DialogWrapper from '@/components/common/DialogWrapper';
 
-// Components
+// Feature components
 import PotCard from '@/features/pots/components/PotCard';
+import PotForm from '@/features/pots/components/PotForm';
 
 // Store
 import usePotStore from '@/features/pots/store/usePotStore';
+
+// Types
+import type { PotFormFields } from '@/features/pots/types';
 
 export const Route = createFileRoute({
     component: PotsPage,
 });
 
 function PotsPage() {
-    const { pots } = usePotStore();
+    const { pots, addPot, editPot, deletePot } = usePotStore();
+
+    const handleAddPot = (data: PotFormFields) => {
+        addPot({
+            name: data.name,
+            target: +data.target,
+            theme: data.theme,
+            total: 0,
+        });
+    };
+
+    const handleEditPot = (data: PotFormFields) => {
+        editPot(data.name, {
+            name: data.name,
+            theme: data.theme,
+            target: +data.target,
+        });
+    };
+
+    const handleDeletePot = (name: string | null) => {
+        if (name !== null) deletePot(name);
+
+        // Find and click the close button to close the dialog
+        const closeButton = document.querySelector(
+            '[data-slot="dialog-close"]'
+        ) as HTMLButtonElement;
+        if (closeButton) closeButton.click();
+    };
 
     const renderHeaderAction = () => (
         <DialogWrapper
@@ -30,7 +61,15 @@ function PotsPage() {
                 </Button>
             }
         >
-            <div>Hello, Pots!</div>
+            <PotForm
+                defaultValues={{
+                    name: '',
+                    target: '',
+                    theme: '',
+                }}
+                actionLabel="Add Pot"
+                onSubmit={handleAddPot}
+            />
         </DialogWrapper>
     );
 
@@ -38,7 +77,12 @@ function PotsPage() {
         <PageLayout title="Pots" headerAction={renderHeaderAction()}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
                 {pots.map((pot) => (
-                    <PotCard key={pot.name} pot={pot} />
+                    <PotCard
+                        key={pot.name}
+                        pot={pot}
+                        onEditPot={handleEditPot}
+                        onDeletePot={handleDeletePot}
+                    />
                 ))}
             </div>
         </PageLayout>

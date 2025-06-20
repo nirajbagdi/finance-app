@@ -11,17 +11,24 @@ import {
 import { Button } from '@/components/ui/button';
 import DialogWrapper from '@/components/common/DialogWrapper';
 
+// Feature components
+import PotForm from './PotForm';
+
 // Utils
 import { formatAmount } from '@/utils';
 
 // Types
 import type { Pot } from '@/types/finance';
+import type { PotFormFields } from '../types';
 
 type PotCardProps = {
     pot: Pot;
+
+    onEditPot: (data: PotFormFields) => void;
+    onDeletePot: (category: string | null) => void;
 };
 
-const PotCard = ({ pot }: PotCardProps) => {
+const PotCard = ({ pot, onEditPot, onDeletePot }: PotCardProps) => {
     const renderEditAction = () => (
         <DialogWrapper
             title="Edit Pot"
@@ -35,7 +42,15 @@ const PotCard = ({ pot }: PotCardProps) => {
                 </DropdownMenuItem>
             }
         >
-            <div>Edit Pot!</div>
+            <PotForm
+                defaultValues={{
+                    name: pot.name,
+                    target: pot.target + '',
+                    theme: pot.theme,
+                }}
+                actionLabel="Save Changes"
+                onSubmit={onEditPot}
+            />
         </DialogWrapper>
     );
 
@@ -53,11 +68,19 @@ const PotCard = ({ pot }: PotCardProps) => {
             }
         >
             <div className="mt-2">
-                <Button variant="destructive" className="w-full">
+                <Button
+                    variant="destructive"
+                    className="w-full"
+                    onClick={onDeletePot.bind(null, pot.name)}
+                >
                     Yes, Confirm Deletion
                 </Button>
 
-                <Button variant="ghost" className="w-full">
+                <Button
+                    variant="ghost"
+                    className="w-full"
+                    onClick={onDeletePot.bind(null, null)}
+                >
                     No, Go Back
                 </Button>
             </div>

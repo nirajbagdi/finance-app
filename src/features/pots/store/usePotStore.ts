@@ -20,7 +20,7 @@ const usePotStore = create<PotState>((set) => ({
 
     addPot: (pot) => {
         set((state) => ({
-            pots: [...state.pots, pot],
+            pots: [pot, ...state.pots],
         }));
     },
     editPot: (name, edits) => {
