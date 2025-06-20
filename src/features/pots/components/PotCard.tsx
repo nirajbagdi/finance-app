@@ -1,5 +1,5 @@
 // External imports
-import { Ellipsis } from 'lucide-react';
+import { Ellipsis, Plus } from 'lucide-react';
 
 // UI/Shared Components
 import {
@@ -10,6 +10,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import DialogWrapper from '@/components/common/DialogWrapper';
+
+// Utils
+import { formatAmount } from '@/utils';
 
 // Types
 import type { Pot } from '@/types/finance';
@@ -87,6 +90,61 @@ const PotCard = ({ pot }: PotCardProps) => {
                     </DropdownMenu>
                 </div>
             </header>
+
+            <div className="flex items-center justify-between mb-5">
+                <p className="text-secondary-foreground text-sm">Total Saved</p>
+                <span className="font-bold text-3xl">{formatAmount(pot.total)}</span>
+            </div>
+
+            <PotProgress total={pot.total} target={pot.target} theme={pot.theme} />
+
+            <div className="flex items-center justify-between mt-3 text-xs text-secondary-foreground">
+                <span className="font-bold">
+                    {((pot.total / pot.target) * 100).toFixed(1)}%
+                </span>
+                <span>Target of {formatAmount(pot.target)}</span>
+            </div>
+
+            <div className="mt-10 flex items-center justify-between gap-2">
+                <Button size="lg" variant="secondary" className="font-bold flex-1">
+                    <Plus className="-mr-0.5" />
+                    Add Money
+                </Button>
+
+                <Button size="lg" variant="secondary" className="font-bold flex-1">
+                    Withdraw
+                </Button>
+            </div>
+        </div>
+    );
+};
+
+type PotProgressProps = {
+    total: number;
+    target: number;
+    theme: string;
+};
+
+const PotProgress = ({ total, target, theme }: PotProgressProps) => {
+    const percentage = Math.abs((total / target) * 100);
+
+    return (
+        <div
+            className="w-full h-2 rounded-sm bg-background overflow-hidden flex items-center"
+            style={
+                {
+                    '--progress-theme': theme,
+                } as React.CSSProperties
+            }
+        >
+            <div
+                className="h-2 rounded-sm bg-[var(--progress-theme)]"
+                style={
+                    {
+                        width: `${percentage}%`,
+                    } as React.CSSProperties
+                }
+            />
         </div>
     );
 };
