@@ -12,6 +12,7 @@ import type { CreateFileRoute, FileRoutesByPath } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransactionsRouteImport } from './routes/transactions'
+import { Route as PotsRouteImport } from './routes/pots'
 import { Route as OverviewRouteImport } from './routes/overview'
 import { Route as BudgetsRouteImport } from './routes/budgets'
 import { Route as IndexRouteImport } from './routes/index'
@@ -19,6 +20,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TransactionsRoute = TransactionsRouteImport.update({
   id: '/transactions',
   path: '/transactions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PotsRoute = PotsRouteImport.update({
+  id: '/pots',
+  path: '/pots',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OverviewRoute = OverviewRouteImport.update({
@@ -41,12 +47,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/budgets': typeof BudgetsRoute
   '/overview': typeof OverviewRoute
+  '/pots': typeof PotsRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/budgets': typeof BudgetsRoute
   '/overview': typeof OverviewRoute
+  '/pots': typeof PotsRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRoutesById {
@@ -54,20 +62,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/budgets': typeof BudgetsRoute
   '/overview': typeof OverviewRoute
+  '/pots': typeof PotsRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/budgets' | '/overview' | '/transactions'
+  fullPaths: '/' | '/budgets' | '/overview' | '/pots' | '/transactions'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/budgets' | '/overview' | '/transactions'
-  id: '__root__' | '/' | '/budgets' | '/overview' | '/transactions'
+  to: '/' | '/budgets' | '/overview' | '/pots' | '/transactions'
+  id: '__root__' | '/' | '/budgets' | '/overview' | '/pots' | '/transactions'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BudgetsRoute: typeof BudgetsRoute
   OverviewRoute: typeof OverviewRoute
+  PotsRoute: typeof PotsRoute
   TransactionsRoute: typeof TransactionsRoute
 }
 
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       path: '/overview'
       fullPath: '/overview'
       preLoaderRoute: typeof OverviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pots': {
+      id: '/pots'
+      path: '/pots'
+      fullPath: '/pots'
+      preLoaderRoute: typeof PotsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/transactions': {
@@ -131,6 +148,15 @@ declare module './routes/overview' {
     FileRoutesByPath['/overview']['fullPath']
   >
 }
+declare module './routes/pots' {
+  const createFileRoute: CreateFileRoute<
+    '/pots',
+    FileRoutesByPath['/pots']['parentRoute'],
+    FileRoutesByPath['/pots']['id'],
+    FileRoutesByPath['/pots']['path'],
+    FileRoutesByPath['/pots']['fullPath']
+  >
+}
 declare module './routes/transactions' {
   const createFileRoute: CreateFileRoute<
     '/transactions',
@@ -145,6 +171,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BudgetsRoute: BudgetsRoute,
   OverviewRoute: OverviewRoute,
+  PotsRoute: PotsRoute,
   TransactionsRoute: TransactionsRoute,
 }
 export const routeTree = rootRouteImport

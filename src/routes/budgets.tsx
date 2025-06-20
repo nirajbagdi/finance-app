@@ -4,6 +4,7 @@ import { Plus } from 'lucide-react';
 // UI/Shared Components
 import { Button } from '@/components/ui/button';
 import PageLayout from '@/components/layout/PageLayout';
+import DialogWrapper from '@/components/common/DialogWrapper';
 
 // Store
 import useBudgetStore from '@/features/budgets/store/useBudgetStore';
@@ -16,7 +17,6 @@ import BudgetCategoryCard from '@/features/budgets/components/BudgetCategoryCard
 
 // Utils
 import { getSpendingByCategory } from '@/features/budgets/utils';
-import DialogWrapper from '@/components/common/DialogWrapper';
 
 // Types
 import type { BudgetFormFields } from '@/features/budgets/types';
