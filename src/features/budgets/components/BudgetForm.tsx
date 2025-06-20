@@ -29,13 +29,13 @@ import { Input } from '@/components/ui/input';
 import { budgetColors } from '../constants';
 
 const formSchema = z.object({
-    category: z.string(),
+    category: z.string().nonempty({ message: 'Category must be selected' }),
     maxSpend: z
         .string()
         .refine((val) => !isNaN(parseInt(val, 10)) && parseInt(val) > 0, {
             message: 'Maximum spend must be greater than 0',
         }),
-    theme: z.string(),
+    theme: z.string().nonempty({ message: 'Theme must be selected' }),
 });
 
 type FormFields = z.infer<typeof formSchema>;
