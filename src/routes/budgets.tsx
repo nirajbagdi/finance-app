@@ -26,7 +26,7 @@ export const Route = createFileRoute({
 });
 
 function BudgetsPage() {
-    const { budgets, addBudget, editBudget } = useBudgetStore();
+    const { budgets, addBudget, editBudget, deleteBudget } = useBudgetStore();
     const { transactions } = useTransactionStore();
 
     const categorySpending = getSpendingByCategory(transactions);
@@ -48,6 +48,16 @@ function BudgetsPage() {
         });
     };
 
+    const handleDeleteBudget = (category: string | null) => {
+        if (category !== null) deleteBudget(category);
+
+        // Find and click the close button to close the dialog
+        const closeButton = document.querySelector(
+            '[data-slot="dialog-close"]'
+        ) as HTMLButtonElement;
+        if (closeButton) closeButton.click();
+    };
+
     const renderBudgetCards = () =>
         budgets.map((budget) => {
             const { category } = budget;
@@ -66,6 +76,7 @@ function BudgetsPage() {
                     transactions={recentTransactions}
                     categoryOptions={budgetCategories}
                     onEditBudget={handleEditBudget}
+                    onDeleteBudget={handleDeleteBudget}
                 />
             );
         });
