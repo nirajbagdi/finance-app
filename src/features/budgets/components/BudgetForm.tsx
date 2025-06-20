@@ -62,6 +62,8 @@ const BudgetForm = ({
 
     const { budgets } = useBudgetStore();
 
+    const isEditAction = actionLabel.toLowerCase().includes('edit');
+
     function handleSubmit(data: FormFields) {
         onSubmit(data);
         form.reset();
@@ -87,6 +89,7 @@ const BudgetForm = ({
                             <FormLabel>Budget Category</FormLabel>
 
                             <Select
+                                disabled={isEditAction}
                                 onValueChange={field.onChange}
                                 defaultValue={field.value}
                             >
