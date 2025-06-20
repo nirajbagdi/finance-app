@@ -14,8 +14,6 @@ type BudgetPreviewProps = {
 };
 
 const BudgetPreview = ({ budgets, transactions }: BudgetPreviewProps) => {
-    const sortedBudgets = budgets.sort((a, b) => b.value - a.value);
-
     return (
         <div className="grid md:grid-cols-2 gap-12 md:gap-3 items-center justify-items-center h-[80%]">
             <div className="lg:ml-15">
@@ -23,7 +21,7 @@ const BudgetPreview = ({ budgets, transactions }: BudgetPreviewProps) => {
             </div>
 
             <div className="md:flex md:flex-col gap-x-20 gap-y-5 md:gap-6 grid grid-cols-2">
-                {sortedBudgets.map((budget, idx) => (
+                {budgets.map((budget, idx) => (
                     <ColoredLegend
                         key={idx}
                         label={budget.category}

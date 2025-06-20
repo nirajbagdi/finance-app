@@ -53,7 +53,7 @@ function BudgetsPage() {
             const { category } = budget;
 
             const spent = categorySpending[category] || 0;
-            const recentTransactions = transactions
+            const recentTransactions = [...transactions]
                 .filter((tx) => tx.category === category)
                 .sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
                 .slice(0, 3);

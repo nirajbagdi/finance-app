@@ -20,7 +20,7 @@ const useBudgetStore = create<BudgetState>((set) => ({
 
     addBudget: (budget) => {
         set((state) => ({
-            budgets: [...state.budgets, budget],
+            budgets: [budget, ...state.budgets],
         }));
     },
     editBudget: (category, edits) => {
