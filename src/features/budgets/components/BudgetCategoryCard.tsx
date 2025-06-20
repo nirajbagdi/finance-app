@@ -9,6 +9,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import DialogWrapper from '@/components/common/DialogWrapper';
 import ColoredLegend from '@/components/common/ColoredLegend';
 
 // Icons
@@ -16,25 +17,62 @@ import RightArrowIcon from '@/icons/common/right-arrow.svg?react';
 
 // Components
 import TransactionList from '@/features/transactions/components/TransactionList';
+import BudgetForm from './BudgetForm';
 
 // Utils
 import { cn, formatAmount } from '@/utils';
 
 // Types
 import type { Budget, Transaction } from '@/types/finance';
+import type { BudgetFormFields } from '../types';
 
 type BudgetCategoryCardProps = {
     budget: Budget;
     spent: number;
     transactions: Transaction[];
+
+    categoryOptions: string[];
+    themeOptions: string[];
+
+    onEditBudget: (data: BudgetFormFields) => void;
 };
 
 const BudgetCategoryCard = ({
     budget,
     spent,
     transactions,
+    categoryOptions,
+    themeOptions,
+    onEditBudget,
 }: BudgetCategoryCardProps) => {
     const isOverBudget = Math.abs(spent) > budget.value;
+
+    const renderEditAction = () => (
+        <DialogWrapper
+            title="Edit Budget"
+            description="As your budgets change, feel free to update your spending limits."
+            trigger={
+                <DropdownMenuItem
+                    onSelect={(e) => e.preventDefault()}
+                    className="text-foreground"
+                >
+                    Edit
+                </DropdownMenuItem>
+            }
+        >
+            <BudgetForm
+                defaultValues={{
+                    category: budget.category,
+                    theme: budget.theme || '#000',
+                    maxSpend: budget.value + '',
+                }}
+                categoryOptions={categoryOptions}
+                themeOptions={themeOptions}
+                actionLabel="Edit Budget"
+                onSubmit={onEditBudget}
+            />
+        </DialogWrapper>
+    );
 
     return (
         <div className="bg-card p-8 rounded-xl shadow-2xs mb-4 lg:mb-6 last:mb-0">
@@ -56,9 +94,8 @@ const BudgetCategoryCard = ({
                         </DropdownMenuTrigger>
 
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem className="text-foreground">
-                                Edit
-                            </DropdownMenuItem>
+                            {renderEditAction()}
+
                             <DropdownMenuItem className="text-red">
                                 Delete
                             </DropdownMenuItem>

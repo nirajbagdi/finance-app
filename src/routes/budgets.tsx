@@ -10,7 +10,7 @@ import useBudgetStore from '@/features/budgets/store/useBudgetStore';
 import useTransactionStore from '@/features/transactions/store/useTransactionStore';
 
 // Components
-import AddBudgetForm from '@/features/budgets/components/AddBudgetForm';
+import BudgetForm from '@/features/budgets/components/BudgetForm';
 import SpendingSummary from '@/features/budgets/components/SpendingSummary';
 import BudgetCategoryCard from '@/features/budgets/components/BudgetCategoryCard';
 
@@ -18,18 +18,36 @@ import BudgetCategoryCard from '@/features/budgets/components/BudgetCategoryCard
 import { getSpendingByCategory } from '@/features/budgets/utils';
 import DialogWrapper from '@/components/common/DialogWrapper';
 
+// Types
+import type { BudgetFormFields } from '@/features/budgets/types';
+
 export const Route = createFileRoute({
     component: BudgetsPage,
 });
 
 function BudgetsPage() {
-    const { budgets } = useBudgetStore();
+    const { budgets, addBudget, editBudget } = useBudgetStore();
     const { transactions } = useTransactionStore();
 
     const categorySpending = getSpendingByCategory(transactions);
 
     const uniqueCategories = [...new Set(transactions.map((tx) => tx.category))];
     const uniqueColors = [...new Set(budgets.map((b) => b.theme || '#000'))];
+
+    const handleAddBudget = (data: BudgetFormFields) => {
+        addBudget({
+            category: data.category,
+            value: +data.maxSpend,
+            theme: data.theme,
+        });
+    };
+
+    const handleEditBudget = (data: BudgetFormFields) => {
+        editBudget(data.category, {
+            theme: data.theme,
+            value: +data.maxSpend,
+        });
+    };
 
     const renderBudgetCards = () =>
         budgets.map((budget) => {
@@ -47,6 +65,9 @@ function BudgetsPage() {
                     budget={budget}
                     spent={spent}
                     transactions={recentTransactions}
+                    categoryOptions={uniqueCategories}
+                    themeOptions={uniqueColors}
+                    onEditBudget={handleEditBudget}
                 />
             );
         });
@@ -62,7 +83,7 @@ function BudgetsPage() {
                 </Button>
             }
         >
-            <AddBudgetForm
+            <BudgetForm
                 defaultValues={{
                     category: '',
                     theme: '',
@@ -70,6 +91,8 @@ function BudgetsPage() {
                 }}
                 categoryOptions={uniqueCategories}
                 themeOptions={uniqueColors}
+                actionLabel="Add Budget"
+                onSubmit={handleAddBudget}
             />
         </DialogWrapper>
     );

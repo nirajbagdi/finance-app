@@ -37,31 +37,33 @@ const formSchema = z.object({
 
 type FormFields = z.infer<typeof formSchema>;
 
-type AddBudgetFormProps = {
+type BudgetFormProps = {
     defaultValues: FormFields;
+
     categoryOptions: string[];
     themeOptions: string[];
+
+    actionLabel: string;
+
+    onSubmit: (data: FormFields) => void;
 };
 
-const AddBudgetForm = ({
+const BudgetForm = ({
     defaultValues,
     categoryOptions,
     themeOptions,
-}: AddBudgetFormProps) => {
+    actionLabel,
+    onSubmit,
+}: BudgetFormProps) => {
     const form = useForm<FormFields>({
         defaultValues,
         resolver: zodResolver(formSchema),
     });
 
-    const { addBudget, budgets } = useBudgetStore();
+    const { budgets } = useBudgetStore();
 
-    function onSubmit(data: FormFields) {
-        addBudget({
-            category: data.category,
-            value: +data.maxSpend,
-            theme: data.theme,
-        });
-
+    function handleSubmit(data: FormFields) {
+        onSubmit(data);
         form.reset();
 
         // Find and click the close button to close the dialog
@@ -74,7 +76,7 @@ const AddBudgetForm = ({
     return (
         <Form {...form}>
             <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={form.handleSubmit(handleSubmit)}
                 className="flex flex-col gap-y-4"
             >
                 <FormField
@@ -174,11 +176,11 @@ const AddBudgetForm = ({
                 />
 
                 <Button size="lg" className="w-full mt-2">
-                    Add Budget
+                    {actionLabel}
                 </Button>
             </form>
         </Form>
     );
 };
 
-export default AddBudgetForm;
+export default BudgetForm;
