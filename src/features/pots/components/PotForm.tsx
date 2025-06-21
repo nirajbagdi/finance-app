@@ -93,7 +93,7 @@ const PotForm = ({ defaultValues, actionLabel, onSubmit }: PotFormProps) => {
                     name="target"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Maximum Spend</FormLabel>
+                            <FormLabel>Target</FormLabel>
 
                             <FormControl>
                                 <Input

@@ -13,6 +13,9 @@ type PotState = {
     addPot: (pot: Pot) => void;
     editPot: (name: string, edits: Partial<Pot>) => void;
     deletePot: (name: string) => void;
+
+    addMoney: (name: string, amount: number) => void;
+    withdraw: (name: string, amount: number) => void;
 };
 
 const usePotStore = create<PotState>((set) => ({
@@ -33,6 +36,25 @@ const usePotStore = create<PotState>((set) => ({
     deletePot: (name) => {
         set((state) => ({
             pots: state.pots.filter((pot) => pot.name !== name),
+        }));
+    },
+
+    addMoney: (name, amount) => {
+        set((state) => ({
+            pots: state.pots.map((pot) =>
+                pot.name === name
+                    ? { ...pot, total: (pot.total || 0) + amount }
+                    : pot
+            ),
+        }));
+    },
+    withdraw: (name, amount) => {
+        set((state) => ({
+            pots: state.pots.map((pot) =>
+                pot.name === name
+                    ? { ...pot, total: Math.max((pot.total || 0) - amount, 0) }
+                    : pot
+            ),
         }));
     },
 }));

@@ -15,13 +15,14 @@ import usePotStore from '@/features/pots/store/usePotStore';
 
 // Types
 import type { PotFormFields } from '@/features/pots/types';
+import type { Pot } from '@/types/finance';
 
 export const Route = createFileRoute({
     component: PotsPage,
 });
 
 function PotsPage() {
-    const { pots, addPot, editPot, deletePot } = usePotStore();
+    const { pots, addPot, editPot, deletePot, addMoney, withdraw } = usePotStore();
 
     const handleAddPot = (data: PotFormFields) => {
         addPot({
@@ -48,6 +49,14 @@ function PotsPage() {
             '[data-slot="dialog-close"]'
         ) as HTMLButtonElement;
         if (closeButton) closeButton.click();
+    };
+
+    const handleAddMoney = (pot: Pot, data: { amount: string }) => {
+        addMoney(pot.name, +data.amount);
+    };
+
+    const handleWithdrawMoney = (pot: Pot, data: { amount: string }) => {
+        withdraw(pot.name, +data.amount);
     };
 
     const renderHeaderAction = () => (
@@ -82,6 +91,8 @@ function PotsPage() {
                         pot={pot}
                         onEditPot={handleEditPot}
                         onDeletePot={handleDeletePot}
+                        onAddMoney={handleAddMoney}
+                        onWithdrawMoney={handleWithdrawMoney}
                     />
                 ))}
             </div>
