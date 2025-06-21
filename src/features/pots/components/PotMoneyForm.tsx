@@ -1,4 +1,5 @@
 // External imports
+import { useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -31,13 +32,25 @@ type PotMoneyFormProps = {
     action: 'Add' | 'Withdraw';
 
     onSubmit: (data: FormFields) => void;
+    onAmountChange?: (data: FormFields) => void;
 };
 
-const PotMoneyForm = ({ defaultValues, action, onSubmit }: PotMoneyFormProps) => {
+const PotMoneyForm = ({
+    defaultValues,
+    action,
+    onSubmit,
+    onAmountChange,
+}: PotMoneyFormProps) => {
     const form = useForm<FormFields>({
         defaultValues,
         resolver: zodResolver(formSchema),
     });
+
+    const watchedAmount = form.watch('amount');
+
+    useEffect(() => {
+        if (onAmountChange) onAmountChange({ amount: watchedAmount });
+    }, [watchedAmount, onAmountChange]);
 
     function handleSubmit(data: FormFields) {
         onSubmit(data);

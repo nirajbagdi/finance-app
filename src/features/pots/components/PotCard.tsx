@@ -1,4 +1,5 @@
 // External imports
+import { useState } from 'react';
 import { Ellipsis, Plus } from 'lucide-react';
 
 // UI/Shared Components
@@ -16,7 +17,7 @@ import PotForm from './PotForm';
 import PotMoneyForm from './PotMoneyForm';
 
 // Utils
-import { formatAmount } from '@/utils';
+import { cn, formatAmount } from '@/utils';
 
 // Types
 import type { Pot } from '@/types/finance';
@@ -39,6 +40,8 @@ const PotCard = ({
     onAddMoney,
     onWithdrawMoney,
 }: PotCardProps) => {
+    const [newAmount, setNewAmount] = useState(+pot.total);
+
     const renderEditAction = () => (
         <DialogWrapper
             title="Edit Pot"
@@ -109,13 +112,17 @@ const PotCard = ({
             }
         >
             <div className="my-3">
-                <PotSummary pot={pot} />
+                <PotSummary
+                    type="add"
+                    pot={{ ...pot, total: pot.total + newAmount }}
+                />
             </div>
 
             <PotMoneyForm
                 action="Add"
                 defaultValues={{ amount: '' }}
                 onSubmit={onAddMoney.bind(null, pot)}
+                onAmountChange={(data) => setNewAmount(+data.amount)}
             />
         </DialogWrapper>
     );
@@ -131,13 +138,17 @@ const PotCard = ({
             }
         >
             <div className="my-3">
-                <PotSummary pot={pot} />
+                <PotSummary
+                    type="withdraw"
+                    pot={{ ...pot, total: pot.total - newAmount }}
+                />
             </div>
 
             <PotMoneyForm
                 action="Withdraw"
                 defaultValues={{ amount: '' }}
                 onSubmit={onWithdrawMoney.bind(null, pot)}
+                onAmountChange={(data) => setNewAmount(+data.amount)}
             />
         </DialogWrapper>
     );
@@ -181,23 +192,43 @@ const PotCard = ({
 
 type PotSummaryProps = {
     pot: Pot;
+    type?: 'add' | 'withdraw';
 };
 
-const PotSummary = ({ pot }: PotSummaryProps) => {
+const PotSummary = ({ pot, type }: PotSummaryProps) => {
+    const label =
+        type === 'add' || type === 'withdraw' ? 'New Amount' : 'Total Saved';
+
     return (
         <div>
             <div className="flex items-center justify-between mb-5">
-                <p className="text-secondary-foreground text-sm">Total Saved</p>
+                <p className="text-secondary-foreground text-sm">{label}</p>
                 <span className="font-bold text-3xl">{formatAmount(pot.total)}</span>
             </div>
 
-            <PotProgress total={pot.total} target={pot.target} theme={pot.theme} />
+            <PotProgress
+                total={pot.total}
+                target={pot.target}
+                theme={!type ? pot.theme : '#201f24'}
+            />
 
-            <div className="flex items-center justify-between mt-3 text-xs text-secondary-foreground">
-                <span className="font-bold">
+            <div className="flex items-center justify-between mt-3 text-xs">
+                <span
+                    className={cn(
+                        'font-bold',
+                        type === 'add'
+                            ? 'text-green'
+                            : type === 'withdraw'
+                              ? 'text-red'
+                              : 'text-secondary-foreground'
+                    )}
+                >
                     {((pot.total / pot.target) * 100).toFixed(1)}%
                 </span>
-                <span>Target of {formatAmount(pot.target)}</span>
+
+                <span className="text-secondary-foreground">
+                    Target of {formatAmount(pot.target)}
+                </span>
             </div>
         </div>
     );
