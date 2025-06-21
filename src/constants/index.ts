@@ -1,4 +1,4 @@
-export const budgetColors = [
+export const themeColors = [
     { name: 'Rose Dust', hex: '#EFA2B1' },
     { name: 'Muted Teal', hex: '#82C9D7' },
     { name: 'Warm Apricot', hex: '#F2CDAC' },

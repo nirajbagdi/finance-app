@@ -26,7 +26,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 // Constants
-import { budgetColors } from '../constants';
+import { themeColors as budgetColors } from '@/constants';
 
 const formSchema = z.object({
     category: z.string().nonempty({ message: 'Category must be selected' }),

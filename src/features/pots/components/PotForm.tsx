@@ -23,7 +23,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 // Constants
-import { potColors } from '../constants';
+import { themeColors as potColors } from '@/constants';
 
 const formSchema = z.object({
     name: z.string().nonempty({ message: 'Name must not be empty' }),
