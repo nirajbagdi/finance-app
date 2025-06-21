@@ -121,6 +121,7 @@ const PotCard = ({
             <PotMoneyForm
                 action="Add"
                 defaultValues={{ amount: '' }}
+                maxAmount={pot.target - pot.total}
                 onSubmit={onAddMoney.bind(null, pot)}
                 onAmountChange={(data) => setNewAmount(+data.amount)}
             />
@@ -147,6 +148,7 @@ const PotCard = ({
             <PotMoneyForm
                 action="Withdraw"
                 defaultValues={{ amount: '' }}
+                maxAmount={pot.total}
                 onSubmit={onWithdrawMoney.bind(null, pot)}
                 onAmountChange={(data) => setNewAmount(+data.amount)}
             />

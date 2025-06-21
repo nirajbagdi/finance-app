@@ -16,19 +16,17 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-const formSchema = z.object({
-    amount: z
-        .string()
-        .refine((val) => !isNaN(parseInt(val, 10)) && parseInt(val) > 0, {
-            message: 'Amount must be greater than 0',
-        }),
-});
+// Utils
+import { formatAmount } from '@/utils';
 
-type FormFields = z.infer<typeof formSchema>;
+type FormFields = {
+    amount: string;
+};
 
 type PotMoneyFormProps = {
     defaultValues: FormFields;
 
+    maxAmount: number;
     action: 'Add' | 'Withdraw';
 
     onSubmit: (data: FormFields) => void;
@@ -37,10 +35,38 @@ type PotMoneyFormProps = {
 
 const PotMoneyForm = ({
     defaultValues,
+    maxAmount,
     action,
     onSubmit,
     onAmountChange,
 }: PotMoneyFormProps) => {
+    const formSchema = z.object({
+        amount: z
+            .string()
+            .refine(
+                (val) => {
+                    const parsed = parseInt(val, 10);
+                    return !isNaN(parsed) && parsed > 0;
+                },
+                {
+                    message: 'Amount must be greater than 0',
+                }
+            )
+            .refine(
+                (val) => {
+                    if (!maxAmount) return true;
+                    const parsed = parseInt(val, 10);
+                    return parsed <= maxAmount;
+                },
+                {
+                    message:
+                        action === 'Add'
+                            ? `Amount cannot exceed the target`
+                            : `You can't withdraw amount more than your current balance (${formatAmount(maxAmount)})`,
+                }
+            ),
+    });
+
     const form = useForm<FormFields>({
         defaultValues,
         resolver: zodResolver(formSchema),
