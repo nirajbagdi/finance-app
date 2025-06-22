@@ -20,7 +20,7 @@ import { Input } from '@/components/ui/input';
 import { formatAmount } from '@/utils';
 
 // Types
-import { MoneyActionTypes } from '../types';
+import { MoneyActionTypes } from '@/features/pots/types';
 
 type FormFields = {
     amount: string;

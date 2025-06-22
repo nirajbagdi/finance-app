@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 
 // Feature components
 import DialogWrapper from '@/components/common/DialogWrapper';
-import PotMoneyForm from '../PotMoneyForm';
+import PotMoneyForm from './PotMoneyForm';
 import PotSummary from './PotSummary';
 
 // Types
