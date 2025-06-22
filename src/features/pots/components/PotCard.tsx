@@ -112,10 +112,8 @@ const PotCard = ({
             }
         >
             <div className="my-3">
-                <PotSummary
-                    type="add"
-                    pot={{ ...pot, total: pot.total + newAmount }}
-                />
+                {' '}
+                <PotSummary type="add" pot={pot} previewAmount={newAmount} />
             </div>
 
             <PotMoneyForm
@@ -139,10 +137,8 @@ const PotCard = ({
             }
         >
             <div className="my-3">
-                <PotSummary
-                    type="withdraw"
-                    pot={{ ...pot, total: pot.total - newAmount }}
-                />
+                {' '}
+                <PotSummary type="withdraw" pot={pot} previewAmount={newAmount} />
             </div>
 
             <PotMoneyForm
@@ -195,9 +191,10 @@ const PotCard = ({
 type PotSummaryProps = {
     pot: Pot;
     type?: 'add' | 'withdraw';
+    previewAmount?: number;
 };
 
-const PotSummary = ({ pot, type }: PotSummaryProps) => {
+const PotSummary = ({ pot, type, previewAmount = 0 }: PotSummaryProps) => {
     const label =
         type === 'add' || type === 'withdraw' ? 'New Amount' : 'Total Saved';
 
@@ -205,15 +202,19 @@ const PotSummary = ({ pot, type }: PotSummaryProps) => {
         <div>
             <div className="flex items-center justify-between mb-5">
                 <p className="text-secondary-foreground text-sm">{label}</p>
-                <span className="font-bold text-3xl">{formatAmount(pot.total)}</span>
-            </div>
-
+                <span className="font-bold text-3xl">
+                    {type === 'add' || !type
+                        ? formatAmount(pot.total + previewAmount)
+                        : formatAmount(pot.total - previewAmount)}
+                </span>
+            </div>{' '}
             <PotProgress
                 total={pot.total}
                 target={pot.target}
                 theme={!type ? pot.theme : '#201f24'}
+                type={type}
+                previewAmount={previewAmount}
             />
-
             <div className="flex items-center justify-between mt-3 text-xs">
                 <span
                     className={cn(
@@ -225,7 +226,14 @@ const PotSummary = ({ pot, type }: PotSummaryProps) => {
                               : 'text-secondary-foreground'
                     )}
                 >
-                    {((pot.total / pot.target) * 100).toFixed(1)}%
+                    {type === 'add' || !type
+                        ? (((pot.total + previewAmount) / pot.target) * 100).toFixed(
+                              1
+                          )
+                        : (((pot.total - previewAmount) / pot.target) * 100).toFixed(
+                              1
+                          )}
+                    %
                 </span>
 
                 <span className="text-secondary-foreground">
@@ -240,28 +248,58 @@ type PotProgressProps = {
     total: number;
     target: number;
     theme: string;
+    type?: 'add' | 'withdraw';
+    previewAmount?: number;
 };
 
-const PotProgress = ({ total, target, theme }: PotProgressProps) => {
+const PotProgress = ({
+    total,
+    target,
+    theme,
+    type,
+    previewAmount = 0,
+}: PotProgressProps) => {
     const percentage = Math.abs((total / target) * 100);
+    const previewPercentage = Math.abs((previewAmount / target) * 100);
 
     return (
         <div
-            className="w-full h-2 rounded-sm bg-background overflow-hidden flex items-center"
+            className="w-full h-2 rounded-sm bg-background overflow-hidden flex items-center relative"
             style={
                 {
                     '--progress-theme': theme,
                 } as React.CSSProperties
             }
         >
+            {/* Base progress bar */}
             <div
-                className="h-2 rounded-sm bg-[var(--progress-theme)]"
-                style={
-                    {
-                        width: `${percentage}%`,
-                    } as React.CSSProperties
-                }
+                className={cn(
+                    'h-2 rounded-l-sm bg-[var(--progress-theme)]',
+                    type === 'withdraw' ? 'rounded-r-sm' : 'rounded-r-none'
+                )}
+                style={{
+                    width: `${percentage}%`,
+                }}
             />
+
+            {/* Preview progress bar */}
+            {type && (
+                <div
+                    className={cn(
+                        'h-2 absolute rounded-r-sm',
+                        type === 'add'
+                            ? 'bg-green ml-0.5'
+                            : 'bg-red border-l-3 border-l-white'
+                    )}
+                    style={{
+                        left:
+                            type === 'add'
+                                ? `${percentage}%`
+                                : `${percentage - previewPercentage}%`,
+                        width: `${previewPercentage}%`,
+                    }}
+                />
+            )}
         </div>
     );
 };
