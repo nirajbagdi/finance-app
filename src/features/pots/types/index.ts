@@ -3,3 +3,8 @@ export type PotFormFields = {
     target: string;
     theme: string;
 };
+
+export enum MoneyActionTypes {
+    Add = 'Add',
+    Withdraw = 'Withdraw',
+}

@@ -19,6 +19,9 @@ import { Input } from '@/components/ui/input';
 // Utils
 import { formatAmount } from '@/utils';
 
+// Types
+import { MoneyActionTypes } from '../types';
+
 type FormFields = {
     amount: string;
 };
@@ -27,7 +30,7 @@ type PotMoneyFormProps = {
     defaultValues: FormFields;
 
     maxAmount: number;
-    action: 'Add' | 'Withdraw';
+    actionType: MoneyActionTypes;
 
     onSubmit: (data: FormFields) => void;
     onAmountChange?: (data: FormFields) => void;
@@ -36,7 +39,7 @@ type PotMoneyFormProps = {
 const PotMoneyForm = ({
     defaultValues,
     maxAmount,
-    action,
+    actionType,
     onSubmit,
     onAmountChange,
 }: PotMoneyFormProps) => {
@@ -60,7 +63,7 @@ const PotMoneyForm = ({
                 },
                 {
                     message:
-                        action === 'Add'
+                        actionType === MoneyActionTypes.Add
                             ? `Amount cannot exceed the target`
                             : `You can't withdraw amount more than your current balance (${formatAmount(maxAmount)})`,
                 }
@@ -100,7 +103,7 @@ const PotMoneyForm = ({
                     name="amount"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Amount to {action}</FormLabel>
+                            <FormLabel>Amount to {actionType}</FormLabel>
 
                             <FormControl>
                                 <Input
@@ -117,7 +120,9 @@ const PotMoneyForm = ({
                 />
 
                 <Button size="lg" className="w-full mt-2">
-                    {action === 'Add' ? 'Confirm Addition' : 'Confirm Withdrawal'}
+                    {actionType === MoneyActionTypes.Add
+                        ? 'Confirm Addition'
+                        : 'Confirm Withdrawal'}
                 </Button>
             </form>
         </Form>

@@ -33,8 +33,8 @@ function PotsPage() {
         });
     };
 
-    const handleEditPot = (data: PotFormFields) => {
-        editPot(data.name, {
+    const handleEditPot = (potName: string, data: PotFormFields) => {
+        editPot(potName, {
             name: data.name,
             theme: data.theme,
             target: +data.target,
