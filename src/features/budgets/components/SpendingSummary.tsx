@@ -18,27 +18,29 @@ const SpendingSummary = ({
     transactions,
     categorySpending,
 }: SpendingSummaryProps) => (
-    <div className="bg-card p-8 rounded-xl shadow-2xs">
-        <div className="flex">
+    <div className="bg-card p-8 rounded-xl shadow-2xs md:flex md:items-center md:gap-20 lg:block">
+        <div className="flex md:ml-15">
             <BudgetChart budgets={budgets} transactions={transactions} />
         </div>
 
-        <h2 className="mt-6 font-bold text-xl">Spending Summary</h2>
+        <div className="flex-1">
+            <h2 className="mt-6 font-bold text-xl">Spending Summary</h2>
 
-        <div className="flex flex-col gap-4 mt-6">
-            {budgets.map((budget) => {
-                const spent = categorySpending[budget.category];
-                const isOverBudget = Math.abs(spent) > budget.value;
+            <div className="flex flex-col gap-4 mt-6">
+                {budgets.map((budget) => {
+                    const spent = categorySpending[budget.category];
+                    const isOverBudget = Math.abs(spent) > budget.value;
 
-                return (
-                    <SpendingSummaryItem
-                        key={budget.category}
-                        spent={spent}
-                        isOverBudget={isOverBudget}
-                        {...budget}
-                    />
-                );
-            })}
+                    return (
+                        <SpendingSummaryItem
+                            key={budget.category}
+                            spent={spent}
+                            isOverBudget={isOverBudget}
+                            {...budget}
+                        />
+                    );
+                })}
+            </div>
         </div>
     </div>
 );
