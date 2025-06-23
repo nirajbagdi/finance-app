@@ -55,11 +55,7 @@ const SpendingSummaryItem = ({
     <div className="border-b-2 last:border-b-0 border-background pb-4">
         <div
             className="relative pl-4"
-            style={
-                {
-                    '--legend-theme': theme,
-                } as React.CSSProperties
-            }
+            style={{ '--legend-theme': theme } as React.CSSProperties}
         >
             <div className="absolute top-1 sm:top-0 left-0 w-1 h-full rounded-full bg-[var(--legend-theme)]" />
 

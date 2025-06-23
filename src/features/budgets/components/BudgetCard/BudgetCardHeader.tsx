@@ -35,11 +35,7 @@ const BudgetCardHeader = ({
         <div className="flex items-center gap-2.5 mb-2">
             <span
                 className="inline-block w-4 h-4 rounded-full bg-[var(--budget-theme)]"
-                style={
-                    {
-                        '--budget-theme': budget.theme,
-                    } as React.CSSProperties
-                }
+                style={{ '--budget-theme': budget.theme } as React.CSSProperties}
             />
             <h2 className="font-bold text-xl flex-1">{budget.category}</h2>
 
