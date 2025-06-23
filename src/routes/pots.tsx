@@ -1,14 +1,9 @@
-// External imports
-import { Plus } from 'lucide-react';
-
 // UI/Shared components
-import { Button } from '@/components/ui/button';
 import PageLayout from '@/components/layout/PageLayout';
-import DialogWrapper from '@/components/common/DialogWrapper';
 
 // Feature components
 import PotCard from '@/features/pots/components/PotCard';
-import PotForm from '@/features/pots/components/PotForm';
+import AddPotDialog from '@/features/pots/components/AddPotDialog';
 
 // Store
 import usePotStore from '@/features/pots/store/usePotStore';
@@ -59,31 +54,11 @@ function PotsPage() {
         withdraw(pot.name, +data.amount);
     };
 
-    const renderHeaderAction = () => (
-        <DialogWrapper
-            title="Add New Pot"
-            description="Create a pot to set savings targets. These can help keep you on track as you save for special purchases."
-            trigger={
-                <Button size="lg">
-                    <Plus className="-mr-0.5" />
-                    Add New Pot
-                </Button>
-            }
-        >
-            <PotForm
-                defaultValues={{
-                    name: '',
-                    target: '',
-                    theme: '',
-                }}
-                actionLabel="Add Pot"
-                onSubmit={handleAddPot}
-            />
-        </DialogWrapper>
-    );
-
     return (
-        <PageLayout title="Pots" headerAction={renderHeaderAction()}>
+        <PageLayout
+            title="Pots"
+            headerAction={<AddPotDialog onAddPot={handleAddPot} />}
+        >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
                 {pots.map((pot) => (
                     <PotCard
