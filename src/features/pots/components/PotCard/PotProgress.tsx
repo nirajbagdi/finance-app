@@ -45,7 +45,7 @@ const PotProgress = ({
                         'h-2 absolute rounded-r-sm',
                         isAddAction
                             ? 'bg-green ml-0.5'
-                            : 'bg-red border-l-3 border-l-white'
+                            : 'bg-red border-l-3 border-l-background'
                     )}
                     style={{
                         left: isAddAction
