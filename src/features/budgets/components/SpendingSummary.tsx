@@ -19,7 +19,7 @@ const SpendingSummary = ({
     categorySpending,
 }: SpendingSummaryProps) => (
     <div className="bg-card p-8 rounded-xl shadow-2xs md:flex md:items-center md:gap-20 lg:block">
-        <div className="flex md:ml-15">
+        <div className="flex md:ml-15 lg:ml-0">
             <BudgetChart budgets={budgets} transactions={transactions} />
         </div>
 
