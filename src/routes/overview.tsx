@@ -2,6 +2,7 @@
 import useBudgetStore from '@/features/budgets/store/useBudgetStore';
 import usePotStore from '@/features/pots/store/usePotStore';
 import useTransactionStore from '@/features/transactions/store/useTransactionStore';
+import useRecurringBillStore from '@/features/recurring-bills/store/useRecurringBillStore';
 
 // UI/Shared Components
 import PageLayout from '@/components/layout/PageLayout';
@@ -12,6 +13,7 @@ import BudgetPreview from '@/features/budgets/components/BudgetPreview';
 import FeatureCard from '@/features/overview/components/FeatureCard';
 import PotPreview from '@/features/pots/components/PotPreview';
 import TransactionPreview from '@/features/transactions/components/TransactionPreview';
+import RecurringBillPreview from '@/features/recurring-bills/components/RecurringBillPreview';
 
 // Utils
 import { getBalanceSummary } from '@/features/overview/utils';
@@ -24,8 +26,11 @@ function OverviewPage() {
     const { transactions } = useTransactionStore();
     const { budgets } = useBudgetStore();
     const { pots } = usePotStore();
+    const { recurringBills } = useRecurringBillStore();
 
     const balance = getBalanceSummary(transactions);
+
+    console.log(recurringBills);
 
     return (
         <PageLayout title="Overview">
@@ -62,6 +67,17 @@ function OverviewPage() {
                     className="lg:row-span-2"
                 >
                     <TransactionPreview transactions={transactions} />
+                </FeatureCard>
+
+                <FeatureCard
+                    title="Recurring Bills"
+                    link={{
+                        label: 'See Details',
+                        href: '/recurring-bills',
+                    }}
+                    className="lg:col-start-2 lg:col-end-3"
+                >
+                    <RecurringBillPreview recurringBills={recurringBills} />
                 </FeatureCard>
             </div>
         </PageLayout>

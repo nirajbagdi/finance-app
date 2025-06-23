@@ -12,6 +12,7 @@ import type { CreateFileRoute, FileRoutesByPath } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransactionsRouteImport } from './routes/transactions'
+import { Route as RecurringBillsRouteImport } from './routes/recurring-bills'
 import { Route as PotsRouteImport } from './routes/pots'
 import { Route as OverviewRouteImport } from './routes/overview'
 import { Route as BudgetsRouteImport } from './routes/budgets'
@@ -20,6 +21,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TransactionsRoute = TransactionsRouteImport.update({
   id: '/transactions',
   path: '/transactions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecurringBillsRoute = RecurringBillsRouteImport.update({
+  id: '/recurring-bills',
+  path: '/recurring-bills',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PotsRoute = PotsRouteImport.update({
@@ -48,6 +54,7 @@ export interface FileRoutesByFullPath {
   '/budgets': typeof BudgetsRoute
   '/overview': typeof OverviewRoute
   '/pots': typeof PotsRoute
+  '/recurring-bills': typeof RecurringBillsRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRoutesByTo {
@@ -55,6 +62,7 @@ export interface FileRoutesByTo {
   '/budgets': typeof BudgetsRoute
   '/overview': typeof OverviewRoute
   '/pots': typeof PotsRoute
+  '/recurring-bills': typeof RecurringBillsRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRoutesById {
@@ -63,14 +71,34 @@ export interface FileRoutesById {
   '/budgets': typeof BudgetsRoute
   '/overview': typeof OverviewRoute
   '/pots': typeof PotsRoute
+  '/recurring-bills': typeof RecurringBillsRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/budgets' | '/overview' | '/pots' | '/transactions'
+  fullPaths:
+    | '/'
+    | '/budgets'
+    | '/overview'
+    | '/pots'
+    | '/recurring-bills'
+    | '/transactions'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/budgets' | '/overview' | '/pots' | '/transactions'
-  id: '__root__' | '/' | '/budgets' | '/overview' | '/pots' | '/transactions'
+  to:
+    | '/'
+    | '/budgets'
+    | '/overview'
+    | '/pots'
+    | '/recurring-bills'
+    | '/transactions'
+  id:
+    | '__root__'
+    | '/'
+    | '/budgets'
+    | '/overview'
+    | '/pots'
+    | '/recurring-bills'
+    | '/transactions'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -78,6 +106,7 @@ export interface RootRouteChildren {
   BudgetsRoute: typeof BudgetsRoute
   OverviewRoute: typeof OverviewRoute
   PotsRoute: typeof PotsRoute
+  RecurringBillsRoute: typeof RecurringBillsRoute
   TransactionsRoute: typeof TransactionsRoute
 }
 
@@ -109,6 +138,13 @@ declare module '@tanstack/react-router' {
       path: '/pots'
       fullPath: '/pots'
       preLoaderRoute: typeof PotsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recurring-bills': {
+      id: '/recurring-bills'
+      path: '/recurring-bills'
+      fullPath: '/recurring-bills'
+      preLoaderRoute: typeof RecurringBillsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/transactions': {
@@ -157,6 +193,15 @@ declare module './routes/pots' {
     FileRoutesByPath['/pots']['fullPath']
   >
 }
+declare module './routes/recurring-bills' {
+  const createFileRoute: CreateFileRoute<
+    '/recurring-bills',
+    FileRoutesByPath['/recurring-bills']['parentRoute'],
+    FileRoutesByPath['/recurring-bills']['id'],
+    FileRoutesByPath['/recurring-bills']['path'],
+    FileRoutesByPath['/recurring-bills']['fullPath']
+  >
+}
 declare module './routes/transactions' {
   const createFileRoute: CreateFileRoute<
     '/transactions',
@@ -172,6 +217,7 @@ const rootRouteChildren: RootRouteChildren = {
   BudgetsRoute: BudgetsRoute,
   OverviewRoute: OverviewRoute,
   PotsRoute: PotsRoute,
+  RecurringBillsRoute: RecurringBillsRoute,
   TransactionsRoute: TransactionsRoute,
 }
 export const routeTree = rootRouteImport
