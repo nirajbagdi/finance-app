@@ -13,7 +13,7 @@ import useTransactionStore from '@/features/transactions/store/useTransactionSto
 // Components
 import BudgetForm from '@/features/budgets/components/BudgetForm';
 import SpendingSummary from '@/features/budgets/components/SpendingSummary';
-import BudgetCategoryCard from '@/features/budgets/components/BudgetCategoryCard';
+import BudgetCard from '@/features/budgets/components/BudgetCard';
 
 // Utils
 import { getSpendingByCategory } from '@/features/budgets/utils';
@@ -69,12 +69,11 @@ function BudgetsPage() {
                 .slice(0, 3);
 
             return (
-                <BudgetCategoryCard
+                <BudgetCard
                     key={budget.category}
                     budget={budget}
                     spent={spent}
                     transactions={recentTransactions}
-                    categoryOptions={budgetCategories}
                     onEditBudget={handleEditBudget}
                     onDeleteBudget={handleDeleteBudget}
                 />

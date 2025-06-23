@@ -14,7 +14,7 @@ type PotCardProps = {
     pot: Pot;
 
     onEditPot: (potName: string, data: PotFormFields) => void;
-    onDeletePot: (category: string | null) => void;
+    onDeletePot: (name: string | null) => void;
 
     onAddMoney: (pot: Pot, data: { amount: string }) => void;
     onWithdrawMoney: (pot: Pot, data: { amount: string }) => void;

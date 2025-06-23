@@ -6,7 +6,7 @@ import { z } from 'zod';
 // Store
 import useBudgetStore from '@/features/budgets/store/useBudgetStore';
 
-// UI compoonents
+// UI components
 import {
     Form,
     FormControl,
@@ -43,7 +43,7 @@ type FormFields = z.infer<typeof formSchema>;
 type BudgetFormProps = {
     defaultValues: FormFields;
 
-    categoryOptions: string[];
+    categoryOptions?: string[];
 
     actionLabel: string;
 
@@ -101,7 +101,17 @@ const BudgetForm = ({
                                 </FormControl>
 
                                 <SelectContent>
-                                    {categoryOptions.map((option) => {
+                                    {!categoryOptions?.length &&
+                                        defaultValues.category && (
+                                            <SelectItem
+                                                disabled
+                                                value={defaultValues.category}
+                                            >
+                                                {defaultValues.category}
+                                            </SelectItem>
+                                        )}
+
+                                    {categoryOptions?.map((option) => {
                                         const isCategoryUsed = budgets.some((b) =>
                                             option.includes(b.category)
                                         );
