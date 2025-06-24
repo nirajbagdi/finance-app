@@ -1,4 +1,6 @@
 // External imports
+import { useMemo } from 'react';
+import { useDebounce } from 'use-debounce';
 import { useSearch, useNavigate } from '@tanstack/react-router';
 
 // UI/Shared components
@@ -17,8 +19,12 @@ import RecurringBillControls from '@/features/recurring-bills/components/Recurri
 import RecurringBillTable from '@/features/recurring-bills/components/RecurringBillTable';
 import RecurringBillList from '@/features/recurring-bills/components/RecurringBillList';
 
+// Utils
+import { stringMatches } from '@/utils';
+
 // Types
 import {
+    sortComparators,
     type SelectControls,
     type SortOption,
 } from '@/features/recurring-bills/constants';
@@ -43,9 +49,25 @@ function RecurringBillsPage() {
     const search = useSearch({ from: '/recurring-bills' });
     const navigate = useNavigate({ from: '/recurring-bills' });
 
+    const [debouncedQuery] = useDebounce(search.query, 300);
+
     const { recurringBills } = useRecurringBillStore();
 
     const isMobile = useMediaQuery('(max-width: 768px)');
+
+    // Filter bills based on "search query"
+    const filteredBills = useMemo(() => {
+        return recurringBills.filter(({ name: billName }) => {
+            const matchesQuery = stringMatches(billName, debouncedQuery);
+            return matchesQuery;
+        });
+    }, [recurringBills, debouncedQuery, search.query]);
+
+    // Sort transactions based on "sort" criteria
+    const sortedBills = useMemo(() => {
+        const comparator = sortComparators[search.sort];
+        return [...filteredBills].sort(comparator);
+    }, [filteredBills, search.sort]);
 
     const updateSearchParams = (updates: Partial<typeof search>) => {
         navigate({ search: (prev) => ({ ...prev, ...updates }) });
@@ -71,9 +93,9 @@ function RecurringBillsPage() {
                     </div>
 
                     {isMobile ? (
-                        <RecurringBillList recurringBills={recurringBills} />
+                        <RecurringBillList recurringBills={sortedBills} />
                     ) : (
-                        <RecurringBillTable recurringBills={recurringBills} />
+                        <RecurringBillTable recurringBills={sortedBills} />
                     )}
                 </div>
             </div>
