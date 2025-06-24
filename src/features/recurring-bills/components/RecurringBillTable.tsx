@@ -1,5 +1,10 @@
 // Utils
 import { cn, getDayWithSuffix } from '@/utils';
+import { getBillStatus } from '../utils';
+
+// Icons
+import BillPaidIcon from '@/icons/common/bill-paid.svg?react';
+import BillDueIcon from '@/icons/common/bill-due.svg?react';
 
 // Types
 import type { Transaction } from '@/types/finance';
@@ -28,9 +33,27 @@ const RecurringBillTable = ({ recurringBills }: RecurringBillTableProps) => {
 
         {
             header: 'Due Date',
-            render: (bill: Transaction) => (
-                <div className="text-gray-600">{`Monthly - ${getDayWithSuffix(bill.date)}`}</div>
-            ),
+            render: (bill: Transaction) => {
+                const isBillPaid = getBillStatus(bill) === 'paid';
+                const isBillDue = getBillStatus(bill) === 'dueSoon';
+
+                return (
+                    <div
+                        className={cn(
+                            'flex items-center gap-2',
+                            isBillPaid
+                                ? 'text-green'
+                                : isBillDue
+                                  ? 'text-red'
+                                  : 'text-gray-600'
+                        )}
+                    >
+                        {`Monthly - ${getDayWithSuffix(bill.date)}`}
+                        {isBillPaid && <BillPaidIcon />}
+                        {isBillDue && <BillDueIcon />}
+                    </div>
+                );
+            },
         },
 
         {

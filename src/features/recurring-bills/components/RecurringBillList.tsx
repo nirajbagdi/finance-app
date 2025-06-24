@@ -1,5 +1,10 @@
-// External imports
+// Utils
 import { cn, formatAmount, getDayWithSuffix } from '@/utils';
+import { getBillStatus } from '../utils';
+
+// Icons
+import BillPaidIcon from '@/icons/common/bill-paid.svg?react';
+import BillDueIcon from '@/icons/common/bill-due.svg?react';
 
 // Types
 import type { Transaction } from '@/types/finance';
@@ -20,29 +25,23 @@ const RecurringBillList = ({
         )}
     >
         {recurringBills.map((bill, idx) => (
-            <RecurringBillListItem key={idx} {...bill} compact={compact} />
+            <RecurringBillListItem key={idx} bill={bill} compact={compact} />
         ))}
     </ul>
 );
 
 type RecurringBillListItemProps = {
-    avatar: string;
-    name: string;
-    date: string;
-    amount: number;
+    bill: Transaction;
     compact?: boolean;
 };
 
-const RecurringBillListItem = ({
-    amount,
-    avatar,
-    date,
-    name,
-    compact,
-}: RecurringBillListItemProps) => {
-    const formattedAmount = formatAmount(amount);
+const RecurringBillListItem = ({ bill, compact }: RecurringBillListItemProps) => {
+    const formattedAmount = formatAmount(bill.amount);
 
-    const isIncome = amount > 0;
+    const isIncome = bill.amount > 0;
+
+    const isBillPaid = getBillStatus(bill) === 'paid';
+    const isBillDue = getBillStatus(bill) === 'dueSoon';
 
     return (
         <li
@@ -54,28 +53,37 @@ const RecurringBillListItem = ({
         >
             <article className="flex items-center gap-4">
                 <img
-                    src={avatar}
+                    src={bill.avatar}
                     width={compact ? 28 : 40}
                     height={compact ? 28 : 40}
-                    alt={name}
+                    alt={bill.name}
                     className="rounded-full"
                 />
 
                 <div className="flex-1">
                     <p
                         className={cn(
-                            'font-bold',
+                            'font-bold mb-0.5',
                             compact ? 'text-[13px]' : 'text-sm'
                         )}
                     >
-                        {name}
+                        {bill.name}
                     </p>
 
                     <time
-                        dateTime={date as string}
-                        className="text-xs text-secondary-foreground"
+                        dateTime={bill.date as string}
+                        className={cn(
+                            'text-xs flex items-center gap-1',
+                            isBillPaid
+                                ? 'text-green'
+                                : isBillDue
+                                  ? 'text-red'
+                                  : 'text-secondary-foreground'
+                        )}
                     >
-                        {`Monthly - ${getDayWithSuffix(date)}`}
+                        {`Monthly - ${getDayWithSuffix(bill.date)}`}
+                        {isBillPaid && <BillPaidIcon />}
+                        {isBillDue && <BillDueIcon />}
                     </time>
                 </div>
 
