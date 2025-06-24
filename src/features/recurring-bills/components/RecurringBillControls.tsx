@@ -163,7 +163,7 @@ const MobileRecurringBillControls = ({
                         <SelectTrigger
                             id={item.key}
                             className={cn(
-                                'relative',
+                                'relative mt-1',
                                 dropdownOpen[item.key]
                                     ? 'fill-green'
                                     : 'fill-grey-900'
