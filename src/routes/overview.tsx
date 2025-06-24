@@ -30,8 +30,6 @@ function OverviewPage() {
 
     const balance = getBalanceSummary(transactions);
 
-    console.log(recurringBills);
-
     return (
         <PageLayout title="Overview">
             <BalancePreview balance={balance} />
