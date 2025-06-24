@@ -7,10 +7,15 @@ import PageLayout from '@/components/layout/PageLayout';
 // Store
 import useRecurringBillStore from '@/features/recurring-bills/store/useRecurringBillStore';
 
+// Hooks
+import useMediaQuery from '@/hooks/useMediaQuery';
+
 // Components
 import RecurringBillSummary from '@/features/recurring-bills/components/RecurringBillSummary';
 import RecurringBillSearch from '@/features/recurring-bills/components/RecurringBillSearch';
 import RecurringBillControls from '@/features/recurring-bills/components/RecurringBillControls';
+import RecurringBillTable from '@/features/recurring-bills/components/RecurringBillTable';
+import RecurringBillList from '@/features/recurring-bills/components/RecurringBillList';
 
 // Types
 import {
@@ -40,6 +45,8 @@ function RecurringBillsPage() {
 
     const { recurringBills } = useRecurringBillStore();
 
+    const isMobile = useMediaQuery('(max-width: 768px)');
+
     const updateSearchParams = (updates: Partial<typeof search>) => {
         navigate({ search: (prev) => ({ ...prev, ...updates }) });
     };
@@ -62,6 +69,12 @@ function RecurringBillsPage() {
                         <RecurringBillSearch onSearch={handleBillSearch} />
                         <RecurringBillControls onValueChange={handleItemSelect} />
                     </div>
+
+                    {isMobile ? (
+                        <RecurringBillList recurringBills={recurringBills} />
+                    ) : (
+                        <RecurringBillTable recurringBills={recurringBills} />
+                    )}
                 </div>
             </div>
         </PageLayout>
