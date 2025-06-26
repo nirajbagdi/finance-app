@@ -21,7 +21,7 @@ const PotPreview = ({ pots }: PotPreviewProps) => (
 
             <div>
                 <p className="text-secondary-foreground text-sm mb-2">Total Saved</p>
-                <p className="text-3xl font-bold">{sumBy(pots, (p) => p.total)}</p>
+                <p className="text-3xl font-bold">${sumBy(pots, (p) => p.total)}</p>
             </div>
         </div>
 
