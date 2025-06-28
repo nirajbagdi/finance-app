@@ -1,8 +1,11 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
+import type { QueryClient } from '@tanstack/react-query';
 
 import Sidebar from '@/components/layout/sidebar';
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+    queryClient: QueryClient;
+}>()({
     component: () => (
         <>
             <Sidebar />
