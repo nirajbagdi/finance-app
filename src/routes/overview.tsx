@@ -1,8 +1,5 @@
-// Store
-import useBudgetStore from '@/features/budgets/store/useBudgetStore';
-import usePotStore from '@/features/pots/store/usePotStore';
-import useTransactionStore from '@/features/transactions/store/useTransactionStore';
-import useRecurringBillStore from '@/features/recurring-bills/store/useRecurringBillStore';
+// External imports
+import { useQuery } from '@tanstack/react-query';
 
 // UI/Shared Components
 import PageLayout from '@/components/layout/PageLayout';
@@ -15,18 +12,34 @@ import PotPreview from '@/features/pots/components/PotPreview';
 import TransactionPreview from '@/features/transactions/components/TransactionPreview';
 import RecurringBillPreview from '@/features/recurring-bills/components/RecurringBillPreview';
 
+// API
+import { transactionsQueryOptions } from '@/features/transactions/api/queries';
+import { potsQueryOptions } from '@/features/pots/api/queries';
+import { budgetsQueryOptions } from '@/features/budgets/api/queries';
+
 // Utils
 import { getBalanceSummary } from '@/features/overview/utils';
 
 export const Route = createFileRoute({
+    loader: async ({ context: { queryClient } }) => {
+        await Promise.all([
+            queryClient.ensureQueryData(transactionsQueryOptions),
+            queryClient.ensureQueryData(budgetsQueryOptions),
+            queryClient.ensureQueryData(potsQueryOptions),
+        ]);
+    },
+
     component: OverviewPage,
+
+    pendingComponent: () => <h2>Loading...</h2>,
 });
 
 function OverviewPage() {
-    const { transactions } = useTransactionStore();
-    const { budgets } = useBudgetStore();
-    const { pots } = usePotStore();
-    const { recurringBills } = useRecurringBillStore();
+    const { data: transactions = [] } = useQuery(transactionsQueryOptions);
+    const { data: budgets = [] } = useQuery(budgetsQueryOptions);
+    const { data: pots = [] } = useQuery(potsQueryOptions);
+
+    const recurringBills = transactions.filter((tx) => tx.recurring);
 
     const balance = getBalanceSummary(transactions);
 

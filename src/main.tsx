@@ -8,7 +8,14 @@ import './styles/index.css';
 
 import { routeTree } from './routeTree.gen';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+            staleTime: 1000 * 60 * 5,
+        },
+    },
+});
 const router = createRouter({ routeTree, context: { queryClient } });
 
 declare module '@tanstack/react-router' {
