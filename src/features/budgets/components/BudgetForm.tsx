@@ -3,9 +3,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-// Store
-import useBudgetStore from '@/features/budgets/store/useBudgetStore';
-
 // UI components
 import {
     Form,
@@ -27,6 +24,8 @@ import { Input } from '@/components/ui/input';
 
 // Constants
 import { themeColors as budgetColors } from '@/constants';
+import { useQuery } from '@tanstack/react-query';
+import { budgetsQueryOptions } from '../api/queries';
 
 const formSchema = z.object({
     category: z.string().nonempty({ message: 'Category must be selected' }),
@@ -61,7 +60,7 @@ const BudgetForm = ({
         resolver: zodResolver(formSchema),
     });
 
-    const { budgets } = useBudgetStore();
+    const { data: budgets = [] } = useQuery(budgetsQueryOptions);
 
     const isEditAction = actionLabel.toLowerCase().includes('edit');
 

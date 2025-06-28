@@ -11,9 +11,6 @@ import PaginationControls from '@/components/common/PaginationControls';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import usePagination from '@/hooks/usePagination';
 
-// Store
-import useTransactionStore from '@/features/transactions/store/useTransactionStore';
-
 // Feature components
 import TransactionList from '@/features/transactions/components/TransactionList';
 import TransactionTable from '@/features/transactions/components/TransactionTable';
@@ -28,6 +25,8 @@ import {
     type SortOption,
     type SelectControls,
 } from '@/features/transactions/constants';
+import { useQuery } from '@tanstack/react-query';
+import { transactionsQueryOptions } from '@/features/transactions/api/queries';
 
 type SearchParams = {
     query: string;
@@ -50,12 +49,12 @@ export const Route = createFileRoute({
 });
 
 function TransactionsPage() {
+    const { data: transactions = [] } = useQuery(transactionsQueryOptions);
+
     const search = useSearch({ from: '/transactions' });
     const navigate = useNavigate({ from: '/transactions' });
 
     const [debouncedQuery] = useDebounce(search.query, 300);
-
-    const { transactions } = useTransactionStore();
 
     const updateSearchParams = (updates: Partial<typeof search>) => {
         navigate({ search: (prev) => ({ ...prev, ...updates }) });

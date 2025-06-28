@@ -6,9 +6,6 @@ import { useSearch, useNavigate } from '@tanstack/react-router';
 // UI/Shared components
 import PageLayout from '@/components/layout/PageLayout';
 
-// Store
-import useRecurringBillStore from '@/features/recurring-bills/store/useRecurringBillStore';
-
 // Hooks
 import useMediaQuery from '@/hooks/useMediaQuery';
 
@@ -28,6 +25,8 @@ import {
     type SelectControls,
     type SortOption,
 } from '@/features/recurring-bills/constants';
+import { useQuery } from '@tanstack/react-query';
+import { transactionsQueryOptions } from '@/features/transactions/api/queries';
 
 type SearchParams = {
     query: string;
@@ -51,7 +50,9 @@ function RecurringBillsPage() {
 
     const [debouncedQuery] = useDebounce(search.query, 300);
 
-    const { recurringBills } = useRecurringBillStore();
+    const { data: transactions = [] } = useQuery(transactionsQueryOptions);
+
+    const recurringBills = transactions.filter((tx) => tx.recurring);
 
     const isMobile = useMediaQuery('(max-width: 768px)');
 

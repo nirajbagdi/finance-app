@@ -1,10 +1,6 @@
 // UI/Shared Components
 import PageLayout from '@/components/layout/PageLayout';
 
-// Store
-import useBudgetStore from '@/features/budgets/store/useBudgetStore';
-import useTransactionStore from '@/features/transactions/store/useTransactionStore';
-
 // Components
 import SpendingSummary from '@/features/budgets/components/SpendingSummary';
 import BudgetCard from '@/features/budgets/components/BudgetCard';
@@ -15,21 +11,54 @@ import { getSpendingByCategory } from '@/features/budgets/utils';
 
 // Types
 import type { BudgetFormFields } from '@/features/budgets/types';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+    addBudget,
+    editBudget,
+    deleteBudget,
+    budgetsQueryOptions,
+} from '@/features/budgets/api/queries';
+import { transactionsQueryOptions } from '@/features/transactions/api/queries';
+import type { Budget } from '@/types/finance';
 
 export const Route = createFileRoute({
     component: BudgetsPage,
 });
 
 function BudgetsPage() {
-    const { budgets, addBudget, editBudget, deleteBudget } = useBudgetStore();
-    const { transactions } = useTransactionStore();
+    const queryClient = useQueryClient();
+
+    const { data: budgets = [] } = useQuery(budgetsQueryOptions);
+    const { data: transactions = [] } = useQuery(transactionsQueryOptions);
 
     const categorySpending = getSpendingByCategory(transactions);
 
     const budgetCategories = [...new Set(transactions.map((tx) => tx.category))];
 
+    const addBudgetMutation = useMutation({
+        mutationFn: addBudget,
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['budgets'] }),
+    });
+
+    const editBudgetMutation = useMutation({
+        mutationFn: async ({
+            category,
+            updates,
+        }: {
+            category: string;
+            updates: Partial<Budget>;
+        }) => editBudget(category, updates),
+
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['budgets'] }),
+    });
+
+    const deleteBudgetMutation = useMutation({
+        mutationFn: async (category: string) => deleteBudget(category),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['budgets'] }),
+    });
+
     const handleAddBudget = (data: BudgetFormFields) => {
-        addBudget({
+        addBudgetMutation.mutate({
             category: data.category,
             value: +data.maxSpend,
             theme: data.theme,
@@ -37,14 +66,17 @@ function BudgetsPage() {
     };
 
     const handleEditBudget = (data: BudgetFormFields) => {
-        editBudget(data.category, {
-            theme: data.theme,
-            value: +data.maxSpend,
+        editBudgetMutation.mutate({
+            category: data.category,
+            updates: {
+                theme: data.theme,
+                value: +data.maxSpend,
+            },
         });
     };
 
     const handleDeleteBudget = (category: string | null) => {
-        if (category !== null) deleteBudget(category);
+        if (category !== null) deleteBudgetMutation.mutate(category);
 
         // Find and click the close button to close the dialog
         const closeButton = document.querySelector(

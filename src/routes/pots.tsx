@@ -11,16 +11,49 @@ import usePotStore from '@/features/pots/store/usePotStore';
 // Types
 import type { PotFormFields } from '@/features/pots/types';
 import type { Pot } from '@/types/finance';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+    addPot,
+    deletePot,
+    editPot,
+    potsQueryOptions,
+} from '@/features/pots/api/queries';
 
 export const Route = createFileRoute({
     component: PotsPage,
 });
 
 function PotsPage() {
-    const { pots, addPot, editPot, deletePot, addMoney, withdraw } = usePotStore();
+    const queryClient = useQueryClient();
+
+    const { data: pots = [] } = useQuery(potsQueryOptions);
+
+    const { addMoney, withdraw } = usePotStore();
+
+    const addPotMutation = useMutation({
+        mutationFn: addPot,
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pots'] }),
+    });
+
+    const editPotMutation = useMutation({
+        mutationFn: async ({
+            name,
+            updates,
+        }: {
+            name: string;
+            updates: Partial<Pot>;
+        }) => editPot(name, updates),
+
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pots'] }),
+    });
+
+    const deletePotMutation = useMutation({
+        mutationFn: async (name: string) => deletePot(name),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pots'] }),
+    });
 
     const handleAddPot = (data: PotFormFields) => {
-        addPot({
+        addPotMutation.mutate({
             name: data.name,
             target: +data.target,
             theme: data.theme,
@@ -29,15 +62,18 @@ function PotsPage() {
     };
 
     const handleEditPot = (potName: string, data: PotFormFields) => {
-        editPot(potName, {
-            name: data.name,
-            theme: data.theme,
-            target: +data.target,
+        editPotMutation.mutate({
+            name: potName,
+            updates: {
+                name: data.name,
+                theme: data.theme,
+                target: +data.target,
+            },
         });
     };
 
     const handleDeletePot = (name: string | null) => {
-        if (name !== null) deletePot(name);
+        if (name !== null) deletePotMutation.mutate(name);
 
         // Find and click the close button to close the dialog
         const closeButton = document.querySelector(
