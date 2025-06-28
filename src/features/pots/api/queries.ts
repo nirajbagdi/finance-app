@@ -44,6 +44,40 @@ export const deletePot = async (name: string) => {
     return name;
 };
 
+export const addMoneyToPot = async ({
+    name,
+    amount,
+}: {
+    name: string;
+    amount: number;
+}) => {
+    const { data, error } = await supabase.rpc('add_money_to_pot', {
+        pot_name: name,
+        money_to_add: amount,
+        uid: 'cf360be4-36af-4eb0-98ee-03f2d1e85a22',
+    });
+
+    if (error) throw error;
+    return data;
+};
+
+export const withdrawMoneyFromPot = async ({
+    name,
+    amount,
+}: {
+    name: string;
+    amount: number;
+}) => {
+    const { data, error } = await supabase.rpc('withdraw_from_pot', {
+        pot_name: name,
+        amount: amount,
+        uid: 'cf360be4-36af-4eb0-98ee-03f2d1e85a22',
+    });
+
+    if (error) throw error;
+    return data;
+};
+
 export const potsQueryOptions = queryOptions({
     queryKey: ['pots'],
     queryFn: () => fetchPots(),

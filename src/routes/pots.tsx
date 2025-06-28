@@ -5,18 +5,17 @@ import PageLayout from '@/components/layout/PageLayout';
 import PotCard from '@/features/pots/components/PotCard';
 import AddPotDialog from '@/features/pots/components/AddPotDialog';
 
-// Store
-import usePotStore from '@/features/pots/store/usePotStore';
-
 // Types
 import type { PotFormFields } from '@/features/pots/types';
 import type { Pot } from '@/types/finance';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
+    addMoneyToPot,
     addPot,
     deletePot,
     editPot,
     potsQueryOptions,
+    withdrawMoneyFromPot,
 } from '@/features/pots/api/queries';
 
 export const Route = createFileRoute({
@@ -27,8 +26,6 @@ function PotsPage() {
     const queryClient = useQueryClient();
 
     const { data: pots = [] } = useQuery(potsQueryOptions);
-
-    const { addMoney, withdraw } = usePotStore();
 
     const addPotMutation = useMutation({
         mutationFn: addPot,
@@ -49,6 +46,16 @@ function PotsPage() {
 
     const deletePotMutation = useMutation({
         mutationFn: async (name: string) => deletePot(name),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pots'] }),
+    });
+
+    const addMoneyMutation = useMutation({
+        mutationFn: addMoneyToPot,
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pots'] }),
+    });
+
+    const withdrawMoneyMutation = useMutation({
+        mutationFn: withdrawMoneyFromPot,
         onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pots'] }),
     });
 
@@ -83,11 +90,11 @@ function PotsPage() {
     };
 
     const handleAddMoney = (pot: Pot, data: { amount: string }) => {
-        addMoney(pot.name, +data.amount);
+        addMoneyMutation.mutate({ name: pot.name, amount: +data.amount });
     };
 
     const handleWithdrawMoney = (pot: Pot, data: { amount: string }) => {
-        withdraw(pot.name, +data.amount);
+        withdrawMoneyMutation.mutate({ name: pot.name, amount: +data.amount });
     };
 
     return (
