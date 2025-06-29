@@ -1,5 +1,3 @@
-import { queryOptions } from '@tanstack/react-query';
-
 import { supabase } from '@/utils/supabase';
 
 import type { Pot } from '@/types/finance';
@@ -7,7 +5,11 @@ import type { Pot } from '@/types/finance';
 export const fetchPots = async () => {
     const { data, error } = await supabase.from('pots').select();
 
-    if (error) throw error;
+    if (error) {
+        console.error('Error fetching pots: ', error);
+        throw new Error('Failed to fetch pots');
+    }
+
     return data;
 };
 
@@ -18,7 +20,11 @@ export const addPot = async (pot: Pot) => {
         ...pot,
     });
 
-    if (error) throw error;
+    if (error) {
+        console.error('Error adding pot: ', error);
+        throw new Error('Failed to add pot');
+    }
+
     return data;
 };
 
@@ -29,7 +35,11 @@ export const editPot = async (name: string, edits: Partial<Pot>) => {
         .eq('name', name)
         .eq('email', 'finance@test.com');
 
-    if (error) throw error;
+    if (error) {
+        console.error(`Error editing pot "${name}":`, error);
+        throw new Error('Failed to edit pot');
+    }
+
     return data;
 };
 
@@ -40,7 +50,11 @@ export const deletePot = async (name: string) => {
         .eq('name', name)
         .eq('user_id', 'cf360be4-36af-4eb0-98ee-03f2d1e85a22');
 
-    if (error) throw error;
+    if (error) {
+        console.error(`Error deleting pot "${name}":`, error);
+        throw new Error('Failed to delete pot');
+    }
+
     return name;
 };
 
@@ -57,7 +71,11 @@ export const addMoneyToPot = async ({
         uid: 'cf360be4-36af-4eb0-98ee-03f2d1e85a22',
     });
 
-    if (error) throw error;
+    if (error) {
+        console.error(`Error adding money to pot "${name}":`, error);
+        throw new Error('Failed to add money');
+    }
+
     return data;
 };
 
@@ -74,11 +92,10 @@ export const withdrawMoneyFromPot = async ({
         uid: 'cf360be4-36af-4eb0-98ee-03f2d1e85a22',
     });
 
-    if (error) throw error;
+    if (error) {
+        console.error(`Error withdrawing money from pot "${name}":`, error);
+        throw new Error('Failed to withdraw money');
+    }
+
     return data;
 };
-
-export const potsQueryOptions = queryOptions({
-    queryKey: ['pots'],
-    queryFn: () => fetchPots(),
-});

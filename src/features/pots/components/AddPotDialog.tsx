@@ -9,7 +9,7 @@ import DialogWrapper from '@/components/common/DialogWrapper';
 import PotForm from '@/features/pots/components/PotForm';
 
 // Types
-import type { PotFormFields } from '../types';
+import type { PotFormFields } from '../lib/types';
 
 type AddPotDialogProps = {
     onAddPot: (data: PotFormFields) => void;

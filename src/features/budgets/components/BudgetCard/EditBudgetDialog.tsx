@@ -7,7 +7,7 @@ import BudgetForm from '../BudgetForm';
 
 // Types
 import type { Budget } from '@/types/finance';
-import type { BudgetFormFields } from '@/features/budgets/types';
+import type { BudgetFormFields } from '@/features/budgets/lib/types';
 
 type EditBudgetDialogProps = {
     budget: Budget;

@@ -1,6 +1,6 @@
 // Utils
 import { cn, formatAmount, getDayWithSuffix } from '@/utils';
-import { getBillStatus } from '../utils';
+import { getBillStatus } from '../lib/utils';
 
 // Icons
 import BillPaidIcon from '@/icons/common/bill-paid.svg?react';

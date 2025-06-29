@@ -1,5 +1,5 @@
 // Hooks
-import useBillSummaries from '../hooks/useBillSummaries';
+import useBillSummaries from '../lib/hooks/useBillSummaries';
 
 // Icons
 import RecurringBillIcon from '@/icons/feature/recurring/icon.svg?react';

@@ -2,7 +2,7 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 // Utils
-import { getBudgetUsage } from '@/features/budgets/utils';
+import { getBudgetUsage } from '../lib/utils';
 
 // Types
 import type { Budget, Transaction } from '@/types/finance';

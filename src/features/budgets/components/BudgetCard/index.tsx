@@ -5,7 +5,7 @@ import BudgetSpendingList from './BudgetSpendingList';
 
 // Types
 import type { Budget, Transaction } from '@/types/finance';
-import type { BudgetFormFields } from '../../types';
+import type { BudgetFormFields } from '../../lib/types';
 
 type BudgetCardProps = {
     budget: Budget;

@@ -1,3 +1,6 @@
+// External imports
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
 // UI/Shared Components
 import PageLayout from '@/components/layout/PageLayout';
 
@@ -6,19 +9,16 @@ import SpendingSummary from '@/features/budgets/components/SpendingSummary';
 import BudgetCard from '@/features/budgets/components/BudgetCard';
 import AddBudgetDialog from '@/features/budgets/components/AddBudgetDialog';
 
+// Lib
+import { addBudget, editBudget, deleteBudget } from '@/features/budgets/lib/api';
+import { budgetsQueryOptions } from '@/features/budgets/lib/queries';
+import { transactionsQueryOptions } from '@/features/transactions/lib/queries';
+
 // Utils
-import { getSpendingByCategory } from '@/features/budgets/utils';
+import { getSpendingByCategory } from '@/features/budgets/lib/utils';
 
 // Types
-import type { BudgetFormFields } from '@/features/budgets/types';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {
-    addBudget,
-    editBudget,
-    deleteBudget,
-    budgetsQueryOptions,
-} from '@/features/budgets/api/queries';
-import { transactionsQueryOptions } from '@/features/transactions/api/queries';
+import type { BudgetFormFields } from '@/features/budgets/lib/types';
 import type { Budget } from '@/types/finance';
 
 export const Route = createFileRoute({

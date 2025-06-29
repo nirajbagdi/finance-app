@@ -6,7 +6,7 @@ import { cn, formatAmount } from '@/utils';
 
 // Types
 import type { Pot } from '@/types/finance';
-import { MoneyActionTypes } from '@/features/pots/types';
+import { MoneyActionTypes } from '@/features/pots/lib/types';
 
 type PotSummaryProps = {
     pot: Pot;

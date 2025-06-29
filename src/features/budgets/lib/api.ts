@@ -1,5 +1,3 @@
-import { queryOptions } from '@tanstack/react-query';
-
 import { supabase } from '@/utils/supabase';
 
 import type { Budget } from '@/types/finance';
@@ -7,7 +5,11 @@ import type { Budget } from '@/types/finance';
 export const fetchBudgets = async () => {
     const { data, error } = await supabase.from('budgets').select();
 
-    if (error) throw error;
+    if (error) {
+        console.error('Error fetching budgets: ', error);
+        throw new Error('Failed to fetch budgets');
+    }
+
     return data;
 };
 
@@ -18,7 +20,11 @@ export const addBudget = async (budget: Budget) => {
         ...budget,
     });
 
-    if (error) throw error;
+    if (error) {
+        console.error('Error adding budget: ', error);
+        throw new Error('Failed to add budget');
+    }
+
     return data;
 };
 
@@ -29,7 +35,11 @@ export const editBudget = async (category: string, edits: Partial<Budget>) => {
         .eq('category', category)
         .eq('email', 'finance@test.com');
 
-    if (error) throw error;
+    if (error) {
+        console.error(`Error editing budget for category "${category}":`, error);
+        throw new Error('Failed to edit budget');
+    }
+
     return data;
 };
 
@@ -40,11 +50,10 @@ export const deleteBudget = async (category: string) => {
         .eq('category', category)
         .eq('user_id', 'cf360be4-36af-4eb0-98ee-03f2d1e85a22');
 
-    if (error) throw error;
+    if (error) {
+        console.error(`Error deleting budget for category "${category}":`, error);
+        throw new Error('Failed to delete budget');
+    }
+
     return category;
 };
-
-export const budgetsQueryOptions = queryOptions({
-    queryKey: ['budgets'],
-    queryFn: () => fetchBudgets(),
-});

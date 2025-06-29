@@ -13,12 +13,12 @@ import TransactionPreview from '@/features/transactions/components/TransactionPr
 import RecurringBillPreview from '@/features/recurring-bills/components/RecurringBillPreview';
 
 // API
-import { transactionsQueryOptions } from '@/features/transactions/api/queries';
-import { potsQueryOptions } from '@/features/pots/api/queries';
-import { budgetsQueryOptions } from '@/features/budgets/api/queries';
+import { transactionsQueryOptions } from '@/features/transactions/lib/queries';
+import { potsQueryOptions } from '@/features/pots/lib/queries';
+import { budgetsQueryOptions } from '@/features/budgets/lib/queries';
 
 // Utils
-import { getBalanceSummary } from '@/features/overview/utils';
+import { getBalanceSummary } from '@/features/overview/lib/utils';
 
 export const Route = createFileRoute({
     loader: async ({ context: { queryClient } }) => {

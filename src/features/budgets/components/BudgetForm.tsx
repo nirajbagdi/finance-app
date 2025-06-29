@@ -1,5 +1,6 @@
 // External imports
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -22,10 +23,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
+// Lib
+import { budgetsQueryOptions } from '../lib/queries';
+
 // Constants
 import { themeColors as budgetColors } from '@/constants';
-import { useQuery } from '@tanstack/react-query';
-import { budgetsQueryOptions } from '../api/queries';
 
 const formSchema = z.object({
     category: z.string().nonempty({ message: 'Category must be selected' }),

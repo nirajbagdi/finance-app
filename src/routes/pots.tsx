@@ -1,3 +1,6 @@
+// External imports
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
 // UI/Shared components
 import PageLayout from '@/components/layout/PageLayout';
 
@@ -5,18 +8,19 @@ import PageLayout from '@/components/layout/PageLayout';
 import PotCard from '@/features/pots/components/PotCard';
 import AddPotDialog from '@/features/pots/components/AddPotDialog';
 
-// Types
-import type { PotFormFields } from '@/features/pots/types';
-import type { Pot } from '@/types/finance';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+// Lib
 import {
     addMoneyToPot,
     addPot,
     deletePot,
     editPot,
-    potsQueryOptions,
     withdrawMoneyFromPot,
-} from '@/features/pots/api/queries';
+} from '@/features/pots/lib/api';
+import { potsQueryOptions } from '@/features/pots/lib/queries';
+
+// Types
+import type { PotFormFields } from '@/features/pots/lib/types';
+import type { Pot } from '@/types/finance';
 
 export const Route = createFileRoute({
     component: PotsPage,

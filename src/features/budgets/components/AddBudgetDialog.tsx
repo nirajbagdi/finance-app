@@ -9,7 +9,7 @@ import DialogWrapper from '@/components/common/DialogWrapper';
 import BudgetForm from '@/features/budgets/components/BudgetForm';
 
 // Types
-import type { BudgetFormFields } from '../types';
+import type { BudgetFormFields } from '../lib/types';
 
 type AddBudgetDialogProps = {
     categoryOptions: string[];

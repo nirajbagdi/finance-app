@@ -17,7 +17,7 @@ import { formatAmount } from '@/utils';
 
 // Types
 import type { Budget } from '@/types/finance';
-import type { BudgetFormFields } from '../../types';
+import type { BudgetFormFields } from '@/features/budgets/lib/types';
 
 type BudgetCardHeaderProps = {
     budget: Budget;

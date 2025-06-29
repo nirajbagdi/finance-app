@@ -8,7 +8,7 @@ import MoneyActionDialog from './MoneyActionDialog';
 
 // Types
 import type { Pot } from '@/types/finance';
-import { MoneyActionTypes, type PotFormFields } from '@/features/pots/types';
+import { MoneyActionTypes, type PotFormFields } from '@/features/pots/lib/types';
 
 type PotCardProps = {
     pot: Pot;

@@ -11,7 +11,7 @@ import PotSummary from './PotSummary';
 
 // Types
 import type { Pot } from '@/types/finance';
-import { MoneyActionTypes } from '@/features/pots/types';
+import { MoneyActionTypes } from '@/features/pots/lib/types';
 
 const potActionMeta = {
     [MoneyActionTypes.Add]: {

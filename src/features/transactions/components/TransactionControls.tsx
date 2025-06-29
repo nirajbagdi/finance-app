@@ -22,10 +22,10 @@ import useMediaQuery from '@/hooks/useMediaQuery';
 import { cn } from '@/utils';
 
 // Constants
-import { sortComparators, ControlType } from '../constants';
+import { sortComparators, ControlType } from '../lib/constants';
 
 // Types
-import type { SelectControls } from '../constants';
+import type { SelectControls } from '../lib/constants';
 import type { Transaction } from '@/types/finance';
 
 type ControlItem = {

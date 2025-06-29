@@ -2,7 +2,7 @@
 import { cn } from '@/utils';
 
 // Types
-import { MoneyActionTypes } from '@/features/pots/types';
+import { MoneyActionTypes } from '@/features/pots/lib/types';
 
 type PotProgressProps = {
     actionType?: MoneyActionTypes;

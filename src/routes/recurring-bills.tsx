@@ -1,6 +1,7 @@
 // External imports
 import { useMemo } from 'react';
 import { useDebounce } from 'use-debounce';
+import { useQuery } from '@tanstack/react-query';
 import { useSearch, useNavigate } from '@tanstack/react-router';
 
 // UI/Shared components
@@ -16,6 +17,9 @@ import RecurringBillControls from '@/features/recurring-bills/components/Recurri
 import RecurringBillTable from '@/features/recurring-bills/components/RecurringBillTable';
 import RecurringBillList from '@/features/recurring-bills/components/RecurringBillList';
 
+// Lib
+import { transactionsQueryOptions } from '@/features/transactions/lib/queries';
+
 // Utils
 import { stringMatches } from '@/utils';
 
@@ -24,9 +28,7 @@ import {
     sortComparators,
     type SelectControls,
     type SortOption,
-} from '@/features/recurring-bills/constants';
-import { useQuery } from '@tanstack/react-query';
-import { transactionsQueryOptions } from '@/features/transactions/api/queries';
+} from '@/features/recurring-bills/lib/constants';
 
 type SearchParams = {
     query: string;

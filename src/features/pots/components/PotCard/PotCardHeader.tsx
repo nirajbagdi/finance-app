@@ -14,7 +14,7 @@ import DeletePotDialog from './DeletePotDialog';
 
 // Types
 import type { Pot } from '@/types/finance';
-import type { PotFormFields } from '@/features/pots/types';
+import type { PotFormFields } from '@/features/pots/lib/types';
 
 type PotCardHeaderProps = {
     pot: Pot;

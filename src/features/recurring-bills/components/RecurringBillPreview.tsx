@@ -1,5 +1,5 @@
 // Hooks
-import useBillSummaries from '@/features/recurring-bills/hooks/useBillSummaries';
+import useBillSummaries from '@/features/recurring-bills/lib/hooks/useBillSummaries';
 
 // Utils
 import { formatAmount } from '@/utils';

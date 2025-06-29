@@ -1,7 +1,8 @@
 // External imports
 import { useMemo } from 'react';
-import { useSearch, useNavigate } from '@tanstack/react-router';
 import { useDebounce } from 'use-debounce';
+import { useQuery } from '@tanstack/react-query';
+import { useSearch, useNavigate } from '@tanstack/react-router';
 
 // UI/Shared components
 import PageLayout from '@/components/layout/PageLayout';
@@ -20,13 +21,15 @@ import TransactionControls from '@/features/transactions/components/TransactionC
 // Utils
 import { stringMatches } from '@/utils';
 
+// Lib
+import { transactionsQueryOptions } from '@/features/transactions/lib/queries';
+
+// Constants, Types
 import {
     sortComparators,
     type SortOption,
     type SelectControls,
-} from '@/features/transactions/constants';
-import { useQuery } from '@tanstack/react-query';
-import { transactionsQueryOptions } from '@/features/transactions/api/queries';
+} from '@/features/transactions/lib/constants';
 
 type SearchParams = {
     query: string;
