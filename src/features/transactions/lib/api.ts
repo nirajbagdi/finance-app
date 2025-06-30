@@ -7,6 +7,5 @@ export const fetchTransactions = async () => {
         console.error('Error fetching transactions: ', error);
         throw new Error('Failed to fetch transactions');
     }
-
     return data;
 };
