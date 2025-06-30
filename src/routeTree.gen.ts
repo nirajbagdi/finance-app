@@ -12,6 +12,8 @@ import type { CreateFileRoute, FileRoutesByPath } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransactionsRouteImport } from './routes/transactions'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as SigninRouteImport } from './routes/signin'
 import { Route as RecurringBillsRouteImport } from './routes/recurring-bills'
 import { Route as PotsRouteImport } from './routes/pots'
 import { Route as OverviewRouteImport } from './routes/overview'
@@ -21,6 +23,16 @@ import { Route as IndexRouteImport } from './routes/index'
 const TransactionsRoute = TransactionsRouteImport.update({
   id: '/transactions',
   path: '/transactions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SigninRoute = SigninRouteImport.update({
+  id: '/signin',
+  path: '/signin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RecurringBillsRoute = RecurringBillsRouteImport.update({
@@ -55,6 +67,8 @@ export interface FileRoutesByFullPath {
   '/overview': typeof OverviewRoute
   '/pots': typeof PotsRoute
   '/recurring-bills': typeof RecurringBillsRoute
+  '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRoutesByTo {
@@ -63,6 +77,8 @@ export interface FileRoutesByTo {
   '/overview': typeof OverviewRoute
   '/pots': typeof PotsRoute
   '/recurring-bills': typeof RecurringBillsRoute
+  '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRoutesById {
@@ -72,6 +88,8 @@ export interface FileRoutesById {
   '/overview': typeof OverviewRoute
   '/pots': typeof PotsRoute
   '/recurring-bills': typeof RecurringBillsRoute
+  '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
   '/transactions': typeof TransactionsRoute
 }
 export interface FileRouteTypes {
@@ -82,6 +100,8 @@ export interface FileRouteTypes {
     | '/overview'
     | '/pots'
     | '/recurring-bills'
+    | '/signin'
+    | '/signup'
     | '/transactions'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -90,6 +110,8 @@ export interface FileRouteTypes {
     | '/overview'
     | '/pots'
     | '/recurring-bills'
+    | '/signin'
+    | '/signup'
     | '/transactions'
   id:
     | '__root__'
@@ -98,6 +120,8 @@ export interface FileRouteTypes {
     | '/overview'
     | '/pots'
     | '/recurring-bills'
+    | '/signin'
+    | '/signup'
     | '/transactions'
   fileRoutesById: FileRoutesById
 }
@@ -107,6 +131,8 @@ export interface RootRouteChildren {
   OverviewRoute: typeof OverviewRoute
   PotsRoute: typeof PotsRoute
   RecurringBillsRoute: typeof RecurringBillsRoute
+  SigninRoute: typeof SigninRoute
+  SignupRoute: typeof SignupRoute
   TransactionsRoute: typeof TransactionsRoute
 }
 
@@ -145,6 +171,20 @@ declare module '@tanstack/react-router' {
       path: '/recurring-bills'
       fullPath: '/recurring-bills'
       preLoaderRoute: typeof RecurringBillsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signin': {
+      id: '/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof SigninRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/transactions': {
@@ -202,6 +242,24 @@ declare module './routes/recurring-bills' {
     FileRoutesByPath['/recurring-bills']['fullPath']
   >
 }
+declare module './routes/signin' {
+  const createFileRoute: CreateFileRoute<
+    '/signin',
+    FileRoutesByPath['/signin']['parentRoute'],
+    FileRoutesByPath['/signin']['id'],
+    FileRoutesByPath['/signin']['path'],
+    FileRoutesByPath['/signin']['fullPath']
+  >
+}
+declare module './routes/signup' {
+  const createFileRoute: CreateFileRoute<
+    '/signup',
+    FileRoutesByPath['/signup']['parentRoute'],
+    FileRoutesByPath['/signup']['id'],
+    FileRoutesByPath['/signup']['path'],
+    FileRoutesByPath['/signup']['fullPath']
+  >
+}
 declare module './routes/transactions' {
   const createFileRoute: CreateFileRoute<
     '/transactions',
@@ -218,6 +276,8 @@ const rootRouteChildren: RootRouteChildren = {
   OverviewRoute: OverviewRoute,
   PotsRoute: PotsRoute,
   RecurringBillsRoute: RecurringBillsRoute,
+  SigninRoute: SigninRoute,
+  SignupRoute: SignupRoute,
   TransactionsRoute: TransactionsRoute,
 }
 export const routeTree = rootRouteImport

@@ -1,3 +1,5 @@
+export const supabaseProjectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+
 export const themeColors = [
     { name: 'Rose Dust', hex: '#EFA2B1' },
     { name: 'Muted Teal', hex: '#82C9D7' },
