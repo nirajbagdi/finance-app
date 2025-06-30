@@ -38,6 +38,8 @@ type MoneyActionDialogProps = {
     previewAmount: number;
     maxAmount: number;
 
+    isLoading: boolean;
+
     onSubmit: (data: { amount: string }) => void;
     onAmountChange: (data: { amount: string }) => void;
 };
@@ -47,6 +49,7 @@ const MoneyActionDialog = ({
     pot,
     previewAmount,
     maxAmount,
+    isLoading,
     onSubmit,
     onAmountChange,
 }: MoneyActionDialogProps) => {
@@ -76,6 +79,7 @@ const MoneyActionDialog = ({
                 actionType={actionType}
                 defaultValues={{ amount: '' }}
                 maxAmount={maxAmount}
+                isLoading={isLoading}
                 onSubmit={onSubmit}
                 onAmountChange={onAmountChange}
             />

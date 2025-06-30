@@ -33,7 +33,15 @@ function PotsPage() {
 
     const addPotMutation = useMutation({
         mutationFn: addPot,
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pots'] }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['pots'] });
+
+            // Find and click the close button to close the dialog
+            const closeButton = document.querySelector(
+                '[data-slot="dialog-close"]'
+            ) as HTMLButtonElement;
+            if (closeButton) closeButton.click();
+        },
     });
 
     const editPotMutation = useMutation({
@@ -45,22 +53,54 @@ function PotsPage() {
             updates: Partial<Pot>;
         }) => editPot(name, updates),
 
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pots'] }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['pots'] });
+
+            // Find and click the close button to close the dialog
+            const closeButton = document.querySelector(
+                '[data-slot="dialog-close"]'
+            ) as HTMLButtonElement;
+            if (closeButton) closeButton.click();
+        },
     });
 
     const deletePotMutation = useMutation({
         mutationFn: async (name: string) => deletePot(name),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pots'] }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['pots'] });
+
+            // Find and click the close button to close the dialog
+            const closeButton = document.querySelector(
+                '[data-slot="dialog-close"]'
+            ) as HTMLButtonElement;
+            if (closeButton) closeButton.click();
+        },
     });
 
     const addMoneyMutation = useMutation({
         mutationFn: addMoneyToPot,
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pots'] }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['pots'] });
+
+            // Find and click the close button to close the dialog
+            const closeButton = document.querySelector(
+                '[data-slot="dialog-close"]'
+            ) as HTMLButtonElement;
+            if (closeButton) closeButton.click();
+        },
     });
 
     const withdrawMoneyMutation = useMutation({
         mutationFn: withdrawMoneyFromPot,
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pots'] }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['pots'] });
+
+            // Find and click the close button to close the dialog
+            const closeButton = document.querySelector(
+                '[data-slot="dialog-close"]'
+            ) as HTMLButtonElement;
+            if (closeButton) closeButton.click();
+        },
     });
 
     const handleAddPot = (data: PotFormFields) => {
@@ -104,7 +144,12 @@ function PotsPage() {
     return (
         <PageLayout
             title="Pots"
-            headerAction={<AddPotDialog onAddPot={handleAddPot} />}
+            headerAction={
+                <AddPotDialog
+                    onAddPot={handleAddPot}
+                    isAdding={addPotMutation.isPending}
+                />
+            }
         >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
                 {pots.map((pot) => (
@@ -115,6 +160,22 @@ function PotsPage() {
                         onDeletePot={handleDeletePot}
                         onAddMoney={handleAddMoney}
                         onWithdrawMoney={handleWithdrawMoney}
+                        isEditing={
+                            editPotMutation.isPending &&
+                            editPotMutation.variables?.name === pot.name
+                        }
+                        isDeleting={
+                            deletePotMutation.isPending &&
+                            deletePotMutation.variables === pot.name
+                        }
+                        isDepositing={
+                            addMoneyMutation.isPending &&
+                            addMoneyMutation.variables?.name === pot.name
+                        }
+                        isWithdrawing={
+                            withdrawMoneyMutation.isPending &&
+                            withdrawMoneyMutation.variables?.name === pot.name
+                        }
                     />
                 ))}
             </div>

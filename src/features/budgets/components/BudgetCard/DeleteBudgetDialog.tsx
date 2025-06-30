@@ -1,8 +1,10 @@
+// External imports
+import { Loader2Icon } from 'lucide-react';
+
 // UI/Shared components
 import { Button } from '@/components/ui/button';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import DialogWrapper from '@/components/common/DialogWrapper';
-import Spinner from '@/components/ui/Spinner';
 
 type DeleteBudgetDialogProps = {
     budgetName: string;
@@ -35,7 +37,7 @@ const DeleteBudgetDialog = ({
                 disabled={isDeleting}
             >
                 <div className="flex items-center gap-2">
-                    {isDeleting && <Spinner size="sm" />}
+                    {isDeleting && <Loader2Icon className="animate-spin" />}
                     Yes, Confirm Deletion
                 </div>
             </Button>

@@ -1,3 +1,6 @@
+// External imports
+import { Loader2Icon } from 'lucide-react';
+
 // UI/Shared components
 import { Button } from '@/components/ui/button';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
@@ -5,10 +8,15 @@ import DialogWrapper from '@/components/common/DialogWrapper';
 
 type DeletePotDialogProps = {
     potName: string;
+    isDeleting: boolean;
     onDelete: (name: string | null) => void;
 };
 
-const DeletePotDialog = ({ potName, onDelete }: DeletePotDialogProps) => (
+const DeletePotDialog = ({
+    potName,
+    isDeleting,
+    onDelete,
+}: DeletePotDialogProps) => (
     <DialogWrapper
         title={`Delete '${potName}'?`}
         description="Are you sure you want to delete this pot? This action cannot be reversed."
@@ -26,9 +34,14 @@ const DeletePotDialog = ({ potName, onDelete }: DeletePotDialogProps) => (
                 variant="destructive"
                 className="w-full"
                 onClick={() => onDelete(potName)}
+                disabled={isDeleting}
             >
-                Yes, Confirm Deletion
+                <div className="flex items-center gap-2">
+                    {isDeleting && <Loader2Icon className="animate-spin" />}
+                    Yes, Confirm Deletion
+                </div>
             </Button>
+
             <Button
                 variant="ghost"
                 className="w-full"

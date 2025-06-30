@@ -12,10 +12,11 @@ import PotForm from '@/features/pots/components/PotForm';
 import type { PotFormFields } from '../lib/types';
 
 type AddPotDialogProps = {
+    isAdding: boolean;
     onAddPot: (data: PotFormFields) => void;
 };
 
-const AddPotDialog = ({ onAddPot }: AddPotDialogProps) => (
+const AddPotDialog = ({ isAdding, onAddPot }: AddPotDialogProps) => (
     <DialogWrapper
         title="Add New Pot"
         description="Create a pot to set savings targets. These can help keep you on track as you save for special purchases."
@@ -33,6 +34,7 @@ const AddPotDialog = ({ onAddPot }: AddPotDialogProps) => (
                 theme: '',
             }}
             actionLabel="Add Pot"
+            isLoading={isAdding}
             onSubmit={onAddPot}
         />
     </DialogWrapper>

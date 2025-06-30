@@ -1,5 +1,6 @@
 // External imports
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2Icon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -39,13 +40,19 @@ type FormFields = z.infer<typeof formSchema>;
 
 type PotFormProps = {
     defaultValues: FormFields;
-
     actionLabel: string;
+
+    isLoading: boolean;
 
     onSubmit: (data: FormFields) => void;
 };
 
-const PotForm = ({ defaultValues, actionLabel, onSubmit }: PotFormProps) => {
+const PotForm = ({
+    defaultValues,
+    actionLabel,
+    isLoading = false,
+    onSubmit,
+}: PotFormProps) => {
     const form = useForm<FormFields>({
         defaultValues,
         resolver: zodResolver(formSchema),
@@ -54,12 +61,6 @@ const PotForm = ({ defaultValues, actionLabel, onSubmit }: PotFormProps) => {
     function handleSubmit(data: FormFields) {
         onSubmit(data);
         form.reset();
-
-        // Find and click the close button to close the dialog
-        const closeButton = document.querySelector(
-            '[data-slot="dialog-close"]'
-        ) as HTMLButtonElement;
-        if (closeButton) closeButton.click();
     }
 
     return (
@@ -163,8 +164,11 @@ const PotForm = ({ defaultValues, actionLabel, onSubmit }: PotFormProps) => {
                     )}
                 />
 
-                <Button size="lg" className="w-full mt-2">
-                    {actionLabel}
+                <Button size="lg" className="w-full mt-2" disabled={isLoading}>
+                    <div className="flex items-center gap-2">
+                        {isLoading && <Loader2Icon className="animate-spin" />}
+                        {actionLabel}
+                    </div>
                 </Button>
             </form>
         </Form>

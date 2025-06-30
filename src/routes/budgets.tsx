@@ -37,7 +37,15 @@ function BudgetsPage() {
 
     const addBudgetMutation = useMutation({
         mutationFn: addBudget,
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['budgets'] }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['budgets'] });
+
+            // Find and click the close button to close the dialog
+            const closeButton = document.querySelector(
+                '[data-slot="dialog-close"]'
+            ) as HTMLButtonElement;
+            if (closeButton) closeButton.click();
+        },
     });
 
     const editBudgetMutation = useMutation({
@@ -49,12 +57,28 @@ function BudgetsPage() {
             updates: Partial<Budget>;
         }) => editBudget(category, updates),
 
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['budgets'] }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['budgets'] });
+
+            // Find and click the close button to close the dialog
+            const closeButton = document.querySelector(
+                '[data-slot="dialog-close"]'
+            ) as HTMLButtonElement;
+            if (closeButton) closeButton.click();
+        },
     });
 
     const deleteBudgetMutation = useMutation({
         mutationFn: async (category: string) => deleteBudget(category),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['budgets'] }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['budgets'] });
+
+            // Find and click the close button to close the dialog
+            const closeButton = document.querySelector(
+                '[data-slot="dialog-close"]'
+            ) as HTMLButtonElement;
+            if (closeButton) closeButton.click();
+        },
     });
 
     const handleAddBudget = (data: BudgetFormFields) => {

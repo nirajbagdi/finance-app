@@ -1,5 +1,6 @@
 // External imports
 import { useEffect } from 'react';
+import { Loader2Icon } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -28,9 +29,10 @@ type FormFields = {
 
 type PotMoneyFormProps = {
     defaultValues: FormFields;
-
     maxAmount: number;
     actionType: MoneyActionTypes;
+
+    isLoading: boolean;
 
     onSubmit: (data: FormFields) => void;
     onAmountChange?: (data: FormFields) => void;
@@ -40,6 +42,7 @@ const PotMoneyForm = ({
     defaultValues,
     maxAmount,
     actionType,
+    isLoading = false,
     onSubmit,
     onAmountChange,
 }: PotMoneyFormProps) => {
@@ -84,12 +87,6 @@ const PotMoneyForm = ({
     function handleSubmit(data: FormFields) {
         onSubmit(data);
         form.reset();
-
-        // Find and click the close button to close the dialog
-        const closeButton = document.querySelector(
-            '[data-slot="dialog-close"]'
-        ) as HTMLButtonElement;
-        if (closeButton) closeButton.click();
     }
 
     return (
@@ -119,10 +116,13 @@ const PotMoneyForm = ({
                     )}
                 />
 
-                <Button size="lg" className="w-full mt-2">
-                    {actionType === MoneyActionTypes.Add
-                        ? 'Confirm Addition'
-                        : 'Confirm Withdrawal'}
+                <Button size="lg" className="w-full mt-2" disabled={isLoading}>
+                    <div className="flex items-center gap-2">
+                        {isLoading && <Loader2Icon className="animate-spin" />}
+                        {actionType === MoneyActionTypes.Add
+                            ? 'Confirm Addition'
+                            : 'Confirm Withdrawal'}
+                    </div>
                 </Button>
             </form>
         </Form>

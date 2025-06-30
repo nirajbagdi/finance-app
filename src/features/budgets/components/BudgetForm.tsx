@@ -1,4 +1,5 @@
 // External imports
+import { Loader2Icon } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
@@ -22,7 +23,6 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Spinner } from '@/components/ui/Spinner';
 
 // Lib
 import { budgetsQueryOptions } from '../lib/queries';
@@ -46,16 +46,18 @@ type BudgetFormProps = {
     defaultValues: FormFields;
     categoryOptions?: string[];
     actionLabel: string;
-    onSubmit: (data: FormFields) => void;
+
     isLoading?: boolean;
+
+    onSubmit: (data: FormFields) => void;
 };
 
 const BudgetForm = ({
     defaultValues,
     categoryOptions,
     actionLabel,
-    onSubmit,
     isLoading = false,
+    onSubmit,
 }: BudgetFormProps) => {
     const form = useForm<FormFields>({
         defaultValues,
@@ -209,7 +211,7 @@ const BudgetForm = ({
 
                 <Button size="lg" className="w-full mt-2" disabled={isLoading}>
                     <div className="flex items-center gap-2">
-                        {isLoading && <Spinner size="sm" />}
+                        {isLoading && <Loader2Icon className="animate-spin" />}
                         {actionLabel}
                     </div>
                 </Button>

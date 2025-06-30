@@ -19,11 +19,20 @@ import type { PotFormFields } from '@/features/pots/lib/types';
 type PotCardHeaderProps = {
     pot: Pot;
 
+    isEditing: boolean;
+    isDeleting: boolean;
+
     onEditPot: (potName: string, data: PotFormFields) => void;
     onDeletePot: (name: string | null) => void;
 };
 
-const PotCardHeader = ({ pot, onEditPot, onDeletePot }: PotCardHeaderProps) => (
+const PotCardHeader = ({
+    pot,
+    isEditing,
+    isDeleting,
+    onEditPot,
+    onDeletePot,
+}: PotCardHeaderProps) => (
     <header className="mb-6">
         <div className="flex items-center gap-2.5 mb-2">
             <span
@@ -38,8 +47,16 @@ const PotCardHeader = ({ pot, onEditPot, onDeletePot }: PotCardHeaderProps) => (
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end">
-                    <EditPotDialog pot={pot} onSubmit={onEditPot} />
-                    <DeletePotDialog potName={pot.name} onDelete={onDeletePot} />
+                    <EditPotDialog
+                        pot={pot}
+                        isEditing={isEditing}
+                        onSubmit={onEditPot}
+                    />
+                    <DeletePotDialog
+                        potName={pot.name}
+                        isDeleting={isDeleting}
+                        onDelete={onDeletePot}
+                    />
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>

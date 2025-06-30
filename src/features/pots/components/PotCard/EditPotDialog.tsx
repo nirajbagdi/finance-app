@@ -11,10 +11,11 @@ import type { PotFormFields } from '@/features/pots/lib/types';
 
 type EditPotDialogProps = {
     pot: Pot;
+    isEditing: boolean;
     onSubmit: (potName: string, data: PotFormFields) => void;
 };
 
-const EditPotDialog = ({ pot, onSubmit }: EditPotDialogProps) => (
+const EditPotDialog = ({ pot, isEditing, onSubmit }: EditPotDialogProps) => (
     <DialogWrapper
         title="Edit Pot"
         description="If your saving targets change, feel free to update your pots."
@@ -34,6 +35,7 @@ const EditPotDialog = ({ pot, onSubmit }: EditPotDialogProps) => (
                 theme: pot.theme,
             }}
             actionLabel="Save Changes"
+            isLoading={isEditing}
             onSubmit={(data) => onSubmit(pot.name, data)}
         />
     </DialogWrapper>

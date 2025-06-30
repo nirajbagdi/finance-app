@@ -13,6 +13,12 @@ import { MoneyActionTypes, type PotFormFields } from '@/features/pots/lib/types'
 type PotCardProps = {
     pot: Pot;
 
+    isEditing: boolean;
+    isDeleting: boolean;
+
+    isWithdrawing: boolean;
+    isDepositing: boolean;
+
     onEditPot: (potName: string, data: PotFormFields) => void;
     onDeletePot: (name: string | null) => void;
 
@@ -22,6 +28,11 @@ type PotCardProps = {
 
 const PotCard = ({
     pot,
+
+    isEditing,
+    isDeleting,
+    isWithdrawing,
+    isDepositing,
 
     onEditPot,
     onDeletePot,
@@ -35,6 +46,8 @@ const PotCard = ({
     return (
         <div className="bg-card p-8 rounded-xl shadow-2xs mb-4 lg:mb-6 last:mb-0">
             <PotCardHeader
+                isEditing={isEditing}
+                isDeleting={isDeleting}
                 pot={pot}
                 onEditPot={onEditPot}
                 onDeletePot={onDeletePot}
@@ -48,6 +61,7 @@ const PotCard = ({
                     pot={pot}
                     previewAmount={previewAmount}
                     maxAmount={availableToAdd}
+                    isLoading={isDepositing}
                     onSubmit={(data) => onAddMoney(pot, data)}
                     onAmountChange={(data) => setPreviewAmount(+data.amount)}
                 />
@@ -57,6 +71,7 @@ const PotCard = ({
                     pot={pot}
                     previewAmount={previewAmount}
                     maxAmount={pot.total}
+                    isLoading={isWithdrawing}
                     onSubmit={(data) => onWithdrawMoney(pot, data)}
                     onAmountChange={(data) => setPreviewAmount(+data.amount)}
                 />
