@@ -11,10 +11,15 @@ import type { BudgetFormFields } from '@/features/budgets/lib/types';
 
 type EditBudgetDialogProps = {
     budget: Budget;
+    isEditing: boolean;
     onSubmit: (data: BudgetFormFields) => void;
 };
 
-const EditBudgetDialog = ({ budget, onSubmit }: EditBudgetDialogProps) => (
+const EditBudgetDialog = ({
+    budget,
+    isEditing,
+    onSubmit,
+}: EditBudgetDialogProps) => (
     <DialogWrapper
         title="Edit Budget"
         description="As your budgets change, feel free to update your spending limits."
@@ -35,6 +40,7 @@ const EditBudgetDialog = ({ budget, onSubmit }: EditBudgetDialogProps) => (
             }}
             actionLabel="Edit Budget"
             onSubmit={onSubmit}
+            isLoading={isEditing}
         />
     </DialogWrapper>
 );

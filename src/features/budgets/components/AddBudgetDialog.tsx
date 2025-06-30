@@ -14,9 +14,14 @@ import type { BudgetFormFields } from '../lib/types';
 type AddBudgetDialogProps = {
     categoryOptions: string[];
     onAddBudget: (data: BudgetFormFields) => void;
+    isLoading?: boolean;
 };
 
-const AddBudgetDialog = ({ categoryOptions, onAddBudget }: AddBudgetDialogProps) => (
+const AddBudgetDialog = ({
+    categoryOptions,
+    onAddBudget,
+    isLoading = false,
+}: AddBudgetDialogProps) => (
     <DialogWrapper
         title="Add New Budget"
         description="Choose a category to set a spending budget. These categories can help you monitor spending."
@@ -36,6 +41,7 @@ const AddBudgetDialog = ({ categoryOptions, onAddBudget }: AddBudgetDialogProps)
             categoryOptions={categoryOptions}
             actionLabel="Add Budget"
             onSubmit={onAddBudget}
+            isLoading={isLoading}
         />
     </DialogWrapper>
 );

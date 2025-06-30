@@ -13,6 +13,9 @@ type BudgetCardProps = {
 
     spent: number;
 
+    isEditing: boolean;
+    isDeleting: boolean;
+
     onEditBudget: (data: BudgetFormFields) => void;
     onDeleteBudget: (category: string | null) => void;
 };
@@ -21,6 +24,8 @@ const BudgetCard = ({
     budget,
     transactions,
     spent,
+    isEditing,
+    isDeleting,
     onEditBudget,
     onDeleteBudget,
 }: BudgetCardProps) => (
@@ -29,6 +34,8 @@ const BudgetCard = ({
             budget={budget}
             onEditBudget={onEditBudget}
             onDeleteBudget={onDeleteBudget}
+            isEditing={isEditing}
+            isDeleting={isDeleting}
         />
 
         <BudgetSummary

@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Spinner } from '@/components/ui/Spinner';
 
 // Lib
 import { budgetsQueryOptions } from '../lib/queries';
@@ -43,12 +44,10 @@ type FormFields = z.infer<typeof formSchema>;
 
 type BudgetFormProps = {
     defaultValues: FormFields;
-
     categoryOptions?: string[];
-
     actionLabel: string;
-
     onSubmit: (data: FormFields) => void;
+    isLoading?: boolean;
 };
 
 const BudgetForm = ({
@@ -56,6 +55,7 @@ const BudgetForm = ({
     categoryOptions,
     actionLabel,
     onSubmit,
+    isLoading = false,
 }: BudgetFormProps) => {
     const form = useForm<FormFields>({
         defaultValues,
@@ -69,12 +69,6 @@ const BudgetForm = ({
     function handleSubmit(data: FormFields) {
         onSubmit(data);
         form.reset();
-
-        // Find and click the close button to close the dialog
-        const closeButton = document.querySelector(
-            '[data-slot="dialog-close"]'
-        ) as HTMLButtonElement;
-        if (closeButton) closeButton.click();
     }
 
     return (
@@ -213,8 +207,11 @@ const BudgetForm = ({
                     )}
                 />
 
-                <Button size="lg" className="w-full mt-2">
-                    {actionLabel}
+                <Button size="lg" className="w-full mt-2" disabled={isLoading}>
+                    <div className="flex items-center gap-2">
+                        {isLoading && <Spinner size="sm" />}
+                        {actionLabel}
+                    </div>
                 </Button>
             </form>
         </Form>

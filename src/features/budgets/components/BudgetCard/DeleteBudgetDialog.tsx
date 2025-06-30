@@ -2,13 +2,19 @@
 import { Button } from '@/components/ui/button';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import DialogWrapper from '@/components/common/DialogWrapper';
+import Spinner from '@/components/ui/Spinner';
 
 type DeleteBudgetDialogProps = {
     budgetName: string;
+    isDeleting: boolean;
     onDelete: (name: string | null) => void;
 };
 
-const DeleteBudgetDialog = ({ budgetName, onDelete }: DeleteBudgetDialogProps) => (
+const DeleteBudgetDialog = ({
+    budgetName,
+    isDeleting,
+    onDelete,
+}: DeleteBudgetDialogProps) => (
     <DialogWrapper
         title={`Delete '${budgetName}'?`}
         description="Are you sure you want to delete this budget? This action cannot be reversed, and all the data inside it will be removed forever."
@@ -26,9 +32,14 @@ const DeleteBudgetDialog = ({ budgetName, onDelete }: DeleteBudgetDialogProps) =
                 variant="destructive"
                 className="w-full"
                 onClick={() => onDelete(budgetName)}
+                disabled={isDeleting}
             >
-                Yes, Confirm Deletion
+                <div className="flex items-center gap-2">
+                    {isDeleting && <Spinner size="sm" />}
+                    Yes, Confirm Deletion
+                </div>
             </Button>
+
             <Button
                 variant="ghost"
                 className="w-full"

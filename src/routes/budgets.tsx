@@ -77,12 +77,6 @@ function BudgetsPage() {
 
     const handleDeleteBudget = (category: string | null) => {
         if (category !== null) deleteBudgetMutation.mutate(category);
-
-        // Find and click the close button to close the dialog
-        const closeButton = document.querySelector(
-            '[data-slot="dialog-close"]'
-        ) as HTMLButtonElement;
-        if (closeButton) closeButton.click();
     };
 
     return (
@@ -92,6 +86,7 @@ function BudgetsPage() {
                 <AddBudgetDialog
                     categoryOptions={budgetCategories}
                     onAddBudget={handleAddBudget}
+                    isLoading={addBudgetMutation.isPending}
                 />
             }
         >
@@ -120,6 +115,16 @@ function BudgetsPage() {
                                 transactions={recentTransactions}
                                 onEditBudget={handleEditBudget}
                                 onDeleteBudget={handleDeleteBudget}
+                                isEditing={
+                                    editBudgetMutation.isPending &&
+                                    editBudgetMutation.variables?.category ===
+                                        budget.category
+                                }
+                                isDeleting={
+                                    deleteBudgetMutation.isPending &&
+                                    deleteBudgetMutation.variables ===
+                                        budget.category
+                                }
                             />
                         );
                     })}

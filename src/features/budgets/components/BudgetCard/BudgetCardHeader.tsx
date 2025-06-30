@@ -22,12 +22,17 @@ import type { BudgetFormFields } from '@/features/budgets/lib/types';
 type BudgetCardHeaderProps = {
     budget: Budget;
 
+    isEditing: boolean;
+    isDeleting: boolean;
+
     onEditBudget: (data: BudgetFormFields) => void;
     onDeleteBudget: (name: string | null) => void;
 };
 
 const BudgetCardHeader = ({
     budget,
+    isEditing,
+    isDeleting,
     onEditBudget,
     onDeleteBudget,
 }: BudgetCardHeaderProps) => (
@@ -45,9 +50,14 @@ const BudgetCardHeader = ({
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end">
-                    <EditBudgetDialog budget={budget} onSubmit={onEditBudget} />
+                    <EditBudgetDialog
+                        budget={budget}
+                        isEditing={isEditing}
+                        onSubmit={onEditBudget}
+                    />
                     <DeleteBudgetDialog
                         budgetName={budget.category}
+                        isDeleting={isDeleting}
                         onDelete={onDeleteBudget}
                     />
                 </DropdownMenuContent>
