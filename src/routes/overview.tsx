@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 // UI/Shared Components
 import PageLayout from '@/components/layout/PageLayout';
+import Loader from '@/components/common/Loader';
 
 // Feature Components
 import BalancePreview from '@/features/overview/components/BalancePreview';
@@ -31,7 +32,7 @@ export const Route = createFileRoute({
 
     component: OverviewPage,
 
-    pendingComponent: () => <h2>Loading...</h2>,
+    pendingComponent: () => <Loader />,
 });
 
 function OverviewPage() {

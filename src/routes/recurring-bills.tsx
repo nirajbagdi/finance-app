@@ -6,6 +6,7 @@ import { useSearch, useNavigate } from '@tanstack/react-router';
 
 // UI/Shared components
 import PageLayout from '@/components/layout/PageLayout';
+import Loader from '@/components/common/Loader';
 
 // Hooks
 import useMediaQuery from '@/hooks/useMediaQuery';
@@ -37,6 +38,7 @@ type SearchParams = {
 
 export const Route = createFileRoute({
     component: RecurringBillsPage,
+    pendingComponent: () => <Loader />, // <-- Loader added here
 
     validateSearch: (search: SearchParams) => {
         return {

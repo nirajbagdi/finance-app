@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 // UI/Shared Components
 import PageLayout from '@/components/layout/PageLayout';
+import Loader from '@/components/common/Loader';
 
 // Components
 import SpendingSummary from '@/features/budgets/components/SpendingSummary';
@@ -23,6 +24,7 @@ import type { Budget } from '@/types/finance';
 
 export const Route = createFileRoute({
     component: BudgetsPage,
+    pendingComponent: () => <Loader />,
 });
 
 function BudgetsPage() {

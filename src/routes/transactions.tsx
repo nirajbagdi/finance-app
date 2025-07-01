@@ -7,6 +7,7 @@ import { useSearch, useNavigate } from '@tanstack/react-router';
 // UI/Shared components
 import PageLayout from '@/components/layout/PageLayout';
 import PaginationControls from '@/components/common/PaginationControls';
+import Loader from '@/components/common/Loader';
 
 // Hooks
 import useMediaQuery from '@/hooks/useMediaQuery';
@@ -49,6 +50,8 @@ export const Route = createFileRoute({
             page: +(search.page ?? 1),
         };
     },
+
+    pendingComponent: () => <Loader />,
 });
 
 function TransactionsPage() {

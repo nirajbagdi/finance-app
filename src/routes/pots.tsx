@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 // UI/Shared components
 import PageLayout from '@/components/layout/PageLayout';
+import Loader from '@/components/common/Loader';
 
 // Feature components
 import PotCard from '@/features/pots/components/PotCard';
@@ -24,6 +25,7 @@ import type { Pot } from '@/types/finance';
 
 export const Route = createFileRoute({
     component: PotsPage,
+    pendingComponent: () => <Loader />,
 });
 
 function PotsPage() {
