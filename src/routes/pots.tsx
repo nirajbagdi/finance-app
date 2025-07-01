@@ -24,7 +24,12 @@ import type { PotFormFields } from '@/features/pots/lib/types';
 import type { Pot } from '@/types/finance';
 
 export const Route = createFileRoute({
+    loader: async ({ context: { queryClient } }) => {
+        await queryClient.ensureQueryData(potsQueryOptions);
+    },
+
     component: PotsPage,
+
     pendingComponent: () => <Loader />,
 });
 

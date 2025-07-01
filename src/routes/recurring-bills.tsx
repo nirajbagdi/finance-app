@@ -37,8 +37,9 @@ type SearchParams = {
 };
 
 export const Route = createFileRoute({
-    component: RecurringBillsPage,
-    pendingComponent: () => <Loader />, // <-- Loader added here
+    loader: async ({ context: { queryClient } }) => {
+        await queryClient.ensureQueryData(transactionsQueryOptions);
+    },
 
     validateSearch: (search: SearchParams) => {
         return {
@@ -46,6 +47,10 @@ export const Route = createFileRoute({
             sort: search.sort ?? 'Latest',
         };
     },
+
+    component: RecurringBillsPage,
+
+    pendingComponent: () => <Loader />,
 });
 
 function RecurringBillsPage() {

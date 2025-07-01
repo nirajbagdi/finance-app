@@ -40,7 +40,9 @@ type SearchParams = {
 };
 
 export const Route = createFileRoute({
-    component: TransactionsPage,
+    loader: async ({ context: { queryClient } }) => {
+        await queryClient.ensureQueryData(transactionsQueryOptions);
+    },
 
     validateSearch: (search: SearchParams) => {
         return {
@@ -50,6 +52,8 @@ export const Route = createFileRoute({
             page: +(search.page ?? 1),
         };
     },
+
+    component: TransactionsPage,
 
     pendingComponent: () => <Loader />,
 });

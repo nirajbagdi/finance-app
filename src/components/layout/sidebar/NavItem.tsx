@@ -1,4 +1,4 @@
-import { Link, useLocation } from '@tanstack/react-router';
+import { Link, useMatches } from '@tanstack/react-router';
 
 import { cn } from '@/utils';
 
@@ -9,11 +9,8 @@ type NavItemProps = {
 };
 
 const NavItem = ({ name, path, icon }: NavItemProps) => {
-    const pathname = useLocation({
-        select: (location) => location.pathname,
-    });
-
-    const isActive = pathname === path;
+    const matches = useMatches();
+    const isActive = matches.some((match) => match.pathname === path);
 
     return (
         <li className="flex-1 md:flex-none">

@@ -23,7 +23,15 @@ import type { BudgetFormFields } from '@/features/budgets/lib/types';
 import type { Budget } from '@/types/finance';
 
 export const Route = createFileRoute({
+    loader: async ({ context: { queryClient } }) => {
+        await Promise.all([
+            queryClient.ensureQueryData(budgetsQueryOptions),
+            queryClient.ensureQueryData(transactionsQueryOptions),
+        ]);
+    },
+
     component: BudgetsPage,
+
     pendingComponent: () => <Loader />,
 });
 
