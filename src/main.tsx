@@ -26,6 +26,12 @@ declare module '@tanstack/react-router' {
 
 const root = createRoot(document.getElementById('root')!);
 
+// Remove the static loader after React mounts
+function removeAppLoader() {
+    const loader = document.getElementById('app-loader');
+    if (loader) loader.remove();
+}
+
 root.render(
     <StrictMode>
         <AuthProvider>
@@ -35,3 +41,5 @@ root.render(
         </AuthProvider>
     </StrictMode>
 );
+
+removeAppLoader();
