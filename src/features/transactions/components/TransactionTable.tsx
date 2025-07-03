@@ -21,7 +21,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
                         height={38}
                         className="rounded-full"
                     />
-                    <span className="font-bold text-gray-800">{tx.name}</span>
+                    <span className="font-bold text-foreground">{tx.name}</span>
                 </div>
             ),
         },
@@ -29,14 +29,16 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
         {
             header: 'Category',
             render: (tx: Transaction) => (
-                <div className="text-gray-600">{tx.category}</div>
+                <div className="text-secondary-foreground">{tx.category}</div>
             ),
         },
 
         {
             header: 'Transaction Date',
             render: (tx: Transaction) => (
-                <div className="text-gray-600">{formatDate(tx.date)}</div>
+                <div className="text-secondary-foreground">
+                    {formatDate(tx.date)}
+                </div>
             ),
         },
 
@@ -60,7 +62,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
     return (
         <table className="min-w-full border-separate border-spacing-y-4">
             <thead>
-                <tr className="text-left text-gray-500 text-xs *:font-normal">
+                <tr className="text-left text-secondary-foreground text-xs *:font-normal">
                     {transactionColumns.map((col, i) => (
                         <th key={i} className="first:pl-4 last:pr-4 last:text-right">
                             {col.header}
@@ -73,7 +75,7 @@ const TransactionTable = ({ transactions }: TransactionTableProps) => {
                 {transactions.map((transaction, idx) => (
                     <tr
                         key={idx}
-                        className="bg-white shadow-[0px_2px_0px_rgba(0,0,0,0.05)] last:shadow-[0_0_0_rgba(0,0,0,0)] rounded-lg text-sm"
+                        className="bg-card shadow-[0px_2px_0px_rgba(0,0,0,0.05)] last:shadow-[0_0_0_rgba(0,0,0,0)] rounded-lg text-sm"
                     >
                         {transactionColumns.map((col, i) => (
                             <td key={i}>

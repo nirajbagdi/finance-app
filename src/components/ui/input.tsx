@@ -11,7 +11,7 @@ type InputProps = React.ComponentProps<'input'> & {
 const Input = forwardRef<HTMLInputElement, InputProps>(
     ({ className, type, variant = 'default', ...props }, ref) => {
         return (
-            <div className="w-full h-11 px-5 py-2 flex items-center gap-3 rounded-lg border border-grey-500 outline-style">
+            <div className="w-full h-11 px-5 py-2 flex items-center gap-3 rounded-lg border border-secondary-foreground outline-style">
                 {variant === 'currency' && (
                     <span className="select-none text-sm text-secondary-foreground">
                         $
@@ -30,8 +30,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 />
 
                 {variant === 'search' && (
-                    <div className="text-secondary-foreground">
-                        <SearchIcon />
+                    <div className="fill-secondary-foreground">
+                        <SearchIcon className="fill-inherit" />
                     </div>
                 )}
             </div>

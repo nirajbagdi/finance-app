@@ -57,10 +57,12 @@ const BudgetChart = ({ budgets, transactions }: BudgetChartProps) => {
             </ResponsiveContainer>
 
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <p className="text-3xl font-bold text-gray-900">
+                <p className="text-3xl font-bold text-foreground">
                     ${Math.round(totalSpent)}
                 </p>
-                <p className="text-xs mt-1 text-gray-500">of ${budgetLimit} limit</p>
+                <p className="text-xs mt-1 text-secondary-foreground">
+                    of ${budgetLimit} limit
+                </p>
             </div>
         </div>
     );
@@ -84,8 +86,8 @@ const CustomTooltip = ({ active, payload, coordinate }: CustomTooltipProps) => {
                 transition: 'top 0.5s ease, left 0.5s ease',
             }}
         >
-            <div className="w-0 h-0 border-t-4 border-b-4 border-r-4 border-transparent border-r-grey-900" />
-            <div className="bg-grey-900 rounded-lg shadow-lg px-2 py-1 text-xs text-white border border-grey-900 flex items-center gap-1">
+            <div className="w-0 h-0 border-t-4 border-b-4 border-r-4 border-transparent border-r-foreground" />
+            <div className="bg-foreground rounded-lg shadow-lg px-2 py-1 text-xs text-white border border-foreground flex items-center gap-1">
                 <div
                     className="w-3.5 h-3.5 rounded-xs border-2 border-white"
                     style={{ backgroundColor: budgetTheme }}

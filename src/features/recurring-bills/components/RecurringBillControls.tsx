@@ -114,7 +114,7 @@ const DesktopRecurringBillControls = ({
                 key={item.key}
                 className="flex text-sm items-center gap-1.5 lg:gap-2"
             >
-                <label htmlFor={item.key} className="text-grey-500">
+                <label htmlFor={item.key} className="text-secondary-foreground">
                     {item.name}
                 </label>
 

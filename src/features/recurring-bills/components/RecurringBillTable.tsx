@@ -26,7 +26,9 @@ const RecurringBillTable = ({ recurringBills }: RecurringBillTableProps) => {
                         height={38}
                         className="rounded-full"
                     />
-                    <span className="font-bold text-gray-800">{bill.name}</span>
+                    <span className="font-bold text-primary-foreground">
+                        {bill.name}
+                    </span>
                 </div>
             ),
         },
@@ -45,7 +47,7 @@ const RecurringBillTable = ({ recurringBills }: RecurringBillTableProps) => {
                                 ? 'text-green'
                                 : isBillDue
                                   ? 'text-red'
-                                  : 'text-gray-600'
+                                  : 'text-secondary-foreground'
                         )}
                     >
                         {`Monthly - ${getDayWithSuffix(bill.date)}`}
@@ -89,7 +91,7 @@ const RecurringBillTable = ({ recurringBills }: RecurringBillTableProps) => {
                 {recurringBills.map((transaction, idx) => (
                     <tr
                         key={idx}
-                        className="bg-white shadow-[0px_2px_0px_rgba(0,0,0,0.05)] last:shadow-[0_0_0_rgba(0,0,0,0)] rounded-lg text-sm"
+                        className="bg-card shadow-[0px_2px_0px_rgba(0,0,0,0.05)] last:shadow-[0_0_0_rgba(0,0,0,0)] rounded-lg text-sm"
                     >
                         {recurringBillColumns.map((col, i) => (
                             <td key={i}>

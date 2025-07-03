@@ -20,7 +20,7 @@ const NavItem = ({ name, path, icon }: NavItemProps) => {
                     'flex flex-col xl:flex-row items-center gap-x-4 text-sm xl:text-base font-bold md:px-8 xl:px-8 py-2 xl:py-4 rounded-tl-xl rounded-tr-xl xl:rounded-br-xl xl:rounded-tl-none xl:border-b-0 border-b-4 xl:border-l-4 outline-style',
 
                     isActive
-                        ? 'bg-card fill-green border-green'
+                        ? 'bg-card fill-sidebar-accent border-sidebar-accent'
                         : 'text-muted-foreground fill-muted-foreground hover:text-card hover:fill-card border-transparent'
                 )}
                 aria-current={isActive ? 'page' : undefined}

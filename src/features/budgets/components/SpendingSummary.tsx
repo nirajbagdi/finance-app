@@ -74,7 +74,7 @@ const SpendingSummaryItem = ({
                 </p>
 
                 <p className="text-xs text-secondary-foreground">
-                    <span className="text-sm font-bold text-grey-900 mr-1.5">
+                    <span className="text-sm font-bold text-foreground mr-1.5">
                         {formatAmount(Math.abs(spent))}
                     </span>
                     of {formatAmount(budgeted)}
