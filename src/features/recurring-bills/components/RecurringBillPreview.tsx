@@ -43,10 +43,10 @@ type RecurringBillItemProps = {
 
 const RecurringBillItem = ({ label, value, theme }: RecurringBillItemProps) => (
     <div
-        className="flex items-center justify-between text-sm p-6 bg-beige-100 rounded-xl mb-4 border-l-4 border-l-[var(--bill-theme)]"
+        className="flex items-center justify-between text-sm p-6 bg-background rounded-xl mb-4 border-l-4 border-l-[var(--bill-theme)]"
         style={{ '--bill-theme': theme } as React.CSSProperties}
     >
-        <p className="text-grey-500">{label}</p>
+        <p className="text-secondary-foreground">{label}</p>
         <p className="font-bold">{formatAmount(value)}</p>
     </div>
 );
