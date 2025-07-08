@@ -28,11 +28,11 @@ const RecurringBillSummary = ({ recurringBills }: RecurringBillSummaryProps) => 
     return (
         <div className="flex flex-col md:flex-row lg:flex-col gap-5 md:h-48 lg:h-auto">
             <div className="bg-foreground p-6 rounded-xl shadow-2xs text-background text-sm md:flex-1 flex items-center gap-x-5 md:flex-col md:justify-between md:items-start">
-                <RecurringBillIcon className="md:mb-6" />
+                <RecurringBillIcon className="md:mb-6 stroke-card" />
 
                 <div>
                     <p className="mb-2">Total Bills</p>
-                    <p className="text-3xl font-bold text-white">
+                    <p className="text-3xl font-bold text-card">
                         {formatAmount(totalBillAmount)}
                     </p>
                 </div>
