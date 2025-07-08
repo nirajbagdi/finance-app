@@ -54,7 +54,7 @@ const SpendingSummaryItem = ({
     spent,
     isOverBudget,
 }: SpendingSummaryItemProps) => (
-    <div className="border-b-2 last:border-b-0 border-background pb-4">
+    <div className="border-b-2 last:border-b-0 border-[#0000000d] pb-4">
         <div
             className="relative pl-4"
             style={{ '--legend-theme': theme } as React.CSSProperties}

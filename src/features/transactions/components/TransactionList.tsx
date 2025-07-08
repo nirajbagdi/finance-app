@@ -52,7 +52,7 @@ const TransactionListItem = ({
             className={cn(
                 'border-b-2 last:border-b-0',
                 compact ? 'pb-2' : 'pb-4 lg:pb-6',
-                compact ? 'border-gray-200' : 'border-background'
+                compact ? 'border-[#0000000d]' : 'border-background'
             )}
         >
             <article className="flex items-center gap-4">

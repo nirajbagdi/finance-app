@@ -51,7 +51,7 @@ const RecurringBillSummary = ({ recurringBills }: RecurringBillSummaryProps) => 
                             <div
                                 key={label}
                                 className={cn(
-                                    'flex justify-between items-center border-b-2 last:border-b-0 border-gray-200 pb-3',
+                                    'flex justify-between items-center border-b-2 last:border-b-0 border-[#0000000d] pb-3',
                                     isDueSoon && 'text-red'
                                 )}
                             >

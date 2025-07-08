@@ -42,7 +42,6 @@
     --color-destructive: var(--destructive);
     --color-border: var(--border);
     --color-input: var(--input);
-    --color-ring: var(--ring);
     --color-chart-1: var(--chart-1);
     --color-chart-2: var(--chart-2);
     --color-chart-3: var(--chart-3);
@@ -113,6 +112,7 @@
     --sidebar-ring: oklch(0.708 0 0);
 
     --color-scrollbar: var(--color-beige-500);
+    --color-ring: #9f8170;
 }
 
 @layer base {
@@ -131,7 +131,8 @@
     a,
     .outline-style {
         transition: none;
-        @apply focus-within:outline-3 focus-within:outline-dashed focus-within:outline-offset-2 focus-within:outline-[#9F8170];
+        --ring-outline: var(--color-ring);
+        @apply focus-within:outline-3 focus-within:outline-dashed focus-within:outline-offset-2 focus-within:outline-[var(--ring-outline)];
     }
 }
 
