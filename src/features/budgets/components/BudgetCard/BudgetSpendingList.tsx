@@ -31,7 +31,7 @@ const BudgetSpendingList = ({ category, transactions }: BudgetSpendingListProps)
                 className="flex items-center gap-2 text-[13px] text-secondary-foreground fill-secondary-foreground hover:text-primary-foreground hover:fill-primary-foreground"
             >
                 <span>See All</span>
-                <RightArrowIcon className="fill-inherit" />
+                <RightArrowIcon className="fill-inherit -mt-0.5" />
             </Link>
         </div>
 

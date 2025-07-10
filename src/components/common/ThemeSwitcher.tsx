@@ -43,7 +43,7 @@ const ThemeSwitcher = () => {
             onClick={handleRandomTheme}
             variant="outline"
             size="icon"
-            className="rounded-full bg-accent hover:bg-accent/80 border border-foreground shadow-sm transition-colors duration-150 p-2"
+            className="rounded-full bg-accent hover:bg-accent/80 border-2 border-foreground hover:border-foreground/80 shadow-sm transition-colors duration-150 p-2"
             aria-label="Randomize Theme"
             title="Randomize Theme"
         >

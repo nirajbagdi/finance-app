@@ -43,7 +43,7 @@ const PotCardHeader = ({
 
             <DropdownMenu>
                 <DropdownMenuTrigger>
-                    <Ellipsis className="text-grey-300 cursor-pointer" />
+                    <Ellipsis className="text-muted-foreground cursor-pointer" />
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end">
