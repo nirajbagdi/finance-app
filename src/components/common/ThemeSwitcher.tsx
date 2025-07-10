@@ -19,7 +19,7 @@ function generateRandomTheme() {
         '--secondary-foreground': base.darken(1.5).desaturate(1.2).hex(),
         '--sidebar-accent': base.set('hsl.h', '+60').darken(0.5).hex(),
         '--accent': base.brighten(2).hex(),
-        '--color-scrollbar': base.brighten(1.5).hex(),
+        '--color-scrollbar': base.darken(0.3).hex(),
         '--color-ring': base.brighten(0.2).hex(),
     };
 }
