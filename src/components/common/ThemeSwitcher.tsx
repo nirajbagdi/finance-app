@@ -3,6 +3,7 @@ import chroma from 'chroma-js';
 
 // UI Components
 import { Button } from '@/components/ui/button';
+import { PaletteIcon } from 'lucide-react';
 
 function generateRandomTheme() {
     const hue = Math.floor(Math.random() * 360);
@@ -38,8 +39,15 @@ const ThemeSwitcher = () => {
     };
 
     return (
-        <Button onClick={handleRandomTheme} className="gap-2" variant="outline">
-            🎨 Random Theme
+        <Button
+            onClick={handleRandomTheme}
+            variant="outline"
+            size="icon"
+            className="rounded-full bg-accent hover:bg-accent/80 border border-foreground shadow-sm transition-colors duration-150 p-2"
+            aria-label="Randomize Theme"
+            title="Randomize Theme"
+        >
+            <PaletteIcon className="size-5 text-primary stroke-foreground" />
         </Button>
     );
 };
