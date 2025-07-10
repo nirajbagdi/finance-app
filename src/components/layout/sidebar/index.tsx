@@ -48,7 +48,7 @@ const Sidebar = () => (
     >
         <div className="mt-3 mb-16 w-80 mr-auto hidden xl:block">
             <Link to="/">
-                <FinanceIcon className="w-30 ml-8" />
+                <FinanceIcon className="w-30 ml-8 fill-card" />
             </Link>
         </div>
 
