@@ -67,7 +67,7 @@ function DialogContent({
                         data-slot="dialog-close"
                         className="absolute top-7 right-6 cursor-pointer"
                     >
-                        <CircleX className="text-grey-500" />
+                        <CircleX className="text-secondary-foreground" />
                         <span className="sr-only">Close</span>
                     </DialogPrimitive.Close>
                 )}

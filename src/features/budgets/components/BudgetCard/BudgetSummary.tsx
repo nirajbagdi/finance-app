@@ -27,7 +27,6 @@ const BudgetSummary = ({ spent, limit, theme }: BudgetSummaryProps) => {
                     <ColoredLegend
                         value={formatAmount(spent + limit)}
                         label="Remaining"
-                        theme="#f8f4f0"
                     />
                 </div>
             </div>
