@@ -23,7 +23,7 @@ const DeleteBudgetDialog = ({
         trigger={
             <DropdownMenuItem
                 onSelect={(e) => e.preventDefault()}
-                className="text-red"
+                className="text-red focus:bg-red/80 focus:text-card"
             >
                 Delete
             </DropdownMenuItem>
