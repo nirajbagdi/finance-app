@@ -1,8 +1,7 @@
 import { Link } from '@tanstack/react-router';
 
-import { cn } from '@/utils';
-
 import NavItem from './NavItem';
+import ThemeSwitcher from '@/components/common/ThemeSwitcher';
 
 import OverviewIcon from '@/icons/navigation/overview.svg?react';
 import TransactionsIcon from '@/icons/navigation/transactions.svg?react';
@@ -10,6 +9,7 @@ import BudgetsIcon from '@/icons/navigation/budgets.svg?react';
 import PotsIcon from '@/icons/navigation/pots.svg?react';
 import RecurringBillIcon from '@/icons/navigation/recurring.svg?react';
 import FinanceIcon from '@/icons/common/finance.svg?react';
+import { cn } from '@/utils';
 
 const navItems = [
     {
@@ -43,7 +43,7 @@ const Sidebar = () => (
     <aside
         className={cn(
             'bg-foreground pt-3 xl:py-8 xl:pr-6 rounded-tl-3xl xl:rounded-tl-none rounded-tr-3xl order-2 xl:order-1',
-            'fixed bottom-0 w-full xl:w-[300px] xl:h-screen z-10'
+            'fixed bottom-0 w-full xl:w-[300px] xl:h-screen z-10 flex flex-col'
         )}
     >
         <div className="mt-3 mb-16 w-80 mr-auto hidden xl:block">
@@ -64,6 +64,10 @@ const Sidebar = () => (
                 ))}
             </ul>
         </nav>
+
+        <div className="hidden xl:flex mt-auto mx-6">
+            <ThemeSwitcher />
+        </div>
     </aside>
 );
 
