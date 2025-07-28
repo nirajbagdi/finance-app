@@ -1,6 +1,11 @@
 # Finance App
 
-A modern, minimal finance tracker that helps you keep an eye on your spending, budgets, recurring bills, and savings goals — all in one place.
+Keep an eye on your spending, budgets, recurring bills, and savings goals — all in one place.
+
+This project is my solution to **Frontend Mentor's [Finance App Challenge](https://www.frontendmentor.io/challenges/personal-finance-app-JfjtZgyMt1)**.
+
+## 🔗 Live Demo
+[Try it here](https://finance-app-modern.netlify.app/)
 
 ## Features
 
@@ -36,15 +41,17 @@ A modern, minimal finance tracker that helps you keep an eye on your spending, b
 
     - Works great on mobile and desktop
     - Supports fun randomized color themes
+ 
+## Screenshots
+
+<img width="1920" height="1031" alt="finance-app-modern netlify app_overview" src="https://github.com/user-attachments/assets/4ea4a4a5-8e93-4d70-b88c-cfad31f982fc" />
 
 ## Tech Stack
 
-- React + TypeScript
-- Vite
-- TanStack Router & Query
-- Tailwind CSS
-- shadcn/ui
-- Supabase (for authentication)
+- React + Vite + TS
+- TanStack Router + Query
+- Tailwind CSS + Shadcn/ui
+- Supabase
 
 ## Installation
 
@@ -55,9 +62,4 @@ npm install
 
 npm start
 ```
-
-Open [http://localhost:5173](http://localhost:5173)
-
----
-
-Made for fun with ❤️ using modern web tech.
+Runs on http://localhost:5173
